@@ -25,6 +25,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout to access the wikilearn config file
+      - name: checkout openedx-translations
+        uses: actions/checkout@v4
+
       - uses: actions/github-script@v7
         id: generate_repo_matrix
         with:
@@ -32,6 +36,36 @@ jobs:
             // Need to use a workaround until https://github.com/actions/toolkit/issues/1576 is fixed
             // const selectedRepo = core.getInput('repo');
             const selectedRepo = ${{ toJSON(github.event.inputs.repo) }} ?? '';
+            const fs = require('fs');
+            const yaml = require('yaml');
+
+            // Load Wikilearn custom repository configuration
+            const configPath = '.github/wikilearn-repos-config.yml';
+            const configFile = fs.readFileSync(configPath, 'utf8');
+            const config = yaml.parse(configFile);
+
+            const defaultOrg = 'openedx';
+            const defaultRef = config.release_config?.openedx_default_ref || '';
+
+            // Build custom repo mappings
+            const customRepoMap = {};
+            const newRepos = { python: [], javascript: [], generic: [] };
+            
+            ['python', 'javascript', 'generic'].forEach(type => {
+              (config.custom_repos[type] || []).forEach(repoConfig => {
+                const standardName = repoConfig.default_repo_name || repoConfig.repo;
+                customRepoMap[standardName] = {
+                  actualName: repoConfig.repo,
+                  organization: repoConfig.organization,
+                  branch: repoConfig.branch,
+                  replacesDefault: repoConfig.replaces_default || false,
+                  isNew: repoConfig.new_repo || false,
+                };
+                if (repoConfig.new_repo) {
+                  newRepos[type].push(standardName);
+                }
+              });
+            });
 
             const allPythonRepos = [
               'AudioXBlock',
@@ -58,6 +92,7 @@ jobs:
               'xblock-qualtrics-survey',
               'xblock-sql-grader',
               'xblock-submit-and-compare',
+              ...newRepos.python,  // Add new Python repos
             ];
 
             const allJavascriptRepos = [
@@ -86,6 +121,7 @@ jobs:
               'studio-frontend',
               'frontend-app-learner-portal-enterprise',
               'frontend-enterprise',
+              ...newRepos.javascript,  // Add new JavaScript repos
             ];
 
             const allGenericRepos = [
@@ -105,38 +141,74 @@ jobs:
                 before_extract: 'make translation_requirements',
                 ref: 'develop',  // TODO: Use main branch https://github.com/openedx/openedx-translations/issues/6395
               },
-            ]
+              ...newRepos.generic.map(repo => {
+                const customConfig = customRepoMap[repo];
+                return {
+                  repo: repo,
+                  transifex_file_path: 'conf/locale/en/LC_MESSAGES/django.po',  // Django-style for theme
+                };
+              }),
+            ];
+
+            // Helper function to build repo config with organization and branch
+            function buildRepoConfig(repoName) {
+              const custom = customRepoMap[repoName];
+              if (custom) {
+                return {
+                  name: repoName,
+                  actualName: custom.actualName,
+                  organization: custom.organization,
+                  ref: custom.branch,
+                };
+              }
+              return {
+                name: repoName,
+                actualName: repoName,
+                organization: defaultOrg,
+                ref: defaultRef,
+              };
+            }
 
             core.setOutput('hasPythonRepos', true);
             core.setOutput('hasJavascriptRepos', true);
             core.setOutput('hasGenericRepos', true);
 
             if (selectedRepo === '') {
-              core.setOutput('pythonRepos', allPythonRepos);
-              core.setOutput('javascriptRepos', allJavascriptRepos);
-              core.setOutput('genericRepos', allGenericRepos);
+              // Build repo configs with org/branch info
+              const pythonRepoConfigs = allPythonRepos.map(buildRepoConfig);
+              const javascriptRepoConfigs = allJavascriptRepos.map(buildRepoConfig);
+              const genericRepoConfigs = allGenericRepos.map(config => {
+                const repoConfig = buildRepoConfig(config.repo);
+                return { ...config, ...repoConfig };
+              });
+
+              core.setOutput('pythonRepos', JSON.stringify(pythonRepoConfigs));
+              core.setOutput('javascriptRepos', JSON.stringify(javascriptRepoConfigs));
+              core.setOutput('genericRepos', JSON.stringify(genericRepoConfigs));
               return;
             }
 
+            // Handle single repo selection
             if (allPythonRepos.includes(selectedRepo)) {
-              core.setOutput('pythonRepos', [selectedRepo]);
+              core.setOutput('pythonRepos', JSON.stringify([buildRepoConfig(selectedRepo)]));
             } else {
-              core.setOutput('pythonRepos', []);
+              core.setOutput('pythonRepos', JSON.stringify([]));
               core.setOutput('hasPythonRepos', false);
             }
 
             if (allJavascriptRepos.includes(selectedRepo)) {
-              core.setOutput('javascriptRepos', [selectedRepo]);
+              core.setOutput('javascriptRepos', JSON.stringify([buildRepoConfig(selectedRepo)]));
             } else {
-              core.setOutput('javascriptRepos', []);
+              core.setOutput('javascriptRepos', JSON.stringify([]));
               core.setOutput('hasJavascriptRepos', false);
             }
 
             const genericRepoConfig = allGenericRepos.find(repoConfig => repoConfig.repo === selectedRepo);
             if (genericRepoConfig !== undefined) {
-              core.setOutput('genericRepos', [genericRepoConfig]);
+              const repoConfig = buildRepoConfig(genericRepoConfig.repo);
+              core.setOutput('genericRepos', JSON.stringify([{ ...genericRepoConfig, ...repoConfig }]));
             } else {
-              core.setOutput('genericRepos', []);
+              core.setOutput('genericRepos', JSON.stringify([]));
               core.setOutput('hasGenericRepos', false);
             }
 
@@ -194,22 +266,22 @@ jobs:
       - name: install gettext
         run: sudo apt install -y gettext
 
-      # Clones the  repository
-      - name: clone ${{ github.repository_owner }}/${{ matrix.repo }}
+      # Clones the repository
+      - name: clone ${{ matrix.repo.organization }}/${{ matrix.repo.actualName }}
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/${{ matrix.repo }}
-          ref: ${{ github.event.inputs.ref }}
-          path: translations/${{ matrix.repo }}
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.actualName }}
+          ref: ${{ matrix.repo.ref || github.event.inputs.ref }}
+          path: translations/${{ matrix.repo.name }}
 
       - name: prepare the environment with edx-platform specific changes
-        if: matrix.repo == 'edx-platform'
+        if: matrix.repo.name == 'edx-platform'
         run: |
           # This is needed for edx-platform base.txt packages
           sudo apt install -y libxml2-dev libxmlsec1-dev libxslt1-dev
 
           # There is a theme directory with it's own conf/locale directory, we need to remove that
-          rm -rf translations/${{ matrix.repo }}/themes/conf
+          rm -rf translations/${{ matrix.repo.name }}/themes/conf
 
       # Setup Python
       - name: setup python
@@ -239,7 +311,7 @@ jobs:
       # Extracts the translation source files
       - name: extract translation source files
         run: |
-          cd translations/${{ matrix.repo }}
+          cd translations/${{ matrix.repo.name }}
           make extract_translations
         env:
           IS_OPENEDX_TRANSLATIONS_WORKFLOW: yes
@@ -247,7 +319,7 @@ jobs:
       # Validate compilation of translation source files
       - name: validate compilation of translation source files
         run: |
-          cd translations/${{ matrix.repo }}
+          cd translations/${{ matrix.repo.name }}
           django-admin compilemessages --locale en
 
       # Preparations so git adds only the translation source files, found in conf/locale/en
@@ -257,8 +329,8 @@ jobs:
           # set identity
           git config --global user.email "translations-bot@openedx.org"
           git config --global user.name "edx-transifex-bot"
-          # Change directory to translations/${{ matrix.repo }}
-          cd translations/${{ matrix.repo }}
+          # Change directory to translations/${{ matrix.repo.name }}
+          cd translations/${{ matrix.repo.name }}
           # finds the directory containing the english locale usually located in
           # */*/conf/locale/en
           # but also exclude any hidden directories that might exist for some reason
@@ -267,22 +339,22 @@ jobs:
           # If the repo complies with OEP-58, then we'll find only one directory that matches the above criteria
           # Otherwise, we'll consider it an error
           if [ $en_dir_count -gt 1 ]; then
-            echo "Error: More than one English locale directory found for ${{ matrix.repo }}!"
+            echo "Error: More than one English locale directory found for ${{ matrix.repo.name }}!"
             exit 1
           elif [ $en_dir_count -eq 0 ]; then
-            echo "Error: Missing English locale directory for ${{ matrix.repo }}!"
+            echo "Error: Missing English locale directory for ${{ matrix.repo.name }}!"
             exit 1
           fi
           # Save EN_DIR value to be used in next steps
           echo "EN_DIR=$EN_DIR" >> $GITHUB_ENV
-          # remove translations/${{ matrix.repo }}/.git so we don't commit a submodule
+          # remove translations/${{ matrix.repo.name }}/.git so we don't commit a submodule
           rm -rf .git
 
       - name: add repo translation source files openedx-translations
         run: |
           # finds the django.po and djangojs.po files generated by make
           # extract_translations into EN_DIR and adds them
-          cd translations/${{ matrix.repo }}
+          cd translations/${{ matrix.repo.name }}
           DJANGO_PATH=$(find $EN_DIR -name 'django.po')
           DJANGOJS_PATH=$(find $EN_DIR -name 'djangojs.po')
           ############## Special support for XBlocks
@@ -311,7 +383,7 @@ jobs:
         if: "${{ env.GIT_STATUS > 0 }}"
         run: |
           # commit the changes
-          git commit -m "chore: add extracted translation source files from ${{ matrix.repo }}"
+          git commit -m "chore: add extracted translation source files from ${{ matrix.repo.name }}"
           # push changes to branch
           git push
 
@@ -340,13 +412,13 @@ jobs:
         with:
           ref: ${{ needs.setup-branch.outputs.branch }}
 
-      # Clones the  repository
-      - name: clone ${{ github.repository_owner }}/${{ matrix.repo }}
+      # Clones the repository
+      - name: clone ${{ matrix.repo.organization }}/${{ matrix.repo.actualName }}
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/${{ matrix.repo }}
-          ref: ${{ github.event.inputs.ref }}
-          path: translations/${{ matrix.repo }}
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.actualName }}
+          ref: ${{ matrix.repo.ref || github.event.inputs.ref }}
+          path: translations/${{ matrix.repo.name }}
 
       # Sets up node/npm
       - name: setup node
@@ -357,7 +429,7 @@ jobs:
       # Extracts the translation source files
       - name: extract translation source files
         run: |
-          cd translations/${{ matrix.repo }}
+          cd translations/${{ matrix.repo.name }}
           make extract_translations
       # git adds only the translation source files, found in src/i18n/transifex_input.json
       - name: git add the translation source files
@@ -366,9 +438,9 @@ jobs:
           # set identity
           git config --global user.email "translations-bot@openedx.org"
           git config --global user.name "edx-transifex-bot"
-          # Change directory to translations/${{ matrix.repo }}
-          cd translations/${{ matrix.repo }}
-          # remove translations/${{ matrix.repo }}/.git so we don't commit a submodule
+          # Change directory to translations/${{ matrix.repo.name }}
+          cd translations/${{ matrix.repo.name }}
+          # remove translations/${{ matrix.repo.name }}/.git so we don't commit a submodule
           rm -rf .git
           # find transifex_input.json
           TRANSIFEX_JSON_PATH=$(find . -name 'transifex_input.json')
@@ -381,7 +453,7 @@ jobs:
         if: "${{ env.GIT_STATUS > 0 }}"
         run: |
           # commit the changes
-          git commit -m "chore: add extracted translation source files from ${{ matrix.repo }}"
+          git commit -m "chore: add extracted translation source files from ${{ matrix.repo.name }}"
           # push changes to branch
           git push
 
@@ -407,13 +479,13 @@ jobs:
         with:
           ref: ${{ needs.setup-branch.outputs.branch }}
 
-      # Clones the  repository
-      - name: clone ${{ github.repository_owner }}/${{ matrix.repository_config.repo }}
+      # Clones the repository
+      - name: clone ${{ matrix.repository_config.organization }}/${{ matrix.repository_config.actualName }}
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/${{ matrix.repository_config.repo }}
-          ref: ${{ github.event.inputs.ref || matrix.repository_config.ref }}
-          path: translations/${{ matrix.repository_config.repo }}
+          repository: ${{ matrix.repository_config.organization }}/${{ matrix.repository_config.actualName }}
+          ref: ${{ matrix.repository_config.ref || github.event.inputs.ref }}
+          path: translations/${{ matrix.repository_config.name }}
 
       # Sets up Python
       - name: setup python
@@ -429,13 +501,13 @@ jobs:
         if: "${{ matrix.repository_config.before_extract }}"
         run: |
           # If the repository has additional requirements or processing steps run them
-          cd translations/${{ matrix.repository_config.repo }}
+          cd translations/${{ matrix.repository_config.name }}
           ${{ matrix.repository_config.before_extract }}
 
       # Extracts the translation source files
       - name: extract translation source files
         run: |
-          cd translations/${{ matrix.repository_config.repo }}
+          cd translations/${{ matrix.repository_config.name }}
           make extract_translations
 
       # git adds only the translation source file transifex_input.yaml from
@@ -446,10 +518,10 @@ jobs:
           # set identity
           git config --global user.email "translations-bot@openedx.org"
           git config --global user.name "edx-transifex-bot"
-          # Change directory to translations/${{ matrix.repository_config.repo }}
-          cd translations/${{ matrix.repository_config.repo }}
+          # Change directory to translations/${{ matrix.repository_config.name }}
+          cd translations/${{ matrix.repository_config.name }}
 
-          # remove translations/${{ matrix.repository_config.repo }}/.git so we don't commit a submodule
+          # remove translations/${{ matrix.repository_config.name }}/.git so we don't commit a submodule
           rm -rf .git
 
           # stage the transifex_input.yaml file generated by make, force it in
