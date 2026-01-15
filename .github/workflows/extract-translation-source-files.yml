@@ -294,6 +294,8 @@ jobs:
       - name: prepare the environment with edx-platform specific changes
         if: matrix.repo.name == 'edx-platform'
         run: |
+          # Update package list to avoid 404s
+          sudo apt-get update
           # This is needed for edx-platform base.txt packages
           sudo apt install -y libxml2-dev libxmlsec1-dev libxslt1-dev
 
