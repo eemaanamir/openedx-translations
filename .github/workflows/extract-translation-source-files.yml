@@ -37,12 +37,11 @@ jobs:
             // const selectedRepo = core.getInput('repo');
             const selectedRepo = ${{ toJSON(github.event.inputs.repo) }} ?? '';
             const fs = require('fs');
-            const yaml = require('yaml');
 
             // Load Wikilearn custom repository configuration
-            const configPath = '.github/wikilearn-repos-config.yml';
+            const configPath = '.github/wikilearn-repos-config.json';
             const configFile = fs.readFileSync(configPath, 'utf8');
-            const config = yaml.parse(configFile);
+            const config = JSON.parse(configFile);
 
             const defaultOrg = 'openedx';
             const defaultRef = config.release_config?.openedx_default_ref || '';
