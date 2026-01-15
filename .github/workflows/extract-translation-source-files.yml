@@ -506,6 +506,12 @@ jobs:
           ref: ${{ matrix.repository_config.ref || github.event.inputs.ref }}
           path: translations/${{ matrix.repository_config.name }}
 
+      # Installs gettext, a dependency for extracting translation source files
+      - name: install gettext
+        run: |
+          sudo apt-get update
+          sudo apt install -y gettext
+
       # Sets up Python
       - name: setup python
         uses: actions/setup-python@v5
