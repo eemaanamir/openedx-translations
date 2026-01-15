@@ -150,7 +150,7 @@ jobs:
             ];
 
             // Helper function to build repo config with organization and branch
-            function buildRepoConfig(repoName) {
+            async function buildRepoConfig(repoName) {
               const custom = customRepoMap[repoName];
               if (custom) {
                 return {
@@ -160,11 +160,29 @@ jobs:
                   ref: custom.branch,
                 };
               }
+
+              let effectiveRef = defaultRef;
+              // If default branch is specified, check if it exists
+              if (effectiveRef) {
+                try {
+                  // check if ref exists (lightweight)
+                  await github.rest.git.getRef({
+                    owner: defaultOrg,
+                    repo: repoName,
+                    ref: `heads/${effectiveRef}`
+                  });
+                } catch (error) {
+                  // If 404, assume branch missing and fallback to repo default
+                  console.log(`Branch ${effectiveRef} not found for ${defaultOrg}/${repoName}, falling back to default.`);
+                  effectiveRef = '';
+                }
+              }
+
               return {
                 name: repoName,
                 actualName: repoName,
                 organization: defaultOrg,
-                ref: defaultRef,
+                ref: effectiveRef,
               };
             }
 
@@ -174,12 +192,12 @@ jobs:
 
             if (selectedRepo === '') {
               // Build repo configs with org/branch info
-              const pythonRepoConfigs = allPythonRepos.map(buildRepoConfig);
-              const javascriptRepoConfigs = allJavascriptRepos.map(buildRepoConfig);
-              const genericRepoConfigs = allGenericRepos.map(config => {
-                const repoConfig = buildRepoConfig(config.repo);
+              const pythonRepoConfigs = await Promise.all(allPythonRepos.map(buildRepoConfig));
+              const javascriptRepoConfigs = await Promise.all(allJavascriptRepos.map(buildRepoConfig));
+              const genericRepoConfigs = await Promise.all(allGenericRepos.map(async (config) => {
+                const repoConfig = await buildRepoConfig(config.repo);
                 return { ...config, ...repoConfig };
-              });
+              }));
 
               core.setOutput('pythonRepos', JSON.stringify(pythonRepoConfigs));
               core.setOutput('javascriptRepos', JSON.stringify(javascriptRepoConfigs));
@@ -189,14 +207,14 @@ jobs:
 
             // Handle single repo selection
             if (allPythonRepos.includes(selectedRepo)) {
-              core.setOutput('pythonRepos', JSON.stringify([buildRepoConfig(selectedRepo)]));
+              core.setOutput('pythonRepos', JSON.stringify([await buildRepoConfig(selectedRepo)]));
             } else {
               core.setOutput('pythonRepos', JSON.stringify([]));
               core.setOutput('hasPythonRepos', false);
             }
 
             if (allJavascriptRepos.includes(selectedRepo)) {
-              core.setOutput('javascriptRepos', JSON.stringify([buildRepoConfig(selectedRepo)]));
+              core.setOutput('javascriptRepos', JSON.stringify([await buildRepoConfig(selectedRepo)]));
             } else {
               core.setOutput('javascriptRepos', JSON.stringify([]));
               core.setOutput('hasJavascriptRepos', false);
@@ -204,7 +222,7 @@ jobs:
 
             const genericRepoConfig = allGenericRepos.find(repoConfig => repoConfig.repo === selectedRepo);
             if (genericRepoConfig !== undefined) {
-              const repoConfig = buildRepoConfig(genericRepoConfig.repo);
+              const repoConfig = await buildRepoConfig(genericRepoConfig.repo);
               core.setOutput('genericRepos', JSON.stringify([{ ...genericRepoConfig, ...repoConfig }]));
             } else {
               core.setOutput('genericRepos', JSON.stringify([]));
