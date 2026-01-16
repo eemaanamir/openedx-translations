@@ -126,6 +126,10 @@ jobs:
 
                 // Use git clone directly
                 try {
+                    // Ensure target directory is clean
+                    if (fs.existsSync(targetDir)) {
+                        fs.rmSync(targetDir, { recursive: true, force: true });
+                    }
                     execSync(`git clone --depth 1 --branch ${repo.ref} https://github.com/${repo.org}/${repo.actualName}.git ${targetDir}`, { stdio: 'inherit' });
                 } catch (error) {
                     console.error(`Failed to clone ${repo.name}: ${error.message}`);
