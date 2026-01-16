@@ -109,34 +109,6 @@ jobs:
           export PATH="$PWD:$PATH"
           tx --version
 
-      # Clone all custom repositories
-      # We iterate over the JSON output from setup-matrix to clone everything into translations/
-      - name: Clone Custom Repositories
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const { execSync } = require('child_process');
-
-            const repos = ${{ needs.setup-matrix.outputs.custom_repos_json }};
-
-            for (const repo of repos) {
-                console.log(`Cloning ${repo.org}/${repo.actualName} branch ${repo.ref}...`);
-                const targetDir = `translations/${repo.name}`;
-
-                // Use git clone directly
-                try {
-                    // Ensure target directory is clean
-                    if (fs.existsSync(targetDir)) {
-                        fs.rmSync(targetDir, { recursive: true, force: true });
-                    }
-                    execSync(`git clone --depth 1 --branch ${repo.ref} https://github.com/${repo.org}/${repo.actualName}.git ${targetDir}`, { stdio: 'inherit' });
-                } catch (error) {
-                    console.error(`Failed to clone ${repo.name}: ${error.message}`);
-                    process.exit(1);
-                }
-            }
-
       - name: Run Merge Script
         env:
           TX_TOKEN: ${{ secrets.TX_TOKEN }}
