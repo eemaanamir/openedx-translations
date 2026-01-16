@@ -1,0 +1,36 @@
+.item-card-header {
+  display: flex;
+  align-items: center;
+
+  .item-card-header__title-btn {
+    justify-content: flex-start;
+    padding: 0;
+    flex: 1 1 0%;
+    height: 1.5rem;
+    margin-right: .25rem;
+    background: transparent;
+    color: $black;
+  }
+
+  .item-card-button-icon {
+    opacity: 0;
+    transition: opacity .3s linear;
+    margin-right: .5rem;
+
+    &:focus {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .item-card-button-icon {
+      opacity: 1;
+
+      &.item-card-button-icon-disabled {
+        pointer-events: all;
+        opacity: .5;
+        cursor: default;
+      }
+    }
+  }
+}

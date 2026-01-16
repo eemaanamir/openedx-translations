@@ -1,0 +1,88 @@
+// ====================
+// Mixins
+// ====================
+// clearfix
+@mixin clearfix {
+    &:before,
+    &:after {
+        display: table;
+        content: '';
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+// List
+@mixin list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+// example: @include ellipsis(300px);
+@mixin ellipsis($max-width: 100%) {
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: $max-width;
+}
+
+// Box shadow : @include box-shadow(1px, 2px, 3px, #000)
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+        box-shadow: inset $top $left $blur $color;
+        -webkit-box-shadow: inset $top $left $blur $color;
+        -moz-box-shadow: inset $top $left $blur $color;
+    } @else {
+        box-shadow: $top $left $blur $color;
+        -webkit-box-shadow: $top $left $blur $color;
+        -moz-box-shadow: $top $left $blur $color;
+    }
+}
+
+// generic transform
+@mixin transform($transforms) {
+    transform: $transforms;
+    -webkit-transform: $transforms;
+    -o-transform: $transforms;
+    -ms-transform: $transforms;
+    -moz-transform: $transforms;
+}
+
+// rotate : @include rotate(90);
+@mixin rotate($deg) {
+    @include transform(rotate(#{$deg}deg));
+}
+
+// rotate : @include rotate3d(0, 1, 0, 180deg);
+@mixin rotate3d($x, $y, $z, $deg) {
+    @include transform(rotate3d($x, $y, $z, $deg));
+}
+
+// scale
+@mixin scale($scale) {
+    @include transform(scale($scale));
+}
+
+// translate
+@mixin translate($x, $y) {
+    @include transform(translate($x, $y));
+}
+
+// Placeholder
+@mixin placeholder($color) {
+    &:-moz-placeholder {
+        color: $color;
+    }
+
+    &:-webkit-input-placeholder {
+        color: $color;
+    }
+
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+}

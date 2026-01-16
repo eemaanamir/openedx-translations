@@ -1,0 +1,13 @@
+<div class="facet-container">
+  <div class="facet-header-container">
+      <h3 class="header-facet">
+          <%- displayName %>
+      </h3>
+      <% if (listIsHuge) { %>
+          <input type="text" class="lng-srch-facet-input" placeholder="Search..." />
+      <% } %>
+  </div>
+  <ul data-facet="<%- name %>" class="facet-list">
+      <%= HtmlUtils.ensureHtml(optionsHtml) %>
+  </ul>
+</div>

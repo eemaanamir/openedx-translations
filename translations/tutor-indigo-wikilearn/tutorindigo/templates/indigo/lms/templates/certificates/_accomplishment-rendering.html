@@ -1,0 +1,100 @@
+<%page expression_filter="h"/>
+<%! from django.utils.translation import gettext as _ %>
+<%namespace name='static' file='../static_content.html'/>
+<%
+course_mode_class = course_mode if course_mode else ''
+%>
+
+<main class="accomplishment accomplishment-main">
+
+    <div class="wrapper-accomplishment-rendering">
+        <div class="accomplishment-rendering">
+            <span class="back-image"></span>
+            <div class="accomplishment-wrapper">
+                <div class="main-content">
+                    <div class="logo-box">
+                        <img class="logo" src="${static.url('indigo/images/wikimedia-foundation-logo.png')}" alt="${accomplishment_copy_course_name}">
+                    </div>
+                    <div class="wrapper-statement-and-signatories">
+                        <div class="accomplishment-statement">
+                            <p class="accomplishment-statement-lead">
+                                <span class="date">${certificate_date_issued}</span>
+                                <strong class="accomplishment-recipient hd-1 emphasized">${accomplishment_copy_name}</strong>
+                                <span class="accomplishment-summary copy copy-lead">${_("has successfully completed")}</span>
+                                <span class="accomplishment-summary copy copy-lead">${_("the")} ${accomplishment_copy_course_name} ${_("program.")}</span>
+
+                                <span class="accomplishment-course hd-1 emphasized hidden">
+                                    <span class="accomplishment-course-name">${accomplishment_copy_course_name}</span>
+                                </span>
+                            </p>
+                        </div>
+
+                        % if mode != 'base':
+                        <div class="accomplishment-signatories">
+                            <h3 class="accomplishment-signatories-title sr-only">${_("Noted by")}</h3>
+
+                            <div class="wrapper-signatories">
+                                <div class="list-signatories">
+                                    % if certificate_data:
+                                        % for signatory in certificate_data.get('signatories', []):
+                                            % if signatory.get('signature_image_path'):
+                                                <div class="signatory">
+                                                    <div class="signatory-img-block">
+                                                        <img class="signatory-signature" src="${static.url(signatory['signature_image_path'])}" alt="${signatory['name']}">
+                                                    </div>
+                                                    <h4 class="signatory-name hd-5">${signatory['name']}</h4>
+                                                    <p class="signatory-credentials copy copy-micro">
+                                                        <span class="organization">${signatory['organization']}</span>
+                                                        <span class="role">${signatory['title']}</span>
+                                                    </p>
+                                                </div>
+                                            % endif
+                                        % endfor
+                                    % endif
+                                </div>
+                            </div>
+                        </div>
+                        % endif
+                    </div>
+                </div>
+                <div class="side-area">
+                    <h3 class="accomplishment-orgs-title">${_("Certificate")} <br /> ${_("of Achievement")}</h3>
+                </div>
+            </div>
+            <div class="organization-logo-bar">
+                <img class="organization-logo" src="${static.url('indigo/images/wikilearn-logo-white.png')}" alt="${platform_name}">
+            </div>
+            <img class="certificate-corner" src="${static.url('indigo/images/certificate-corner.png')}" width="100" alt="${platform_name}">
+        </div>
+    </div>
+
+    <div class="wrapper-accomplishment-metadata">
+        <div class="accomplishment-metadata">
+            <h2 class="accomplishment-metadata-title hd-6">${accomplishment_copy_more_about}</h2>
+
+            <div class="wrapper-metadata">
+                <dl class="metadata accomplishment-recipient">
+                    <dt class="label sr-only">${_("Awarded to:")}</dt>
+                    <dd class="value copy copy-meta">
+                        <span class="recipient-img">
+                            <img class="src" src="/static/certificates/images/demo-user-profile.png" alt="Recipient Image">
+                        </span>
+                        <div class="recipient-details">
+                            <h3 class="recipient-name">${accomplishment_copy_name}</h3>
+                            <p class="recipient-username">${accomplishment_copy_username} @ ${platform_name}</p>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="metadata accomplishment-id">
+                    <dt class="label copy copy-meta">${certificate_id_number_title}:</dt>
+                    <dd class="value copy copy-base">${certificate_id_number}</dd>
+                </dl>
+                <dl class="metadata accomplishment-date">
+                    <dt class="label copy copy-meta">${certificate_date_issued_title}</dt>
+                    <dd class="value copy copy-base">${certificate_date_issued}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</main>

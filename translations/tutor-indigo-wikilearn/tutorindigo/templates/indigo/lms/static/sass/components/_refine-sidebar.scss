@@ -1,0 +1,28 @@
+.find-courses {
+  .search-facets {
+    z-index: 1;
+    .facet-header-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      border-top: 1px solid $gray-l4;
+      flex-wrap: wrap;
+
+      .lng-srch-facet-input {
+        margin: ($baseline/4) !important;
+      }
+    }
+
+    .facet-list {
+      max-height: ($baseline * 1.5 * 10) - $baseline;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+
+    .facet-option {
+      font-size: small;
+      overflow: overlay;
+    }
+  }
+}

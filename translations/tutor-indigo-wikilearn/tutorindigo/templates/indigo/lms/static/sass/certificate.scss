@@ -1,0 +1,387 @@
+@import "partials/lms/theme/variables";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap');
+
+.layout-accomplishment {
+
+  &.certificate-honor,
+  &.certificate-verified {
+
+    .accomplishment-rendering {
+      position: relative;
+      background: #fff;
+      border: 0;
+    }
+  }
+
+  &.rtl {
+    &.certificate-honor,
+    &.certificate-verified {
+
+      .accomplishment-rendering {
+        background-position: 0 0;
+      }
+    }
+  }
+
+  &.certificate-honor {
+    .accomplishment-rendering {
+      .accomplishment-signatories {
+        .signatory-signature {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .accomplishment-signatories {
+
+    .wrapper-signatories {
+      text-align: left;
+      margin: 0 0 1.8rem;
+
+      .rtl & {
+        text-align: right;
+      }
+    }
+
+    .signatory {
+      width: 233px;
+      font-family: $font-family-sans;
+      display: block;
+
+      .signatory-signature {
+        padding: 0;
+        display: block;
+        max-height: 5.45rem;
+        margin: 0.2rem 0 -0.5rem 0.6rem;
+      }
+    }
+  }
+}
+
+.accomplishment-wrapper {
+  display: flex;
+  width: 100%;
+  padding: 70px 0 30px 70px;
+  position: relative;
+  z-index: 1;
+
+  .rtl & {
+    background-position: 0 0;
+    padding: 70px 70px 30px 0;
+  }
+}
+
+
+.accomplishment-rendering {
+
+  .layout-accomplishment & {
+    top: 10px;
+    border: 0;
+    padding: 0;
+    overflow: clip;
+  }
+
+  .accomplishment-course,
+  .accomplishment-statement-lead {
+    margin: 0;
+  }
+
+  .accomplishment-course,
+  .accomplishment-statement,
+  .accomplishment-recipient,
+  .accomplishment-statement-lead {
+
+    .certificate & {
+      font-family: $font-family-sans;
+      letter-spacing: 0;
+    }
+  }
+
+  .accomplishment-statement-lead {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    .rtl & {
+      text-align: right;
+    }
+  }
+
+  .accomplishment-statement,
+  .accomplishment-signatories {
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    .rtl & {
+      text-align: right;
+    }
+  }
+
+  .accomplishment-signatories {
+    padding: 25px 0 0;
+
+    .signatory-name,
+    .signatory-credentials {
+      text-align: left;
+
+      .rtl & {
+        text-align: right;
+      }
+    }
+
+    .signatory-name {
+      border-top: 2px solid #595959;
+      font-size: 16px;
+      line-height: 1;
+      margin: 0;
+      padding: 8px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .signatory-credentials {
+      font-size: 16px;
+    }
+
+    .signatory-signature {
+      padding: 0;
+    }
+  }
+
+  .accomplishment-orgs-title {
+
+    .certificate & {
+      color: white;
+    }
+  }
+
+  .accomplishment-type,
+  .accomplishment-statement {
+    text-align: left;
+  }
+
+  .accomplishment-recipient {
+    margin-bottom: 0.7rem;
+    font-weight: bold;
+    font-size: 28px;
+  }
+
+  .accomplishment-summary {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .accomplishment-course-name {
+    font-size: 1.24rem;
+    line-height: 1.1;
+    display: block;
+  }
+
+  .accomplishment-info {
+    font-size: 0.84rem;
+    line-height: 1.2;
+
+    p {
+      margin: 0;
+
+      a {
+        color: #000;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.date {
+  font-size: 1rem;
+  display: block;
+  font-weight: bold;
+  padding: 0.55rem 0;
+  margin-bottom: 25px;
+}
+
+.main-content {
+  flex: 0 0 66.7%;
+  max-width: 66.7%;
+}
+
+.side-area {
+  display: flex;
+  flex: 0 0 33.3%;
+  max-width: 33.3%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0 1.5rem;
+  font-family: $font-family-sans;
+  box-sizing: border-box;
+
+  .rtl & {
+    text-align: right;
+    padding: 0 1.5rem 0 0;
+  }
+
+  .accomplishment-orgs-title {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 100px 0 0;
+    border: 0;
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .organization-logo {
+    max-width: 8.4rem;
+    margin: auto 0 2rem;
+  }
+
+  .rtl & {
+    padding: 0 1.5rem 0 0;
+  }
+}
+
+.organization-logo-bar {
+  width: 100%;
+  background: #318557;
+  text-align: right;
+  padding: 30px 46px 35px;
+  box-sizing: border-box;
+  margin-bottom: 17px;
+  position: relative;
+  z-index: 1;
+
+  .rtl & {
+    text-align: left;
+  }
+
+  img {
+    width: 190px;
+    height: auto;
+    vertical-align: top;
+  }
+}
+
+.logo-box {
+  margin-bottom: 28px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .logo {
+    height: auto;
+    width: 236px;
+    display: block;
+    max-height: 100%;
+
+    .rtl & {
+      margin-left: auto;
+    }
+  }
+}
+
+.certificate-corner {
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+  width: 180px;
+  height: auto;
+  z-index: 9;
+  pointer-events: none;
+
+  .rtl & {
+    left: auto;
+    right: -8px;
+    transform: scaleX(-1);
+  }
+}
+.signatory-img-block {
+  height: 80px;
+}
+
+.back-image {
+  position: absolute;
+  background: #fff url("../images/certificate-bg.png") 100% 0 no-repeat;
+  background-size: auto 100%;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+
+  .rtl & {
+    transform: scaleX(-1);
+  }
+}
+
+.list-signatories {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  .rtl & {
+    text-align: right;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media print {
+  .list-signatories {
+    justify-content: flex-start !important;
+  }
+
+  .accomplishment-rendering {
+    padding: 0;
+
+    .accomplishment-recipient {
+      font-size: 1.9rem;
+    }
+
+    .accomplishment-course-name {
+      font-size: 1.1rem;
+      width: 100%;
+    }
+
+    .accomplishment-info {
+      font-size: 0.74rem;
+    }
+
+    .wrapper-statement-and-signatories {
+      border: 0;
+    }
+
+    .accomplishment-statement {
+      width: 100%;
+    }
+  }
+
+  .side-area .organization-logo {
+    width: 5rem;
+  }
+
+  .layout-accomplishment {
+
+    .accomplishment-signatories {
+
+      .signatory {
+
+        .signatory-signature {
+          height: auto;
+          width: 8rem;
+        }
+      }
+    }
+  }
+
+  .logo {
+    width: 20.5rem;
+    display: block;
+    height: auto;
+  }
+}

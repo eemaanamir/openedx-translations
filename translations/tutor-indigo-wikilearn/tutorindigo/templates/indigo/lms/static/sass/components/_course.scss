@@ -1,0 +1,162 @@
+.courses-container {
+
+    .courses {
+
+        .courses-listing {
+
+            .courses-listing-item {
+
+                .find-courses & {
+                    max-height: none;
+                }
+            }
+        }
+
+        .course {
+            background: #fafafa;
+            box-shadow: 2px 2px 4px rgba(79, 79, 79, 0.25);
+            border-radius: 2px;
+            border: 0;
+
+            .find-courses & {
+                margin-bottom: 0;
+            }
+
+            &:focus,
+            &:hover {
+                box-shadow: 2px 2px 4px rgba(79, 79, 79, 0.5);
+            }
+
+            .course-info {
+                height: 167px;
+
+                .course-date {
+                    font-size: 12px;
+                    font-weight: 500;
+                    padding: 2px 20px;
+                }
+            }
+
+            .description {
+                color: $base-font-color;
+                padding: 0 0 10px;
+
+                p {
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2;
+                  line-clamp: 2;
+                  height: 40px;
+                  overflow: hidden;
+                  font-size: 13px;
+                  line-height: 1.5;
+                }
+            }
+
+            .learn-more {
+                display: block;
+                text-align: right;
+                font-weight: bold;
+                color: $theme-blue;
+                padding: 20px 20px 0;
+                font-size: 14px;
+            }
+
+            .course-image {
+
+                .cover-image {
+                    position: relative;
+                    height: 245px;
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                        object-fit: cover;
+                    }
+
+                    .course-name {
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        margin: 0;
+                        padding: 0 14px 11px;
+                        font: 500 10px/1.2 $font-family-sans-serif;
+
+                        .course-title-wrap {
+                            display: block;
+                        }
+
+                        .course-text {
+                            background: #fff;
+                            color: #000;
+                            display: inline-block;
+                            vertical-align: top;
+                            margin: 0 0 8px;
+                            text-transform: uppercase;
+                            padding: 1px 6px 3px;
+                        }
+
+                        .course-title {
+                            background: rgba(0, 0, 0, .4);
+                            font-size: 20px;
+                            line-height: 1.1;
+                            padding: 3px 6px 6px;
+                            display: inline-block;
+                            vertical-align: top;
+                            color: #fff;
+                        }
+                    }
+
+                    &:before,
+                    .learn-more {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.instructor-dashboard-wrapper-2 {
+
+  div.customBrowseBtn {
+
+    .enhanced-input-file {
+      box-sizing: border-box;
+      @include rtl {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+
+    .file-browse {
+
+      .file_field {
+        right: -29%;
+      }
+
+      .browse {
+        @include rtl {
+          border-radius: 3px 0 0 3px;
+          margin-right: 265px;
+        }
+      }
+    }
+  }
+}
+
+.page-header-secondary {
+  .forum-search {
+    .field-label {
+      max-width: 200px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
+
+.xmodule_display.xmodule_HtmlBlock img {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,29 @@
+name: ci
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        npm-test:
+        - i18n_extract
+        - lint
+        - test
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+    - run: make requirements
+    - run: make test NPM_TESTS=build
+    - run: make test NPM_TESTS=${{ matrix.npm-test }}
+    - name: Coverage
+      if: matrix.npm-test == 'test'
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true

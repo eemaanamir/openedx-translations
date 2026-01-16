@@ -1,0 +1,13 @@
+.username-query {
+  background: #eee;
+  z-index: 11;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+  .username-btn {
+    margin: 2px;
+    padding: 5px 8px;
+    font-size: 14px;
+  }
+}

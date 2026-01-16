@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'Open Sans';
+    src:
+        url('#{$static-path}/fonts/OpenSans/OpenSans-Regular-webfont.woff2') format('woff2'),
+        url('#{$static-path}/fonts/OpenSans/OpenSans-Regular-webfont.woff') format('woff'),
+        url('#{$static-path}/fonts/OpenSans/OpenSans-Regular-webfont.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TrebuchetMS';
+    src:
+        url('#{$static-path}/fonts/TrebuchetMS/TrebuchetMS.woff') format('woff'),
+        url('#{$static-path}/fonts/TrebuchetMS/TrebuchetMS.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src:
+        url('#{$static-path}/fonts/Montserrat/Montserrat.woff') format('woff'),
+        url('#{$static-path}/fonts/Montserrat/Montserrat.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src:
+        url('#{$static-path}/fonts/SourceSansPro/SourceSansPro.woff2') format('woff2'),
+        url('#{$static-path}/fonts/SourceSansPro/SourceSansPro.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src:
+        url('#{$static-path}/fonts/OpenSans/NotoKufiArabic-Regular.woff2') format('woff2'),
+        url('#{$static-path}/fonts/OpenSans/NotoKufiArabic-Regular.woff') format('woff'),
+        url('#{$static-path}/fonts/NotoKufiArabic/NotoKufiArabic-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+#main, #course-content {
+    &.font-open-sans {
+        font-family: $font-family-open-sans !important;
+        &, h1, h2, h3, h4, h5, h6, p, label, select {
+            font-family: $font-family-open-sans !important;
+        }
+    }
+    &.font-trebuchet {
+        font-family: $font-family-trebuchet !important;
+        &, h1, h2, h3, h4, h5, h6, p, label, select {
+            font-family: $font-family-trebuchet !important;
+        }
+    }
+    &.font-montserrat {
+        font-family: $font-family-montserrat !important;
+        &, h1, h2, h3, h4, h5, h6, p, label, select {
+            font-family: $font-family-montserrat !important;
+        }
+    }
+    &.font-source-sans-pro {
+        font-family: $font-family-source-sans-pro !important;
+        &, h1, h2, h3, h4, h5, h6, p, label, select {
+            font-family: $font-family-source-sans-pro !important;
+        }
+    }
+    &.font-noto-kufi-arabic {
+        font-family: $font-family-noto-kufi-arabic !important;
+        &, h1, h2, h3, h4, h5, h6, p, label, select {
+            font-family: $font-family-noto-kufi-arabic !important;
+        }
+    }
+}

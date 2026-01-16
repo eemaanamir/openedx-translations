@@ -1,0 +1,517 @@
+import copy
+import html
+import logging
+import operator
+from datetime import datetime, timedelta
+from functools import reduce
+from importlib import import_module
+
+import pytz
+import six
+from common.djangoapps.student.roles import CourseInstructorRole, CourseStaffRole
+from common.djangoapps.student.views import (
+    get_course_enrollments,
+    get_org_black_and_whitelist_for_site,
+)
+from django.apps import apps
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db.models import Q
+from django.http import Http404
+from django.test import RequestFactory
+from lms.djangoapps.certificates.models import CertificateStatuses, GeneratedCertificate
+from lms.djangoapps.courseware.courses import get_course_with_access
+from lms.djangoapps.discussion.django_comment_client.utils import add_courseware_context, permalink
+from lms.djangoapps.grades.api import CourseGradeFactory
+from opaque_keys import InvalidKeyError
+from opaque_keys.edx.keys import CourseKey, UsageKey
+from openedx.core.djangoapps.site_configuration.models import SiteConfiguration
+from openedx.core.djangoapps.user_api.models import UserPreference
+from openedx.features.course_experience.utils import get_course_outline_block_tree
+from six.moves.urllib.parse import urljoin
+from xmodule.modulestore.django import modulestore
+
+from openedx_wikilearn_features.wikimedia_general import WEEKLY_NOTIFICATION_PREF_KEY
+from openedx_wikilearn_features.wikimedia_general.djangoapps_patches.bulk_email.patches import _send_course_email
+from openedx_wikilearn_features.wikimedia_general.djangoapps_patches.contentstore.courseware_index import (
+    load_search_index_patches,
+)
+from openedx_wikilearn_features.wikimedia_general.djangoapps_patches.instructor_task.patches import (
+    EnhancedSubtaskStatus,
+)
+from openedx_wikilearn_features.wikimedia_general.models import Topic
+
+log = logging.getLogger(__name__)
+User = get_user_model()
+ENABLE_FORUM_NOTIFICATIONS_FOR_SITE_KEY = "enable_forum_notifications"
+
+
+def is_course_graded(course_id, user, request=None):
+    """
+    Check that course is graded.
+
+    Arguments:
+        course_id: (CourseKey/String) if CourseKey turn it into string
+        request: (WSGI Request/None) if None create your own dummy request object
+
+    Returns:
+        is_graded (bool)
+    """
+    if request is None:
+        request = RequestFactory().get("/")
+        request.user = user
+
+    if isinstance(course_id, CourseKey):
+        course_id = six.text_type(course_id)
+
+    course_outline = get_course_outline_block_tree(request, course_id, user)
+
+    if course_outline:
+        return course_outline.get("num_graded_problems") > 0
+    else:
+        return False
+
+
+def is_discussion_notification_configured_for_site(site, post_id):
+    if site is None:
+        log.info(
+            "Discussion: No current site, not sending notification about new thread: %s.",
+            post_id,
+        )
+        return False
+    try:
+        if not site.configuration.get_value(ENABLE_FORUM_NOTIFICATIONS_FOR_SITE_KEY, False):
+            log_message = "Discussion: notifications not enabled for site: %s. Not sending message about new thread: %s"
+            log.info(log_message, site, post_id)
+            return False
+    except SiteConfiguration.DoesNotExist:
+        log_message = "Discussion: No SiteConfiguration for site %s. Not sending message about new thread: %s."
+        log.info(log_message, site, post_id)
+        return False
+    return True
+
+#TODO: remove code related to discussions weekly diegest once email notifications have been enabled
+def get_course_users_with_preference(post_id):
+    """
+    Fetches users associated with a course who have a specific subscribed to weekly digest.
+
+    This function combines all active students, instructors, and staff members associated with a course and filters
+    them based on whether they have a specific user preference (identified by preference_key) set to true.
+
+    Args:
+        post_id (str): The unique identifier for the course.
+        preference_key (str): The user preference key to filter users by (e.g., 'WEEKLY_NOTIFICATION_PREF_KEY').
+
+    Returns:
+        list: A list of User objects who have the specified preference set. These users include students, instructors,
+        and staff.
+    """
+    # Lazy import to avoid circular import
+    CourseEnrollment = apps.get_model('student', 'CourseEnrollment')
+    
+    course_key = CourseKey.from_string(post_id)
+    log.info(f"Fetching users with forum roles for course_key: {course_key}")
+
+    enrollments = CourseEnrollment.objects.filter(course_id=course_key, is_active=True).select_related("user")
+
+    # Extract the User objects from the enrollments
+    enrolled_users = {enrollment.user for enrollment in enrollments}
+
+    # Fetch instructors and staff members
+    instructors = set(CourseInstructorRole(course_key).users_with_role())
+    staff_members = set(CourseStaffRole(course_key).users_with_role())
+
+    # Combine all sets to ensure uniqueness
+    users_set = enrolled_users.union(instructors, staff_members)
+    users_with_preference = \
+        [user for user in users_set if UserPreference.has_value(user, WEEKLY_NOTIFICATION_PREF_KEY)]
+
+    # Convert the set to a list
+    users_list = list(users_with_preference)
+
+    return users_list
+
+
+def get_mentioned_users_list(input_string, users_list=None):
+    input_string = html.unescape(input_string)
+    if not users_list:
+        users_list = []
+
+    start_index = input_string.find("@")
+    if start_index == -1:
+        return users_list
+    else:
+        end_index = input_string[start_index:].find(" ")
+        name = input_string[start_index:][:end_index]
+
+        try:
+            user = User.objects.get(username=name[1:])  # remove @ from name
+            users_list.append(user)
+        except User.DoesNotExist:
+            log.error("Unable to find mentioned thread user with name: {}".format(name))
+
+        # remove tagged name from string and search for next tagged name
+        remianing_string = input_string.replace(name, "")
+        return get_mentioned_users_list(remianing_string, users_list)
+
+
+def get_user_enrollments_course_keys(user):
+    course_limit = None
+    # Get the org whitelist or the org blacklist for the current site
+    site_org_whitelist, site_org_blacklist = get_org_black_and_whitelist_for_site()
+    course_enrollments = list(get_course_enrollments(user, site_org_whitelist, site_org_blacklist, course_limit))
+    course_enrollments_keys = [enrollment.course_id for enrollment in course_enrollments]
+
+    return course_enrollments_keys
+
+
+def get_course_completion_date(user, course_key):
+    if isinstance(course_key, str):
+        course_key = CourseKey.from_string(course_key)
+    cert = GeneratedCertificate.certificate_for_student(user, course_key)
+    if cert is not None and CertificateStatuses.is_passing_status(cert.status):
+        return cert.created_date
+    return None
+
+
+def is_course_completed(user, course_key):
+    """
+    Returns whether the user has completed the course. If there is a problem while getting the grade, returns False.
+    """
+    if isinstance(course_key, str):
+        course_key = CourseKey.from_string(course_key)
+    try:
+        return CourseGradeFactory().read(user, course_key=course_key).summary["grade"] == "Pass"
+    except Exception:
+        log.info(f"Unable to read course grade for user {user} and course {course_key}")
+        return False
+
+
+def is_certificate_generated(user, course_key):
+    if isinstance(course_key, str):
+        course_key = CourseKey.from_string(course_key)
+    return GeneratedCertificate.objects.filter(user=user, course_id=course_key).exists()
+
+
+def get_user_completed_course_keys(user):
+    """
+    Get courses that the user has completed.
+    """
+    course_enrollments_keys = get_user_enrollments_course_keys(user)
+
+    return ["{}".format(course_key) for course_key in course_enrollments_keys if is_course_completed(user, course_key)]
+
+
+def get_follow_up_courses(user):
+    """
+    Returns courses which have courses in course_keys as their prerequisite
+    """
+    # Lazy import to avoid circular import
+    CourseOverview = apps.get_model('course_overviews', 'CourseOverview')
+
+    follow_up_courses = []
+    if user.is_authenticated:
+        course_keys = get_user_completed_course_keys(user)
+
+        if course_keys:
+            course_keys_in_prerequisites = (
+                Q(_pre_requisite_courses_json__contains=course_key) for course_key in course_keys
+            )
+            query = reduce(operator.or_, course_keys_in_prerequisites)
+            follow_up_courses = list(CourseOverview.objects.filter(query))
+
+    return follow_up_courses
+
+
+def get_users_enrollment_stats(users_enrollments, course_keys):
+    """Returns stats based on users enrollments
+    dict:
+        students_enrolled_in_any_course
+        students_enrolled_in_all_courses
+    """
+    enrollment_stats = {
+        "students_enrolled_in_any_course": 0,
+        "students_enrolled_in_all_courses": 0,
+    }
+    for enrollments in users_enrollments.values():
+        if enrollments:  # If user has any enrollments
+            enrollment_stats["students_enrolled_in_any_course"] += 1
+        if enrollments >= course_keys:
+            enrollment_stats["students_enrolled_in_all_courses"] += 1
+
+    return enrollment_stats
+
+
+def get_users_course_completion_stats(users, users_enrollments, course_keys):
+    """Returns stats about course completion based on users enrollments
+    dict:
+        students_completed_any_course: number
+        students_completed_all_courses: number
+    """
+    users_course_completion = dict()
+    for user in users:
+        users_course_completion[user.id] = set(
+            filter(
+                lambda course_key: is_course_completed(user, course_key),
+                users_enrollments[user.id],
+            )
+        )
+    course_completion_stats = {
+        "students_completed_any_course": 0,
+        "students_completed_all_courses": 0,
+    }
+    for course_completions in users_course_completion.values():
+        if course_completions:
+            course_completion_stats["students_completed_any_course"] += 1
+        if course_completions >= course_keys:
+            course_completion_stats["students_completed_all_courses"] += 1
+
+    return course_completion_stats
+
+
+def get_course_enrollment_and_completion_stats(course_id) -> dict:
+    """Returns the count of student completed the provided course"""
+    # Lazy import to avoid circular import
+    CourseEnrollment = apps.get_model('student', 'CourseEnrollment')
+
+    enrollments = CourseEnrollment.objects.filter(course_id=course_id, is_active=True)
+
+    total_learners_completed = 0
+    total_cert_generated = 0
+    for enrollment in enrollments:
+        user = User.objects.get(id=enrollment.user_id)
+        if is_course_completed(user, course_id):
+            total_learners_completed += 1
+        if is_certificate_generated(user, course_id):
+            total_cert_generated += 1
+
+    enrollment_count = enrollments.count()
+    completed_percentage = (total_learners_completed / enrollment_count) * 100 if enrollment_count else 0
+
+    return {
+        "total_learners_completed": total_learners_completed,
+        "total_cert_generated": total_cert_generated,
+        "total_learners_enrolled": enrollment_count,
+        "completed_percentage": completed_percentage,
+    }
+
+
+def get_user_course_completions(user, user_enrollments):
+    total_completions = 0
+
+    for enrollment in user_enrollments:
+        course = getattr(enrollment, "course", None)
+        if course and is_course_completed(user, course.id):
+            total_completions += 1
+
+    return total_completions
+
+
+def get_pace_type(self_paced):
+    """Paced Type Filter
+    Args:
+        self_paced (Bool): Self paced or Instructor Led
+    Returns:
+        str: paced type
+    """
+    return "self_paced" if self_paced else "instructor_led"
+
+
+def get_prerequisites_type(pre_requisite_courses):
+    """Prerequisites Filter
+    Args:
+        pre_requisite_courses (list): List of prerequisites
+    Returns:
+        str: Prerequisites Type
+    """
+    return "require_prerequisites" if len(pre_requisite_courses) else "no_prerequisites"
+
+
+def get_enrollment_type(enrollment_date):
+    """Enrollment Filter
+    Args:
+        enrollment_date (DateTime): Enrollment start date
+    Returns:
+        string: enrollment type
+    """
+    if enrollment_date:
+        today = datetime.now(pytz.utc)
+        three_months_from_today = today + timedelta(days=3 * 30)
+        if enrollment_date <= today:
+            return "enrollment_open"
+        elif enrollment_date <= three_months_from_today:
+            return "enrollment_open_in_coming_three_months"
+        return "enrollment_open_after_three_months"
+    return None
+
+
+def _get_studio_filters(courses):
+    """
+    courses (List): Courses List
+    """
+    studio_filters = {
+        "org": {},
+        "language": {},
+    }
+    languages = dict(settings.ALL_LANGUAGES)
+
+    for course in courses:
+        if course["org"] and course["org"] not in studio_filters["org"]:
+            studio_filters["org"].update({course["org"]: course["org"]})
+        if course["language"] and course["language"] not in studio_filters["language"]:
+            studio_filters["language"].update({course["language"]: languages[course["language"]]})
+    return studio_filters
+
+
+def get_updated_studio_filter_meanings(courses):
+    """
+    Update STUDIO_FILTERS_MEANINGS from courses' contexts
+    """
+    studio_filters = _get_studio_filters(courses)
+    studio_filters_meanings = copy.deepcopy(settings.STUDIO_FILTERS_MEANINGS)
+    for studio_filter in studio_filters_meanings:
+        if studio_filter in studio_filters:
+            studio_filters_meanings[studio_filter]["terms"] = studio_filters[studio_filter]
+    return studio_filters_meanings
+
+
+def get_parent_xblock(xblock):
+    """
+    Returns the xblock that is the parent of the specified xblock, or None if it has no parent.
+    """
+    locator = xblock.location
+    parent_location = modulestore().get_parent_location(locator)
+
+    if parent_location is None:
+        return None
+    return modulestore().get_item(parent_location)
+
+
+def add_courseware_info(data, user, current_site, course_key):
+    """
+    Enriches the provided data dictionary with courseware information for a given post by constructing a fully qualified
+    courseware URL.
+
+    This function retrieves course access for the specified user and course, adds additional context related to
+    courseware based on the post data, and updates the post data with a complete URL to the courseware.
+
+    Args:
+        data (dict): The data dictionary containing information about a discussion post, which will be enriched with
+        courseware URL information.
+        user (User): The user object for whom the course access is being checked.
+        current_site (Site): The current site object representing the domain on which the course is hosted.
+        course_key (CourseKey): The key of the course to which the post belongs.
+
+    Returns:
+        None: Directly modifies the 'data' dictionary, adding the 'courseware_url' key and 'courseware_title' key with
+        the complete URL as its value.
+    """
+
+    course = get_course_with_access(user, "load", course_key)
+    add_courseware_context([data], course, user)
+
+    if "courseware_url" in data:
+        scheme = "https" if settings.HTTPS == "on" else "http"
+        base_url = f"{scheme}://{current_site.domain}"
+        data["courseware_url"] = f"{base_url}{data['courseware_url']}"
+
+        # Extract the block_id from the courseware_url
+        block_id = data["courseware_url"].split("/jump_to/")[-1]
+        data["courseware_block_id"] = block_id
+
+        try:
+            usage_key = UsageKey.from_string(block_id)
+        except InvalidKeyError:
+            raise Http404
+
+        xblock = modulestore().get_item(usage_key)
+        parent = get_parent_xblock(xblock)
+        data["unit_name"] = getattr(parent, "display_name", "Unknown Unit Name")
+    else:
+        log.warning("courseware_url key not found in data dictionary")
+
+    if "courseware_title" in data:
+        data["courseware_title"] = data["courseware_title"]
+    if "location" in data:
+        data["location"] = data["location"]
+
+
+WIKI_LMS_FILTER_MAPPINGS = {
+    "pace_type": get_pace_type,
+    "enrollment_type": get_enrollment_type,
+    "prerequisites_type": get_prerequisites_type,
+}
+
+
+def _get_thread_url_weekly_digest(thread_context,common_context):
+    scheme = 'https' if settings.HTTPS == 'on' else 'http'
+    base_url = '{}://{}'.format(scheme, common_context['site'])
+    thread_content = {
+        'type': 'thread',
+        'course_id': common_context['course_id'],
+        'commentable_id': thread_context['thread_commentable_id'],
+        'id': thread_context['thread_id'],
+    }
+    return urljoin(base_url, permalink(thread_content))
+
+
+def update_other_course_settings(other_settings, course, user):
+    """
+    Updates the 'other course settings' for a specified course.
+
+    This function merges the provided `other_settings` into the existing
+    `other_course_settings` of the course object. It then updates the course
+    settings and logs the action.
+
+    Args:
+        other_settings (dict): A dictionary containing the new settings to
+            be added or updated in the course's other settings.
+        course (Course): The course object to be updated.
+        user (User): The user performing the update, typically used for
+            permission checks and auditing.
+    """
+    # Lazy import to avoid circular import
+    from cms.djangoapps.contentstore.views.course import update_course_advanced_settings # noqa: F401
+
+    updated_other_course_settings = {**course.other_course_settings, **other_settings}
+    update_data = {"other_course_settings": {"value": updated_other_course_settings}}
+    update_course_advanced_settings(course, update_data, user)
+    log.info(f"Updated course with key: {course.id} with updated other settings: {updated_other_course_settings}")
+
+
+def get_topics():
+    """
+    Returns the list of current topics available
+    """
+    topics = Topic.objects.values_list('name', flat=True)
+    return topics
+
+
+def patch_function(modules, func_name, replacement):
+    """Patch a loaded module with a proxy object that has all the override registry properties.
+    Arguments:
+        modules: modules where the to override are implemented.
+        func_name: class or model to replace.
+        replacement: class or model that works as the replacement.
+    """
+    if isinstance(modules, str):
+        modules = [modules]
+
+    for module_path in modules:
+        module = import_module(module_path)
+        setattr(module, func_name, replacement)
+
+
+def load_core_patches():
+    """Load core patches for Wikimedia features."""
+
+    log.info("Loading Wikimedia core patches...")
+
+    # Patches for showing failure details in bulk emails
+    modules = ["lms.djangoapps.bulk_email.tasks"]
+    patch_function(modules, "_send_course_email", _send_course_email)
+
+    modules = ["lms.djangoapps.instructor_task.subtasks"]
+    patch_function(modules, "SubtaskStatus", EnhancedSubtaskStatus)
+
+    load_search_index_patches()

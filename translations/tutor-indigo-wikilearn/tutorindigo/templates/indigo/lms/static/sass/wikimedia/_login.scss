@@ -1,0 +1,151 @@
+.login-page {
+
+  header.global-header {
+    min-height: 65px;
+
+    .theme-toggle-button {
+      margin-top: 18px;
+    }
+  }
+
+  .login-register,
+  .login-register-content {
+    background: none;
+
+    .section-title {
+      color: $theme-blue;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  &.indigo-dark-theme {
+    .login-register,
+    .login-register-content {
+
+      .section-title {
+        color: $primary-d
+      }
+    }
+  }
+}
+
+.login-header {
+  padding-bottom: 20px;
+  h1 {
+    color: $theme-blue;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+    .indigo-dark-theme & {
+      color: $primary-d;
+    }
+  }
+}
+
+.login-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 20px 40px;
+  border: 1px solid $theme-blue;
+  border-radius: 20px;
+
+  .indigo-dark-theme & {
+    border-color: $primary-d
+  }
+
+  @include media-up(sm) {
+    flex-direction: row;
+  }
+
+  @include media-up(lg) {
+    gap: 100px;
+  }
+
+  .column {
+    @include media-up(sm) {
+      width: 50%;
+    }
+  }
+  .signup-area {
+    position: relative;
+
+    .signup-title {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+
+      .text {
+        font-size: 18px;
+        font-weight: 600;
+        color: $theme-blue;
+
+        .indigo-dark-theme & {
+          color: $primary-d;
+        }
+      }
+    }
+
+    .text-tip {
+      font-size: 13px;
+    }
+
+    &:before {
+      background-color: $gray-lighter;
+      content: '';
+      height: 3px;
+      left: 10%;
+      position: absolute;
+      right: 10%;
+      top: -12px;
+
+      @include media-up(sm) {
+        bottom: 10%;
+        height: auto;
+        left: -25px;
+        right: auto;
+        top: 10%;
+        width: 3px;
+      }
+      @include media-up(lg) {
+        left: -50px;
+      }
+    }
+  }
+}
+
+
+.login-register {
+
+  button.login-provider {
+    &:hover {
+      background: $theme-blue;
+    }
+
+    .icon {
+      background: $theme-blue;
+    }
+  }
+}
+
+.form-type,
+.login-register {
+
+  .form-field {
+    label {
+      color: inherit;
+    }
+  }
+
+  .login-page & {
+    max-width: 1220px;
+  }
+}
+
+
