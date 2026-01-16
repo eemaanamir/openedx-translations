@@ -1,14 +1,14 @@
 # #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 # edX translation file.
-# Copyright (C) 2025 EdX
+# Copyright (C) 2026 EdX
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
-# EdX Team <info@edx.org>, 2025.
+# EdX Team <info@edx.org>, 2026.
 #
 # #-#-#-#-#  underscore.po (PROJECT VERSION)  #-#-#-#-#
 # Translations template for PROJECT.
-# Copyright (C) 2025 ORGANIZATION
+# Copyright (C) 2026 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 #, fuzzy
 msgid ""
@@ -28,7 +28,7 @@ msgstr ""
 "#-#-#-#-#  underscore.po (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-04-25 00:36+0000\n"
+"POT-Creation-Date: 2026-01-16 12:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,11 +69,11 @@ msgstr ""
 msgid "Saving"
 msgstr ""
 
-#: cms/static/js/base.js:101
+#: cms/static/js/base.js:113
 msgid "This link will open in a new browser window/tab"
 msgstr ""
 
-#: cms/static/js/base.js:108
+#: cms/static/js/base.js:120
 msgid "This link will open in a modal window"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 #: lms/static/js/Markdown.Editor.js:1092
 #: lms/static/js/learner_dashboard/EnterpriseLearnerPortalModal.jsx:152
 #: lms/static/js/student_account/components/StudentAccountDeletionModal.jsx:187
-#: xmodule/js/src/html/edit.js:320
+#: xmodule/js/src/html/edit.js:323
 #: cms/templates/js/add-xblock-component-menu-problem.underscore:55
 #: cms/templates/js/add-xblock-component-menu.underscore:29
 #: cms/templates/js/certificate-editor.underscore:47
@@ -525,7 +525,7 @@ msgstr ""
 #: cms/static/js/views/modals/edit_xblock.js:151
 #: cms/static/js/views/video_transcripts.js:325
 #: lms/static/js/student_account/tos_modal.js:48
-#: xmodule/js/src/html/edit.js:370
+#: xmodule/js/src/html/edit.js:373
 #: cms/templates/js/course-video-settings.underscore:6
 #: common/static/common/templates/discussion/templates.underscore:417
 #: common/static/common/templates/discussion/templates.underscore:820
@@ -601,7 +601,7 @@ msgstr ""
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: cms/static/js/views/assets.js:110 xmodule/js/src/html/edit.js:840
+#: cms/static/js/views/assets.js:110 xmodule/js/src/html/edit.js:843
 #: cms/templates/js/asset-library.underscore:19
 #: cms/templates/js/course-instructor-details.underscore:3
 #: cms/templates/js/previous-video-upload-list.underscore:14
@@ -658,7 +658,7 @@ msgstr ""
 
 #: cms/static/js/views/components/add_xblock.js:120
 #: cms/static/js/views/components/add_xblock.js:131
-#: cms/static/js/views/pages/container.js:642
+#: cms/static/js/views/pages/container.js:647
 #: cms/static/js/views/utils/xblock_utils.js:55
 msgid "Adding"
 msgstr ""
@@ -677,18 +677,18 @@ msgstr ""
 #: cms/static/js/views/course_info_update.js:241
 #: cms/static/js/views/course_outline.js:390
 #: cms/static/js/views/course_outline.js:402
-#: cms/static/js/views/pages/container.js:414
-#: cms/static/js/views/pages/container.js:426 cms/static/js/views/tabs.js:164
+#: cms/static/js/views/pages/container.js:419
+#: cms/static/js/views/pages/container.js:431 cms/static/js/views/tabs.js:164
 #: cms/static/js/views/utils/xblock_utils.js:101
 #: cms/static/js/views/utils/xblock_utils.js:113
-#: lms/static/js/Markdown.Editor.js:1091 xmodule/js/src/html/edit.js:885
+#: lms/static/js/Markdown.Editor.js:1091 xmodule/js/src/html/edit.js:888
 #: common/static/common/templates/discussion/templates.underscore:879
 #: lms/templates/learner_dashboard/verification_popover.underscore:13
 msgid "OK"
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:242
-#: cms/static/js/views/pages/container.js:767
+#: cms/static/js/views/pages/container.js:774
 #: cms/static/js/views/pages/container_subviews.js:187
 msgid "Copying"
 msgstr ""
@@ -698,31 +698,31 @@ msgid "Copy of \"{componentDisplayName}\""
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:367
-#: cms/static/js/views/pages/container.js:385
+#: cms/static/js/views/pages/container.js:390
 #: cms/static/js/views/utils/xblock_utils.js:79
 msgid "Pasting"
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:385
-#: cms/static/js/views/pages/container.js:409
+#: cms/static/js/views/pages/container.js:414
 #: cms/static/js/views/utils/xblock_utils.js:96
 msgid "Some errors occurred"
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:387
-#: cms/static/js/views/pages/container.js:411
+#: cms/static/js/views/pages/container.js:416
 #: cms/static/js/views/utils/xblock_utils.js:98
 msgid "The following required files could not be added to the course:"
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:395
-#: cms/static/js/views/pages/container.js:419
+#: cms/static/js/views/pages/container.js:424
 #: cms/static/js/views/utils/xblock_utils.js:106
 msgid "You may need to update a file(s) manually"
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:398
-#: cms/static/js/views/pages/container.js:422
+#: cms/static/js/views/pages/container.js:427
 #: cms/static/js/views/utils/xblock_utils.js:109
 msgid ""
 "The following files already exist in this course but don't match the version "
@@ -730,25 +730,25 @@ msgid ""
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:407
-#: cms/static/js/views/pages/container.js:431
+#: cms/static/js/views/pages/container.js:436
 #: cms/static/js/views/utils/xblock_utils.js:118
 msgid "New file(s) added to Files & Uploads."
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:409
-#: cms/static/js/views/pages/container.js:433
+#: cms/static/js/views/pages/container.js:438
 #: cms/static/js/views/utils/xblock_utils.js:120
 msgid "The following required files were imported to this course:"
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:414
-#: cms/static/js/views/pages/container.js:438
+#: cms/static/js/views/pages/container.js:443
 #: cms/static/js/views/utils/xblock_utils.js:125
 msgid "View files"
 msgstr ""
 
 #: cms/static/js/views/course_outline.js:422
-#: cms/static/js/views/pages/container.js:447
+#: cms/static/js/views/pages/container.js:452
 #: cms/static/js/views/utils/xblock_utils.js:134
 msgid "Dismiss"
 msgstr ""
@@ -769,7 +769,7 @@ msgstr ""
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
 #: cms/static/js/views/course_video_settings.js:266
-#: xmodule/js/src/html/edit.js:870
+#: xmodule/js/src/html/edit.js:873
 #: cms/templates/js/timed-examination-preference-editor.underscore:23
 msgid "None"
 msgstr ""
@@ -788,7 +788,7 @@ msgid "Select language"
 msgstr ""
 
 #: cms/static/js/views/course_video_settings.js:474
-#: cms/static/js/views/metadata.js:357
+#: cms/static/js/views/metadata.js:362
 #: cms/static/js/views/previous_video_upload.js:78
 #: cms/static/js/views/video_transcripts.js:270
 #: lms/djangoapps/teams/static/teams/js/views/edit_team_members.js:96
@@ -1006,7 +1006,7 @@ msgstr ""
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
 #: cms/static/js/views/manage_users_and_roles.js:11
-#: xmodule/js/src/html/edit.js:880
+#: xmodule/js/src/html/edit.js:883
 msgid "Ok"
 msgstr ""
 
@@ -1062,7 +1062,7 @@ msgstr ""
 msgid "Are you sure you want to restrict {email} access to “{container}”?"
 msgstr ""
 
-#: cms/static/js/views/metadata.js:610 lms/static/js/views/file_uploader.js:47
+#: cms/static/js/views/metadata.js:615 lms/static/js/views/file_uploader.js:47
 msgid "Upload File"
 msgstr ""
 
@@ -1071,7 +1071,7 @@ msgstr ""
 #. browser when a user needs to edit HTML
 #: cms/static/js/views/modals/base_modal.js:45
 #: cms/static/js/views/modals/course_outline_modals.js:259
-#: xmodule/js/src/html/edit.js:1040
+#: xmodule/js/src/html/edit.js:1043
 #: cms/templates/js/certificate-editor.underscore:46
 #: cms/templates/js/content-group-editor.underscore:31
 #: cms/templates/js/course_info_handouts.underscore:19
@@ -1134,7 +1134,7 @@ msgstr ""
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
 #: cms/static/js/views/modals/course_outline_modals.js:1385
-#: xmodule/js/src/html/edit.js:230
+#: xmodule/js/src/html/edit.js:233
 #: cms/templates/js/add-xblock-component-menu-problem.underscore:13
 msgid "Advanced"
 msgstr ""
@@ -1218,7 +1218,7 @@ msgstr ""
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
 #: cms/static/js/views/modals/preview_v2_library_changes.js:101
-#: xmodule/js/src/html/edit.js:695
+#: xmodule/js/src/html/edit.js:698
 msgid "Ignore"
 msgstr ""
 
@@ -1275,7 +1275,7 @@ msgstr ""
 
 #. Translators: "title" is the name of the current component or unit being
 #. edited.
-#: cms/static/js/views/pages/container.js:719
+#: cms/static/js/views/pages/container.js:726
 msgid "Editing access for: {title}"
 msgstr ""
 
@@ -2918,7 +2918,7 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: lms/static/js/Markdown.Editor.js:1843 xmodule/js/src/html/edit.js:280
+#: lms/static/js/Markdown.Editor.js:1843 xmodule/js/src/html/edit.js:283
 msgid "Blockquote"
 msgstr ""
 
@@ -3153,7 +3153,7 @@ msgstr ""
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: lms/static/js/customwmd.js:190 xmodule/js/src/html/edit.js:945
+#: lms/static/js/customwmd.js:190 xmodule/js/src/html/edit.js:948
 #: cms/templates/js/asset-library.underscore:16
 msgid "Preview"
 msgstr ""
@@ -3584,6 +3584,7 @@ msgstr ""
 
 #: lms/static/js/instructor_dashboard/data_download.js:358
 #: lms/static/js/instructor_dashboard/data_download_2.js:156
+#: lms/static/js/instructor_dashboard/student_admin.js:502
 msgid "Error generating grades. Please try again."
 msgstr ""
 
@@ -3887,201 +3888,201 @@ msgstr ""
 msgid "Send to:"
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:84
-#: lms/static/js/instructor_dashboard/student_admin.js:115
-#: lms/static/js/instructor_dashboard/student_admin.js:145
-#: lms/static/js/instructor_dashboard/student_admin.js:186
-#: lms/static/js/instructor_dashboard/student_admin.js:238
-#: lms/static/js/instructor_dashboard/student_admin.js:273
-#: lms/static/js/instructor_dashboard/student_admin.js:345
-#: lms/static/js/instructor_dashboard/student_admin.js:490
-#: lms/static/js/instructor_dashboard/student_admin.js:539
-#: lms/static/js/instructor_dashboard/student_admin.js:590
+#: lms/static/js/instructor_dashboard/student_admin.js:94
+#: lms/static/js/instructor_dashboard/student_admin.js:125
+#: lms/static/js/instructor_dashboard/student_admin.js:155
+#: lms/static/js/instructor_dashboard/student_admin.js:196
+#: lms/static/js/instructor_dashboard/student_admin.js:248
+#: lms/static/js/instructor_dashboard/student_admin.js:283
+#: lms/static/js/instructor_dashboard/student_admin.js:355
+#: lms/static/js/instructor_dashboard/student_admin.js:527
+#: lms/static/js/instructor_dashboard/student_admin.js:576
+#: lms/static/js/instructor_dashboard/student_admin.js:627
 msgid "Please enter a student email address or username."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:87
+#: lms/static/js/instructor_dashboard/student_admin.js:97
 msgid ""
 "Error getting enrollment status for '<%- student_id %>'. Make sure that the "
 "student identifier is spelled correctly."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:91
+#: lms/static/js/instructor_dashboard/student_admin.js:101
 msgid "Retrieving enrollment status..."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:118
+#: lms/static/js/instructor_dashboard/student_admin.js:128
 msgid ""
 "Error getting student progress url for '<%- student_id %>'. Make sure that "
 "the student identifier is spelled correctly."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:149
-#: lms/static/js/instructor_dashboard/student_admin.js:191
-#: lms/static/js/instructor_dashboard/student_admin.js:243
-#: lms/static/js/instructor_dashboard/student_admin.js:410
-#: lms/static/js/instructor_dashboard/student_admin.js:462
-#: lms/static/js/instructor_dashboard/student_admin.js:495
-#: lms/static/js/instructor_dashboard/student_admin.js:544
-#: lms/static/js/instructor_dashboard/student_admin.js:629
+#: lms/static/js/instructor_dashboard/student_admin.js:159
+#: lms/static/js/instructor_dashboard/student_admin.js:201
+#: lms/static/js/instructor_dashboard/student_admin.js:253
+#: lms/static/js/instructor_dashboard/student_admin.js:420
+#: lms/static/js/instructor_dashboard/student_admin.js:472
+#: lms/static/js/instructor_dashboard/student_admin.js:532
+#: lms/static/js/instructor_dashboard/student_admin.js:581
+#: lms/static/js/instructor_dashboard/student_admin.js:666
 msgid "Please enter a problem location."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:156
+#: lms/static/js/instructor_dashboard/student_admin.js:166
 msgid ""
 "Success! Problem attempts reset for problem '<%- problem_id %>' and student "
 "'<%- student_id %>'."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:157
+#: lms/static/js/instructor_dashboard/student_admin.js:167
 msgid ""
 "Error resetting problem attempts for problem '<%- problem_id %>' and student "
 "'<%- student_id %>'. Make sure that the problem and student identifiers are "
 "complete and correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:194
+#: lms/static/js/instructor_dashboard/student_admin.js:204
 msgid ""
 "Delete student '<%- student_id %>'s state on problem '<%- problem_id %>'?"
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:205
+#: lms/static/js/instructor_dashboard/student_admin.js:215
 msgid ""
 "Error deleting student '<%- student_id %>'s state on problem '<%- problem_id "
 "%>'. Make sure that the problem and student identifiers are complete and "
 "correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:216
+#: lms/static/js/instructor_dashboard/student_admin.js:226
 msgid "Module state successfully deleted."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:250
+#: lms/static/js/instructor_dashboard/student_admin.js:260
 msgid ""
 "Error getting task history for problem '<%- problem_id %>' and student '<%- "
 "student_id %>'. Make sure that the problem and student identifiers are "
 "complete and correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:287
+#: lms/static/js/instructor_dashboard/student_admin.js:297
 msgid "Entrance exam attempts is being reset for student '{student_id}'."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:295
+#: lms/static/js/instructor_dashboard/student_admin.js:305
 msgid ""
 "Error resetting entrance exam attempts for student '{student_id}'. Make sure "
 "student identifier is correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:313
-#: lms/static/js/instructor_dashboard/student_admin.js:380
+#: lms/static/js/instructor_dashboard/student_admin.js:323
+#: lms/static/js/instructor_dashboard/student_admin.js:390
 msgid "Enter a student's username or email address."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:315
+#: lms/static/js/instructor_dashboard/student_admin.js:325
 msgid ""
 "Do you want to allow this student ('{student_id}') to skip the entrance exam?"
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:333
+#: lms/static/js/instructor_dashboard/student_admin.js:343
 msgid ""
 "An error occurred. Make sure that the student's username or email address is "
 "correct and try again."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:359
+#: lms/static/js/instructor_dashboard/student_admin.js:369
 msgid "Entrance exam state is being deleted for student '{student_id}'."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:367
+#: lms/static/js/instructor_dashboard/student_admin.js:377
 msgid ""
 "Error deleting entrance exam state for student '{student_id}'. Make sure "
 "student identifier is correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:396
+#: lms/static/js/instructor_dashboard/student_admin.js:406
 msgid ""
 "Error getting entrance exam task history for student '{student_id}'. Make "
 "sure student identifier is correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:413
+#: lms/static/js/instructor_dashboard/student_admin.js:423
 msgid "Reset attempts for all students on problem '<%- problem_id %>'?"
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:422
+#: lms/static/js/instructor_dashboard/student_admin.js:432
 msgid ""
 "Successfully started task to reset attempts for problem '<%- problem_id %>'. "
 "Click the 'Show Task Status' button to see the status of the task."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:426
+#: lms/static/js/instructor_dashboard/student_admin.js:436
 msgid ""
 "Error starting a task to reset attempts for all students on problem '<%- "
 "problem_id %>'. Make sure that the problem identifier is complete and "
 "correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:475
+#: lms/static/js/instructor_dashboard/student_admin.js:485
 msgid "Error listing task history for this student and problem."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:503
+#: lms/static/js/instructor_dashboard/student_admin.js:540
 msgid ""
 "Started rescore problem task for problem '<%- problem_id %>' and student "
 "'<%- student_id %>'. Click the 'Show Task Status' button to see the status "
 "of the task."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:508
+#: lms/static/js/instructor_dashboard/student_admin.js:545
 msgid ""
 "Error starting a task to rescore problem '<%- problem_id %>' for student "
 "'<%- student_id %>'. Make sure that the the problem and student identifiers "
 "are complete and correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:549
+#: lms/static/js/instructor_dashboard/student_admin.js:586
 msgid "Please enter a score."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:557
+#: lms/static/js/instructor_dashboard/student_admin.js:594
 msgid ""
 "Started task to override the score for problem '<%- problem_id %>' and "
 "student '<%- student_id %>'. Click the 'Show Task Status' button to see the "
 "status of the task."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:562
+#: lms/static/js/instructor_dashboard/student_admin.js:599
 msgid ""
 "Error starting a task to override score for problem '<%- problem_id %>' for "
 "student '<%- student_id %>'. Make sure that the the score and the problem "
 "and student identifiers are complete and correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:604
+#: lms/static/js/instructor_dashboard/student_admin.js:641
 msgid ""
 "Started entrance exam rescore task for student '{student_id}'. Click the "
 "'Show Task Status' button to see the status of the task."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:612
+#: lms/static/js/instructor_dashboard/student_admin.js:649
 msgid ""
 "Error starting a task to rescore entrance exam for student '{student_id}'. "
 "Make sure that entrance exam has problems in it and student identifier is "
 "correct."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:632
+#: lms/static/js/instructor_dashboard/student_admin.js:669
 msgid "Rescore problem '<%- problem_id %>' for all students?"
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:642
+#: lms/static/js/instructor_dashboard/student_admin.js:679
 msgid ""
 "Successfully started task to rescore problem '<%- problem_id %>' for all "
 "students. Click the 'Show Task Status' button to see the status of the task."
 msgstr ""
 
-#: lms/static/js/instructor_dashboard/student_admin.js:646
+#: lms/static/js/instructor_dashboard/student_admin.js:683
 msgid ""
 "Error starting a task to rescore problem '<%- problem_id %>'. Make sure that "
 "the problem identifier is complete and correct."
@@ -4958,7 +4959,7 @@ msgstr ""
 msgid "unsubmitted"
 msgstr ""
 
-#: xmodule/js/src/html/edit.js:146
+#: xmodule/js/src/html/edit.js:149
 msgid ""
 "{paragraph}=p;{preformatted}=pre;{heading3}=h3;{heading4}=h4;{heading5}=h5;"
 "{heading6}=h6"
@@ -4966,191 +4967,191 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:148 xmodule/js/src/html/edit.js:895
+#: xmodule/js/src/html/edit.js:151 xmodule/js/src/html/edit.js:898
 msgid "Paragraph"
 msgstr ""
 
-#: xmodule/js/src/html/edit.js:149
+#: xmodule/js/src/html/edit.js:152
 msgid "Preformatted"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:150 xmodule/js/src/html/edit.js:645
+#: xmodule/js/src/html/edit.js:153 xmodule/js/src/html/edit.js:648
 msgid "Heading 3"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:151 xmodule/js/src/html/edit.js:650
+#: xmodule/js/src/html/edit.js:154 xmodule/js/src/html/edit.js:653
 msgid "Heading 4"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:152 xmodule/js/src/html/edit.js:655
+#: xmodule/js/src/html/edit.js:155 xmodule/js/src/html/edit.js:658
 msgid "Heading 5"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:153 xmodule/js/src/html/edit.js:660
+#: xmodule/js/src/html/edit.js:156 xmodule/js/src/html/edit.js:663
 msgid "Heading 6"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:225
+#: xmodule/js/src/html/edit.js:228
 msgid "Add to Dictionary"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:235
+#: xmodule/js/src/html/edit.js:238
 msgid "Align center"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:240
+#: xmodule/js/src/html/edit.js:243
 msgid "Align left"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:245
+#: xmodule/js/src/html/edit.js:248
 msgid "Align right"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:250
+#: xmodule/js/src/html/edit.js:253
 msgid "Alignment"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:255
+#: xmodule/js/src/html/edit.js:258
 msgid "Alternative source"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:260
+#: xmodule/js/src/html/edit.js:263
 msgid "Anchor"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:265
+#: xmodule/js/src/html/edit.js:268
 msgid "Anchors"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:270
+#: xmodule/js/src/html/edit.js:273
 msgid "Author"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:275
+#: xmodule/js/src/html/edit.js:278
 msgid "Background color"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:285
+#: xmodule/js/src/html/edit.js:288
 msgid "Blocks"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:290
+#: xmodule/js/src/html/edit.js:293
 msgid "Body"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:295
+#: xmodule/js/src/html/edit.js:298
 msgid "Bold"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:300
+#: xmodule/js/src/html/edit.js:303
 msgid "Border color"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:305
+#: xmodule/js/src/html/edit.js:308
 msgid "Border"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:310
+#: xmodule/js/src/html/edit.js:313
 msgid "Bottom"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:315
+#: xmodule/js/src/html/edit.js:318
 msgid "Bullet list"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:325
+#: xmodule/js/src/html/edit.js:328
 msgid "Caption"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:330
+#: xmodule/js/src/html/edit.js:333
 msgid "Cell padding"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:335
+#: xmodule/js/src/html/edit.js:338
 msgid "Cell properties"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:340
+#: xmodule/js/src/html/edit.js:343
 msgid "Cell spacing"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:345
+#: xmodule/js/src/html/edit.js:348
 msgid "Cell type"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:350
+#: xmodule/js/src/html/edit.js:353
 msgid "Cell"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:355
+#: xmodule/js/src/html/edit.js:358
 msgid "Center"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:360
+#: xmodule/js/src/html/edit.js:363
 msgid "Circle"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:365
+#: xmodule/js/src/html/edit.js:368
 msgid "Clear formatting"
 msgstr ""
 
@@ -5158,124 +5159,124 @@ msgstr ""
 #. browser when a user needs to edit HTML
 #. Translators: this is a toolbar button tooltip from the raw HTML editor
 #. displayed in the browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:375 xmodule/js/src/html/edit.js:1251
+#: xmodule/js/src/html/edit.js:378 xmodule/js/src/html/edit.js:1254
 msgid "Code block"
 msgstr ""
 
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:380
+#: xmodule/js/src/html/edit.js:383
 #: lms/templates/instructor/instructor_dashboard_2/enrollment-code-lookup-links.underscore:3
 msgid "Code"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:385
+#: xmodule/js/src/html/edit.js:388
 msgid "Color"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:390
+#: xmodule/js/src/html/edit.js:393
 msgid "Cols"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:395
+#: xmodule/js/src/html/edit.js:398
 msgid "Column group"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:400
+#: xmodule/js/src/html/edit.js:403
 msgid "Column"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:405
+#: xmodule/js/src/html/edit.js:408
 msgid "Constrain proportions"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:410
+#: xmodule/js/src/html/edit.js:413
 msgid "Copy row"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:415
+#: xmodule/js/src/html/edit.js:418
 msgid "Copy"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:420
+#: xmodule/js/src/html/edit.js:423
 msgid "Could not find the specified string."
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:425
+#: xmodule/js/src/html/edit.js:428
 msgid "Custom color"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:430
+#: xmodule/js/src/html/edit.js:433
 msgid "Custom..."
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:435
+#: xmodule/js/src/html/edit.js:438
 msgid "Cut row"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:440
+#: xmodule/js/src/html/edit.js:443
 msgid "Cut"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:445
+#: xmodule/js/src/html/edit.js:448
 msgid "Decrease indent"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:450
+#: xmodule/js/src/html/edit.js:453
 msgid "Default"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:455
+#: xmodule/js/src/html/edit.js:458
 msgid "Delete column"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:460
+#: xmodule/js/src/html/edit.js:463
 msgid "Delete row"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:465
+#: xmodule/js/src/html/edit.js:468
 msgid "Delete table"
 msgstr ""
 
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:470
+#: xmodule/js/src/html/edit.js:473
 #: cms/templates/js/certificate-editor.underscore:18
 #: cms/templates/js/group-configuration-editor.underscore:23
 msgid "Description"
@@ -5283,38 +5284,38 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:475
+#: xmodule/js/src/html/edit.js:478
 msgid "Dimensions"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:480
+#: xmodule/js/src/html/edit.js:483
 msgid "Disc"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:485
+#: xmodule/js/src/html/edit.js:488
 msgid "Div"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:490
+#: xmodule/js/src/html/edit.js:493
 msgid "Document properties"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:495
+#: xmodule/js/src/html/edit.js:498
 msgid "Edit HTML"
 msgstr ""
 
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:500
+#: xmodule/js/src/html/edit.js:503
 #: cms/templates/js/certificate-details.underscore:64
 #: cms/templates/js/course_info_handouts.underscore:1
 #: cms/templates/js/course_info_update.underscore:20
@@ -5329,394 +5330,394 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:505
+#: xmodule/js/src/html/edit.js:508
 msgid "Embed"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:510
+#: xmodule/js/src/html/edit.js:513
 msgid "Emoticons"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:515
+#: xmodule/js/src/html/edit.js:518
 msgid "Encoding"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:520
+#: xmodule/js/src/html/edit.js:523
 msgid "File"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:525
+#: xmodule/js/src/html/edit.js:528
 msgid "Find and replace"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:530
+#: xmodule/js/src/html/edit.js:533
 msgid "Find next"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:535
+#: xmodule/js/src/html/edit.js:538
 msgid "Find previous"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:540
+#: xmodule/js/src/html/edit.js:543
 msgid "Find"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:545
+#: xmodule/js/src/html/edit.js:548
 msgid "Finish"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:550
+#: xmodule/js/src/html/edit.js:553
 msgid "Font Family"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:555
+#: xmodule/js/src/html/edit.js:558
 msgid "Font Sizes"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:560
+#: xmodule/js/src/html/edit.js:563
 msgid "Footer"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:565
+#: xmodule/js/src/html/edit.js:568
 msgid "Format"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:570
+#: xmodule/js/src/html/edit.js:573
 msgid "Formats"
 msgstr ""
 
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:575
+#: xmodule/js/src/html/edit.js:578
 #: common/static/common/templates/image-modal.underscore:6
 msgid "Fullscreen"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:580
+#: xmodule/js/src/html/edit.js:583
 msgid "General"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:585
+#: xmodule/js/src/html/edit.js:588
 msgid "H Align"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:590
+#: xmodule/js/src/html/edit.js:593
 msgid "Header 1"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:595
+#: xmodule/js/src/html/edit.js:598
 msgid "Header 2"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:600
+#: xmodule/js/src/html/edit.js:603
 msgid "Header 3"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:605
+#: xmodule/js/src/html/edit.js:608
 msgid "Header 4"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:610
+#: xmodule/js/src/html/edit.js:613
 msgid "Header 5"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:615
+#: xmodule/js/src/html/edit.js:618
 msgid "Header 6"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:620
+#: xmodule/js/src/html/edit.js:623
 msgid "Header cell"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:625 xmodule/js/src/problem/edit.js:50
+#: xmodule/js/src/html/edit.js:628 xmodule/js/src/problem/edit.js:50
 msgid "Header"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:630
+#: xmodule/js/src/html/edit.js:633
 msgid "Headers"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:635
+#: xmodule/js/src/html/edit.js:638
 msgid "Heading 1"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:640
+#: xmodule/js/src/html/edit.js:643
 msgid "Heading 2"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:665
+#: xmodule/js/src/html/edit.js:668
 msgid "Headings"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:670
+#: xmodule/js/src/html/edit.js:673
 msgid "Height"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:675
+#: xmodule/js/src/html/edit.js:678
 msgid "Horizontal line"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:680
+#: xmodule/js/src/html/edit.js:683
 msgid "Horizontal space"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:685
+#: xmodule/js/src/html/edit.js:688
 msgid "HTML source code"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:690
+#: xmodule/js/src/html/edit.js:693
 msgid "Ignore all"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:700
+#: xmodule/js/src/html/edit.js:703
 msgid "Image description"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:705
+#: xmodule/js/src/html/edit.js:708
 msgid "Increase indent"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:710
+#: xmodule/js/src/html/edit.js:713
 msgid "Inline"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:715
+#: xmodule/js/src/html/edit.js:718
 msgid "Insert column after"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:720
+#: xmodule/js/src/html/edit.js:723
 msgid "Insert column before"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:725
+#: xmodule/js/src/html/edit.js:728
 msgid "Insert date/time"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:730
+#: xmodule/js/src/html/edit.js:733
 msgid "Insert image"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:735
+#: xmodule/js/src/html/edit.js:738
 msgid "Insert link"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:740
+#: xmodule/js/src/html/edit.js:743
 msgid "Insert row after"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:745
+#: xmodule/js/src/html/edit.js:748
 msgid "Insert row before"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:750
+#: xmodule/js/src/html/edit.js:753
 msgid "Insert table"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:755
+#: xmodule/js/src/html/edit.js:758
 msgid "Insert template"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:760
+#: xmodule/js/src/html/edit.js:763
 msgid "Insert video"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:765
+#: xmodule/js/src/html/edit.js:768
 msgid "Insert"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:770
+#: xmodule/js/src/html/edit.js:773
 msgid "Insert/edit image"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:775
+#: xmodule/js/src/html/edit.js:778
 msgid "Insert/edit link"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:780
+#: xmodule/js/src/html/edit.js:783
 msgid "Insert/edit video"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:785
+#: xmodule/js/src/html/edit.js:788
 msgid "Italic"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:790
+#: xmodule/js/src/html/edit.js:793
 msgid "Justify"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:795
+#: xmodule/js/src/html/edit.js:798
 msgid "Keywords"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:800
+#: xmodule/js/src/html/edit.js:803
 msgid "Left to right"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:805
+#: xmodule/js/src/html/edit.js:808
 msgid "Left"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:810
+#: xmodule/js/src/html/edit.js:813
 msgid "Lower Alpha"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:815
+#: xmodule/js/src/html/edit.js:818
 msgid "Lower Greek"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:820
+#: xmodule/js/src/html/edit.js:823
 msgid "Lower Roman"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:825
+#: xmodule/js/src/html/edit.js:828
 msgid "Match case"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:830
+#: xmodule/js/src/html/edit.js:833
 msgid "Merge cells"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:835
+#: xmodule/js/src/html/edit.js:838
 msgid "Middle"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:845
+#: xmodule/js/src/html/edit.js:848
 msgid "New document"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:850
+#: xmodule/js/src/html/edit.js:853
 msgid "New window"
 msgstr ""
 
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:855 cms/templates/js/paging-header.underscore:8
+#: xmodule/js/src/html/edit.js:858 cms/templates/js/paging-header.underscore:8
 #: common/static/common/templates/components/paging-footer.underscore:19
 #: common/static/common/templates/discussion/templates.underscore:610
 msgid "Next"
@@ -5724,37 +5725,37 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:860
+#: xmodule/js/src/html/edit.js:863
 msgid "No color"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:865
+#: xmodule/js/src/html/edit.js:868
 msgid "Nonbreaking space"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:875
+#: xmodule/js/src/html/edit.js:878
 msgid "Numbered list"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:890
+#: xmodule/js/src/html/edit.js:893
 msgid "Page break"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:900
+#: xmodule/js/src/html/edit.js:903
 msgid "Paste as text"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:905
+#: xmodule/js/src/html/edit.js:908
 msgid ""
 "Paste is now in plain text mode. Contents will now be pasted as plain text "
 "until you toggle this option off."
@@ -5762,80 +5763,80 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:910
+#: xmodule/js/src/html/edit.js:913
 msgid "Paste row after"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:915
+#: xmodule/js/src/html/edit.js:918
 msgid "Paste row before"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:920
+#: xmodule/js/src/html/edit.js:923
 msgid "Paste your embed code below:"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:925
+#: xmodule/js/src/html/edit.js:928
 msgid "Paste"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:930
+#: xmodule/js/src/html/edit.js:933
 msgid "Poster"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:935
+#: xmodule/js/src/html/edit.js:938
 msgid "Pre"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:940
+#: xmodule/js/src/html/edit.js:943
 msgid "Prev"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:950
+#: xmodule/js/src/html/edit.js:953
 msgid "Print"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:955
+#: xmodule/js/src/html/edit.js:958
 msgid "Redo"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:960
+#: xmodule/js/src/html/edit.js:963
 msgid "Remove link"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:965 xmodule/js/src/html/edit.js:970
+#: xmodule/js/src/html/edit.js:968 xmodule/js/src/html/edit.js:973
 msgid "Replace all"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:975
+#: xmodule/js/src/html/edit.js:978
 msgid "Replace with"
 msgstr ""
 
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:980 xmodule/js/src/html/edit.js:985
+#: xmodule/js/src/html/edit.js:983 xmodule/js/src/html/edit.js:988
 #: cms/templates/js/metadata-file-uploader-item.underscore:1
 #: cms/templates/js/video-transcripts.underscore:45
 #: cms/templates/js/video/metadata-translations-item.underscore:5
@@ -5844,13 +5845,13 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:990
+#: xmodule/js/src/html/edit.js:993
 msgid "Restore last draft"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:995
+#: xmodule/js/src/html/edit.js:998
 msgid ""
 "Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press "
 "ALT-0 for help"
@@ -5858,181 +5859,181 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1000
+#: xmodule/js/src/html/edit.js:1003
 msgid "Right to left"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1005
+#: xmodule/js/src/html/edit.js:1008
 msgid "Right"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1010
+#: xmodule/js/src/html/edit.js:1013
 msgid "Robots"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1015
+#: xmodule/js/src/html/edit.js:1018
 msgid "Row group"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1020
+#: xmodule/js/src/html/edit.js:1023
 msgid "Row properties"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1025
+#: xmodule/js/src/html/edit.js:1028
 msgid "Row type"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1030
+#: xmodule/js/src/html/edit.js:1033
 msgid "Row"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1035
+#: xmodule/js/src/html/edit.js:1038
 msgid "Rows"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1045
+#: xmodule/js/src/html/edit.js:1048
 msgid "Scope"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1050
+#: xmodule/js/src/html/edit.js:1053
 msgid "Select all"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1055
+#: xmodule/js/src/html/edit.js:1058
 msgid "Show blocks"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1060
+#: xmodule/js/src/html/edit.js:1063
 msgid "Show invisible characters"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1065
+#: xmodule/js/src/html/edit.js:1068
 msgid "Source code"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1070
+#: xmodule/js/src/html/edit.js:1073
 msgid "Source"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1075
+#: xmodule/js/src/html/edit.js:1078
 msgid "Special character"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1080
+#: xmodule/js/src/html/edit.js:1083
 msgid "Spellcheck"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1085
+#: xmodule/js/src/html/edit.js:1088
 msgid "Split cell"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1090
+#: xmodule/js/src/html/edit.js:1093
 msgid "Square"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1095
+#: xmodule/js/src/html/edit.js:1098
 msgid "Start search"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1100
+#: xmodule/js/src/html/edit.js:1103
 msgid "Strikethrough"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1105
+#: xmodule/js/src/html/edit.js:1108
 msgid "Style"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1110
+#: xmodule/js/src/html/edit.js:1113
 msgid "Subscript"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1115
+#: xmodule/js/src/html/edit.js:1118
 msgid "Superscript"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1120
+#: xmodule/js/src/html/edit.js:1123
 msgid "Table properties"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1125
+#: xmodule/js/src/html/edit.js:1128
 msgid "Table"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1130
+#: xmodule/js/src/html/edit.js:1133
 msgid "Target"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1135
+#: xmodule/js/src/html/edit.js:1138
 msgid "Templates"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1140
+#: xmodule/js/src/html/edit.js:1143
 msgid "Text color"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1145
+#: xmodule/js/src/html/edit.js:1148
 msgid "Text to display"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1150
+#: xmodule/js/src/html/edit.js:1153
 msgid ""
 "The URL you entered seems to be an email address. Do you want to add the "
 "required mailto: prefix?"
@@ -6040,7 +6041,7 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1155
+#: xmodule/js/src/html/edit.js:1158
 msgid ""
 "The URL you entered seems to be an external link. Do you want to add the "
 "required http:// prefix?"
@@ -6049,7 +6050,7 @@ msgstr ""
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1160
+#: xmodule/js/src/html/edit.js:1163
 #: cms/templates/js/course-instructor-details.underscore:9
 #: cms/templates/js/signatory-details.underscore:17
 #: common/static/common/templates/discussion/templates.underscore:136
@@ -6059,62 +6060,62 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1165
+#: xmodule/js/src/html/edit.js:1168
 msgid "Tools"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1170
+#: xmodule/js/src/html/edit.js:1173
 msgid "Top"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1175
+#: xmodule/js/src/html/edit.js:1178
 msgid "Underline"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1180
+#: xmodule/js/src/html/edit.js:1183
 msgid "Undo"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1185
+#: xmodule/js/src/html/edit.js:1188
 msgid "Upper Alpha"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1190
+#: xmodule/js/src/html/edit.js:1193
 msgid "Upper Roman"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1195
+#: xmodule/js/src/html/edit.js:1198
 msgid "Url"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1200
+#: xmodule/js/src/html/edit.js:1203
 msgid "V Align"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1205
+#: xmodule/js/src/html/edit.js:1208
 msgid "Vertical space"
 msgstr ""
 
 #. #-#-#-#-#  djangojs.po (0.1a)  #-#-#-#-#
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1210
+#: xmodule/js/src/html/edit.js:1213
 #: openedx/features/course_bookmarks/static/course_bookmarks/templates/bookmarks-list.underscore:29
 #: openedx/features/course_search/static/course_search/templates/dashboard_search_item.underscore:2
 msgid "View"
@@ -6122,37 +6123,37 @@ msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1215
+#: xmodule/js/src/html/edit.js:1218
 msgid "Visual aids"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1220
+#: xmodule/js/src/html/edit.js:1223
 msgid "Whole words"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1225
+#: xmodule/js/src/html/edit.js:1228
 msgid "Width"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1230
+#: xmodule/js/src/html/edit.js:1233
 msgid "Words: {0}"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1235
+#: xmodule/js/src/html/edit.js:1238
 msgid "You have unsaved changes are you sure you want to navigate away?"
 msgstr ""
 
 #. Translators: this is a message from the raw HTML editor displayed in the
 #. browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1240
+#: xmodule/js/src/html/edit.js:1243
 msgid ""
 "Your browser doesn't support direct access to the clipboard. Please use the "
 "Ctrl+X/C/V keyboard shortcuts instead."
@@ -6160,7 +6161,7 @@ msgstr ""
 
 #. Translators: this is a toolbar button tooltip from the raw HTML editor
 #. displayed in the browser when a user needs to edit HTML
-#: xmodule/js/src/html/edit.js:1262
+#: xmodule/js/src/html/edit.js:1265
 msgid "Insert/Edit Image"
 msgstr ""
 
