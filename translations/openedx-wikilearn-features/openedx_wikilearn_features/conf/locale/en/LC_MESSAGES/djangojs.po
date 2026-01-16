@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: audio.py:31
-msgid "URL for MP3 file to play"
-msgstr ""
-
-#: templates/html/audio_edit.html:7
-msgid "Audio Source Location"
-msgstr ""
-
-#: templates/html/audio_edit.html:13
-msgid "Save"
-msgstr ""
-
-#: templates/html/audio_edit.html:14
-msgid "Cancel"
+#: admin_dashboard/static/admin_dashboard/js/course_reports.js:143
+msgid "No tasks currently running."
 msgstr ""
