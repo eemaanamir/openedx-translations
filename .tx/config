@@ -1,0 +1,21 @@
+[main]
+host = https://www.transifex.com
+
+[o:open-edx:p:openedx-translations-teak:r:edx-platform]
+file_filter = translations/edx-platform/conf/locale/<lang>/LC_MESSAGES/django.po
+source_file = translations/edx-platform/conf/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[o:open-edx:p:openedx-translations-teak:r:edx-platform-js]
+file_filter = translations/edx-platform/conf/locale/<lang>/LC_MESSAGES/djangojs.po
+source_file = translations/edx-platform/conf/locale/en/LC_MESSAGES/djangojs.po
+source_lang = en
+type = PO
+
+[o:open-edx:p:openedx-translations-teak:r:tutor-indigo-wikilearn]
+file_filter = translations/tutor-indigo-wikilearn/conf/locale/<lang>/LC_MESSAGES/django.po
+source_file = translations/tutor-indigo-wikilearn/conf/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
