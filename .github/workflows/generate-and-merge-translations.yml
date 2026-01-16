@@ -1,0 +1,161 @@
+name: Monthly WM Translation Merge
+
+on:
+  workflow_dispatch:
+    inputs:
+      tx_project_slug:
+        description: 'Transifex Project Slug'
+        required: true
+        default: 'openedx-translations-teak'
+      tx_org_slug:
+        description: 'Transifex Organization Slug'
+        required: true
+        default: 'open-edx'
+      languages:
+        description: 'Languages to pull (comma separated, empty for all)'
+        required: false
+        default: ''
+
+  # Scheduled trigger: first day of every month at 7AM (UTC)
+  schedule:
+    - cron: "0 7 1 * *"
+
+jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      python_repos_json: ${{ steps.generate-matrix.outputs.python_repos_json }}
+      js_repos_json: ${{ steps.generate-matrix.outputs.js_repos_json }}
+      generic_repos_json: ${{ steps.generate-matrix.outputs.generic_repos_json }}
+      custom_repos_json: ${{ steps.generate-matrix.outputs.custom_repos_json }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Read the JSON config directly
+      - name: Generate Matrix from JSON
+        id: generate-matrix
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            // Read the JSON config file
+            const configContent = fs.readFileSync('.github/wikilearn-repos-config.json', 'utf8');
+            const config = JSON.parse(configContent);
+
+            // Helper to process repo list
+            function processRepos(repoList, type) {
+                return repoList.map(repo => {
+                    // Defaults
+                    let org = repo.organization || 'openedx';
+                    let ref = repo.branch;
+                    let name = repo.default_repo_name || repo.repo; // Standard name for consistency
+                    let actualName = repo.repo; // Actual repo name to clone
+
+                    // If it replaces a default repo, we might have default logic here,
+                    // but for this workflow, we just want to process what is explicitly in the config
+                    // or maybe we need to fetch ALL repos like the extraction workflow?
+
+                    // Actually, for this merge workflow, we need access to ALL repos that we extract from.
+                    // The script `merge_translations.py` iterates over `custom_repos`.
+                    // Does it need standard repos?
+                    // The script currently iterates over `all_repos` which includes python, javascript, generic from the CONFIG.
+                    // It does NOT iterate over standard/default repos unless they are in the config.
+                    // This matches the user's intent to "separate wikimedia specific sources".
+
+                    return {
+                        name: name,
+                        actualName: actualName,
+                        org: org,
+                        ref: ref
+                    };
+                });
+            }
+
+            const pythonRepos = processRepos(config.custom_repos.python || [], 'python');
+            const jsRepos = processRepos(config.custom_repos.javascript || [], 'javascript');
+            const genericRepos = processRepos(config.custom_repos.generic || [], 'generic');
+
+            // Combine all for cloning in one go? Or similar structure to extraction?
+            // To run the single python script, we need ALL repos present in one workspace.
+            // So we should probably list them all in one output or clone them all in the job.
+
+            const allRepos = [...pythonRepos, ...jsRepos, ...genericRepos];
+
+            core.setOutput('custom_repos_json', JSON.stringify(allRepos));
+
+
+  generate-and-merge:
+    runs-on: ubuntu-latest
+    needs: setup-matrix
+    steps:
+      - name: Checkout openedx-translations
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y gettext libxml2-dev libxmlsec1-dev libxslt1-dev
+            pip install -r requirements/translations.txt
+            # Install Transifex CLI
+            curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+
+      - name: Check TX Version
+        run: |
+          export PATH="$PWD:$PATH"
+          tx --version
+
+      # Clone all custom repositories
+      # We iterate over the JSON output from setup-matrix to clone everything into translations/
+      - name: Clone Custom Repositories
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            const repos = ${{ needs.setup-matrix.outputs.custom_repos_json }};
+
+            for (const repo of repos) {
+                console.log(`Cloning ${repo.org}/${repo.actualName} branch ${repo.ref}...`);
+                const targetDir = `translations/${repo.name}`;
+
+                // Use git clone directly
+                try {
+                    execSync(`git clone --depth 1 --branch ${repo.ref} https://github.com/${repo.org}/${repo.actualName}.git ${targetDir}`, { stdio: 'inherit' });
+                } catch (error) {
+                    console.error(`Failed to clone ${repo.name}: ${error.message}`);
+                    process.exit(1);
+                }
+            }
+
+      - name: Run Merge Script
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: |
+          export PATH="$PWD:$PATH"
+
+          python3 scripts/merge_translations.py \
+            --project "${{ inputs.tx_project_slug || 'openedx-translations-teak' }}" \
+            --org "${{ inputs.tx_org_slug || 'open-edx' }}" \
+                                                                                                                                                                --languages "${{ inputs.languages }}"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.EDX_TRANSIFEX_BOT_GITHUB_TOKEN }}
+          commit-message: "feat: update translations from Transifex and merge custom strings"
+          branch: "chore/update-translations-${{ github.run_id }}"
+          delete-branch: true
+          title: "Update Translations (Monthly Merge)"
+          body: |
+            Automated pull request to update translations.
+
+            - Synced from Transifex project: `${{ inputs.tx_project_slug || 'openedx-translations-teak' }}`
+            - Merged custom Wikimedia strings (`wm-*.po`)
+
+            Auto-generated by `generate-and-merge-translations.yml` workflow.
