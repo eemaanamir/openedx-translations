@@ -258,10 +258,10 @@ jobs:
         run: |
           pip install -r requirements/translations.txt || echo "No global translations.txt"
 
-          # FIXED: Install i18n_tool for Tutor themes
+          # FIXED: Install edx-i18n-tools (not i18n_tool) for Tutor themes
           if [ "${{ matrix.repo.extraction_method }}" == "django" ]; then
-            echo "Installing i18n_tool for theme extraction"
-            pip install i18n_tool
+            echo "Installing edx-i18n-tools for theme extraction"
+            pip install edx-i18n-tools
           fi
 
       - name: clone repo
@@ -275,9 +275,9 @@ jobs:
         run: |
           cd ${{ matrix.repo.name }}
 
-          # FIXED: For Django-style themes, use i18n_tool
+          # FIXED: For Django-style themes, use i18n_tool extract (from edx-i18n-tools)
           if [ "${{ matrix.repo.extraction_method }}" == "django" ]; then
-            echo "Using i18n_tool for theme extraction"
+            echo "Using i18n_tool (edx-i18n-tools) for theme extraction"
             i18n_tool extract || make extract_translations || django-admin makemessages -l en
           else
             make extract_translations || echo "Extraction failed"
