@@ -39,7 +39,7 @@ def update_custom_layer(extracted_dir):
     """
     print(f"--- Updating Custom Layer from {extracted_dir} ---")
     extracted_path = Path(extracted_dir)
-    
+
     # 1. Determine all supported languages from upstream
     supported_langs = []
     # Upstream structure: translations-upstream/<repo>/conf/locale/<lang>/...
@@ -51,33 +51,34 @@ def update_custom_layer(extracted_dir):
             for lang_dir in locale_dir.iterdir():
                 if lang_dir.is_dir() and lang_dir.name != "en" and lang_dir.name not in supported_langs:
                     supported_langs.append(lang_dir.name)
-    
+
     print(f"Found {len(supported_langs)} supported languages in upstream: {', '.join(supported_langs)}")
 
     # 2. Iterate through extracted files
     for extracted_file in extracted_path.glob("**/LC_MESSAGES/*.po"):
         rel_path = extracted_file.relative_to(extracted_path)
         # rel_path looks like: edx-platform/conf/locale/en/LC_MESSAGES/django.po
-        
+
         # Find corresponding upstream source file
         upstream_source = UPSTREAM_DIR / rel_path
-        
+        print(f"Processing: {rel_path} (Upstream exists: {upstream_source.exists()})")
+
         # If upstream doesn't exist, the entire repo is custom
         upstream_ids = get_msgids(upstream_source)
         extracted_po = polib.pofile(extracted_file)
-        
+
         custom_entries = [e for e in extracted_po if e.msgid not in upstream_ids]
-        
+
         if not custom_entries:
             print(f"No custom strings found for {rel_path}")
             continue
 
         print(f"Found {len(custom_entries)} custom strings for {rel_path}")
-        
+
         # Update English Custom File
         custom_en_path = CUSTOM_DIR / rel_path
         ensure_directory(custom_en_path.parent)
-        
+
         if custom_en_path.exists():
             custom_en_po = polib.pofile(custom_en_path)
             existing_custom_ids = {e.msgid for e in custom_en_po}
@@ -104,10 +105,10 @@ def update_custom_layer(extracted_dir):
                 # If 'en' is not in path, we assume it's some other structure?
                 # Usually it should be there.
                 continue
-                
+
             custom_lang_path = CUSTOM_DIR / Path(*parts)
             ensure_directory(custom_lang_path.parent)
-            
+
             if custom_lang_path.exists():
                 custom_lang_po = polib.pofile(custom_lang_path)
                 existing_lang_map = {e.msgid: e for e in custom_lang_po}
@@ -137,52 +138,55 @@ def merge_final():
     print("--- Merging Final Layer (Step 4) ---")
     if FINAL_DIR.exists():
         shutil.rmtree(FINAL_DIR)
-    
+
     # Start with upstream
     shutil.copytree(UPSTREAM_DIR, FINAL_DIR)
-    
+
     # Overlay custom
     for custom_file in CUSTOM_DIR.glob("**/*.po"):
         rel_path = custom_file.relative_to(CUSTOM_DIR)
         final_file = FINAL_DIR / rel_path
-        
+
         if not final_file.exists():
             # Brand new custom file (e.g. from a new custom repo)
             ensure_directory(final_file.parent)
             shutil.copy(custom_file, final_file)
             continue
-            
+
         # Merge contents
         upstream_po = polib.pofile(final_file)
         custom_po = polib.pofile(custom_file)
-        
+
         upstream_map = {e.msgid: e for e in upstream_po}
-        
+
         for entry in custom_po:
             if entry.msgid in upstream_map:
                 # Override
-                if entry.msgstr: # Only override if custom has a translation? 
+                if entry.msgstr: # Only override if custom has a translation?
                                  # Or override anyway to keep it empty if that's what's in custom?
                                  # Usually custom wins.
                     upstream_map[entry.msgid].msgstr = entry.msgstr
             else:
-                # Append
+                # Completely new string (WM Specific)
                 upstream_po.append(entry)
-        
+
         upstream_po.save(final_file)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command")
-    
+
     p_update = subparsers.add_parser("update_custom")
     p_update.add_argument("--extracted-dir", required=True)
-    
+
     p_merge = subparsers.add_parser("merge_final")
-    
+
     args = parser.parse_args()
-    
+
     if args.command == "update_custom":
+        print(f"Base Directory: {REPO_ROOT}")
+        print(f"Upstream Directory: {UPSTREAM_DIR}")
+        print(f"Custom Directory: {CUSTOM_DIR}")
         update_custom_layer(args.extracted_dir)
     elif args.command == "merge_final":
         merge_final()

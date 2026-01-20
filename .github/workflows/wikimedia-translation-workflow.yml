@@ -197,16 +197,12 @@ jobs:
         with:
           path: extracted-sources
           pattern: extract-*
-          merge-multiple: false # Keep repo dirs separate?
-                                # Logic script expects a flat-ish structure or can handle.
+          merge-multiple: true # This combines all subfolders (edx-platform, etc.) into one root
 
       - name: STEP 3 Update Custom Layer (Diff & Placeholders)
         run: |
           pip install polib
-          # We need to organize extracted files into a staging area
-          mkdir -p staging-extracted
-          cp -r extracted-sources/extract-*/* staging-extracted/ || true
-          python3 scripts/wikimedia_workflow_logic.py update_custom --extracted-dir staging-extracted
+          python3 scripts/wikimedia_workflow_logic.py update_custom --extracted-dir extracted-sources
 
       - name: STEP 4 Final Production Merge
         run: |
