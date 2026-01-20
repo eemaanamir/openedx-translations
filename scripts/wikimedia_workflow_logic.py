@@ -61,31 +61,54 @@ def update_custom_layer(extracted_dir):
             # rel_path starts with repo_name/
             repo_name = rel_path.parts[0]
             
-            # Find corresponding upstream source file
-            upstream_source = UPSTREAM_DIR / rel_path
+            # 2.1 Resolve Upstream Source Path (Handle MFE specialized naming)
+            upstream_source = resolve_upstream_path(rel_path)
             upstream_repo_dir = UPSTREAM_DIR / repo_name
             
-            print(f"Processing: {rel_path} (Upstream exists: {upstream_source.exists()})")
+            print(f"Processing: {rel_path} (Mapped Upstream: {upstream_source.relative_to(REPO_ROOT) if upstream_source.exists() else 'N/A'})")
 
-            # Check if this is a brand new repo not in upstream
+            # 2.2 Check if this is a brand new repo not in upstream
             if not upstream_repo_dir.exists():
                 print(f"New repo detected: {repo_name}. Skipping diff, treating all as custom.")
-                # For new repos, we just copy everything to custom
+                # We save it to custom
                 custom_file_path = CUSTOM_DIR / rel_path
                 ensure_directory(custom_file_path.parent)
                 shutil.copy(extracted_file, custom_file_path)
                 
-                # Still need to handle placeholders for other languages?
-                # For new repos, we might want to create empty files for all langs
+                # Setup placeholders for all languages to ensure full coverage
                 if extracted_file.suffix == ".po":
                     create_po_placeholders(extracted_file, rel_path, supported_langs)
+                elif extracted_file.suffix == ".json":
+                    create_json_placeholders(extracted_file, rel_path, supported_langs)
                 continue
 
-            # Standard diff logic for existing repos
+            # 2.3 Existing repo: Standard diff logic
             if extracted_file.suffix == ".po":
                 process_po_diff(extracted_file, upstream_source, rel_path, supported_langs)
             elif extracted_file.suffix == ".json":
-                process_json_diff(extracted_file, upstream_source, rel_path)
+                process_json_diff(extracted_file, upstream_source, rel_path, supported_langs)
+
+def resolve_upstream_path(rel_path):
+    """
+    Maps an extracted file path to its corresponding upstream path.
+    Example: frontend-app-learning/src/i18n/transifex_input.json 
+             -> translations-upstream/frontend-app-learning/src/i18n/messages/en.json
+    """
+    # Default
+    upstream_path = UPSTREAM_DIR / rel_path
+    
+    # MFE Logic: transifex_input.json -> src/i18n/messages/en.json
+    if rel_path.name == "transifex_input.json":
+        # Check standard MFE messages location
+        mfe_upstream = UPSTREAM_DIR / rel_path.parent / "messages" / "en.json"
+        if mfe_upstream.exists():
+            return mfe_upstream
+        # Fallback: maybe it's directly in i18n/en.json?
+        mfe_fallback = UPSTREAM_DIR / rel_path.parent / "en.json"
+        if mfe_fallback.exists():
+            return mfe_fallback
+            
+    return upstream_path
 
 def create_po_placeholders(extracted_file, rel_path, supported_langs):
     po = polib.pofile(extracted_file)
@@ -104,6 +127,38 @@ def create_po_placeholders(extracted_file, rel_path, supported_langs):
                 new_po.save(p_path)
         except ValueError:
             continue
+
+def create_json_placeholders(extracted_file, rel_path, supported_langs):
+    """
+    For JSON repos, we create <lang>.json entries in the custom layer.
+    """
+    with open(extracted_file, "r") as f:
+        extracted_data = json.load(f)
+    
+    # For JSON, often the file itself is 'en.json' or 'transifex_input.json'
+    # We want to create counterparts for other languages.
+    for lang in supported_langs:
+        parts = list(rel_path.parts)
+        # If the file is 'transifex_input.json' (MFE), we map to messages/<lang>.json
+        if rel_path.name == "transifex_input.json":
+            # For custom layer, we follow the structured path: /src/i18n/messages/<lang>.json
+            p_path = CUSTOM_DIR / rel_path.parent / "messages" / f"{lang}.json"
+        else:
+            # Generic case: swap 'en' in path or just sibling file
+            try:
+                en_index = parts.index("en")
+                parts[en_index] = lang
+                p_path = CUSTOM_DIR / Path(*parts)
+            except ValueError:
+                # Just sibling with lang name if it's a specific filename
+                p_path = CUSTOM_DIR / rel_path.parent / f"{lang}.json"
+
+        if not p_path.exists():
+            ensure_directory(p_path.parent)
+            # Empty translations
+            placeholder_data = {k: "" for k in extracted_data.keys()}
+            with open(p_path, "w") as f:
+                json.dump(placeholder_data, f, indent=2, sort_keys=True)
 
 def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
     upstream_ids = get_msgids(upstream_source)
@@ -158,7 +213,7 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
         except ValueError:
             continue
 
-def process_json_diff(extracted_file, upstream_source, rel_path):
+def process_json_diff(extracted_file, upstream_source, rel_path, supported_langs):
     # Javascript transifex_input.json is a simple { "msgid": "En String" } map
     with open(extracted_file, "r") as f:
         extracted_data = json.load(f)
@@ -169,12 +224,15 @@ def process_json_diff(extracted_file, upstream_source, rel_path):
     else:
         upstream_data = {}
 
-    custom_data = {k: v for k, v in extracted_data.items() if k not in upstream_data}
+    custom_keys = [k for k in extracted_data.keys() if k not in upstream_data]
     
-    if not custom_data:
+    if not custom_keys:
         print(f"No custom JSON strings for {rel_path}")
         return
 
+    print(f"Found {len(custom_keys)} custom JSON strings for {rel_path}")
+
+    # 1. Update English Custom Source
     custom_path = CUSTOM_DIR / rel_path
     ensure_directory(custom_path.parent)
     
@@ -184,9 +242,40 @@ def process_json_diff(extracted_file, upstream_source, rel_path):
     else:
         existing_custom = {}
 
-    existing_custom.update(custom_data)
+    for k in custom_keys:
+        if k not in existing_custom:
+            existing_custom[k] = extracted_data[k]
+            
     with open(custom_path, "w") as f:
         json.dump(existing_custom, f, indent=2, sort_keys=True)
+
+    # 2. Update Placeholders for all languages
+    for lang in supported_langs:
+        # Resolve target lang path (MFE style vs Generic style)
+        if rel_path.name == "transifex_input.json":
+            lang_path = CUSTOM_DIR / rel_path.parent / "messages" / f"{lang}.json"
+        else:
+            parts = list(rel_path.parts)
+            try:
+                en_index = parts.index("en")
+                parts[en_index] = lang
+                lang_path = CUSTOM_DIR / Path(*parts)
+            except ValueError:
+                lang_path = CUSTOM_DIR / rel_path.parent / f"{lang}.json"
+
+        ensure_directory(lang_path.parent)
+        if lang_path.exists():
+            with open(lang_path, "r") as f:
+                lang_data = json.load(f)
+        else:
+            lang_data = {}
+
+        for k in custom_keys:
+            if k not in lang_data:
+                lang_data[k] = "" # New placeholder
+        
+        with open(lang_path, "w") as f:
+            json.dump(lang_data, f, indent=2, sort_keys=True)
 
 def merge_final():
     """

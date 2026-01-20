@@ -114,13 +114,21 @@ jobs:
              sudo apt-get update && sudo apt install -y libxml2-dev libxmlsec1-dev libxslt1-dev
              pip install -r requirements/edx/base.txt
           fi
+          # Install basic translations tools
           pip install -r ../requirements/translations.txt || true
+          
+          # If the repo has its own translations requirements, install them
+          if [ -f "requirements/translations.txt" ]; then
+             pip install -r requirements/translations.txt || true
+          fi
+
+          # Extract
           make extract_translations || django-admin makemessages -l en
           
           # STAGING: Preserve structure for Step 3
           cd ..
-          mkdir -p staging/${{ matrix.repo.name }}
-          # Use rsync to copy only .po files with parents, relative to workspace root
+          mkdir -p staging
+          # Use find to copy all .po files with parents, relative to current dir (which is root)
           find ${{ matrix.repo.name }} -name "*.po" -exec cp --parents \{\} staging/ \;
 
       - name: Upload
@@ -155,7 +163,7 @@ jobs:
           
           # STAGING: Preserve structure for Step 3
           cd ..
-          mkdir -p staging/${{ matrix.repo.name }}
+          mkdir -p staging
           find ${{ matrix.repo.name }} -name "transifex_input.json" -exec cp --parents \{\} staging/ \;
 
       - name: Upload
@@ -186,14 +194,15 @@ jobs:
       - name: Extract
         run: |
           cd ${{ matrix.repo.repo }}
+          # Basic python env for extraction
+          pip install -r ../requirements/translations.txt || true
           make extract_translations || true
           
           # STAGING: Preserve structure for Step 3
           cd ..
-          mkdir -p staging/${{ matrix.repo.repo }}
-          # Path might be different for generic so we use a more direct approach
-          # matrix.repo.transifex_file_path is usually relative to repo root
-          cp --parents ${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }} staging/
+          mkdir -p staging
+          # Find the specific file we extracted and copy with parents
+          find ${{ matrix.repo.repo }} -wholename "${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }}" -exec cp --parents \{\} staging/ \;
 
       - name: Upload
         uses: actions/upload-artifact@v4
