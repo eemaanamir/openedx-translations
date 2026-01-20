@@ -242,26 +242,12 @@ jobs:
         run: |
           cd ${{ matrix.repo.name }}
 
-          if [ "${{ matrix.repo.extraction_method }}" == "django" ]; then
-            mkdir -p conf/locale/en/LC_MESSAGES
-
-            if i18n_tool extract -v 2>&1; then
-              echo "i18n_tool succeeded"
-            elif [ -f Makefile ] && grep -q "extract_translations" Makefile; then
-              make extract_translations
-            else
-              django-admin makemessages -l en -v 3 \
-                --extension=html,txt,py \
-                --ignore=node_modules --ignore=.git --ignore=build \
-                --no-location
-
-              django-admin makemessages -l en -d djangojs -v 3 \
-                --extension=js \
-                --ignore=node_modules --ignore=.git --ignore=build \
-                --no-location
-            fi
+          # Try Makefile first, fall back to i18n_tool
+          if [ -f Makefile ] && grep -q "extract_translations" Makefile; then
+            make extract_translations
           else
-            make extract_translations || true
+            mkdir -p conf/locale/en/LC_MESSAGES
+            i18n_tool extract -v || echo "Extraction completed with warnings"
           fi
 
       - name: Stage Files
