@@ -6,7 +6,7 @@ on:
       upstream_branch:
         description: 'Upstream branch for Atlas pull'
         required: true
-        default: 'open-release/teak.master'
+        default: 'release/teak'
 
 jobs:
   # STEP 1: Upstream Pull (Atlas)
