@@ -110,18 +110,25 @@ jobs:
       - name: Extract
         run: |
           cd ${{ matrix.repo.name }}
-          # Basic attempt. edx-platform needs requirements.
           if [ "${{ matrix.repo.name }}" == "edx-platform" ]; then
              sudo apt-get update && sudo apt install -y libxml2-dev libxmlsec1-dev libxslt1-dev
              pip install -r requirements/edx/base.txt
           fi
           pip install -r ../requirements/translations.txt || true
           make extract_translations || django-admin makemessages -l en
+          
+          # STAGING: Preserve structure for Step 3
+          cd ..
+          mkdir -p staging/${{ matrix.repo.name }}
+          # Use rsync to copy only .po files with parents, relative to workspace root
+          find ${{ matrix.repo.name }} -name "*.po" -exec cp --parents \{\} staging/ \;
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: extract-${{ matrix.repo.name }}
-          path: ${{ matrix.repo.name }}/**/locale/en/LC_MESSAGES/*.po
+          path: staging/
+          include-hidden-files: true
 
   extract-javascript:
     needs: [setup-extraction-matrix]
@@ -145,11 +152,18 @@ jobs:
         run: |
           cd ${{ matrix.repo.name }}
           make extract_translations || npm run i18n:extract || true
+          
+          # STAGING: Preserve structure for Step 3
+          cd ..
+          mkdir -p staging/${{ matrix.repo.name }}
+          find ${{ matrix.repo.name }} -name "transifex_input.json" -exec cp --parents \{\} staging/ \;
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: extract-${{ matrix.repo.name }}
-          path: ${{ matrix.repo.name }}/**/transifex_input.json
+          path: staging/
+          include-hidden-files: true
 
   extract-generic:
     needs: [setup-extraction-matrix]
@@ -173,11 +187,20 @@ jobs:
         run: |
           cd ${{ matrix.repo.repo }}
           make extract_translations || true
+          
+          # STAGING: Preserve structure for Step 3
+          cd ..
+          mkdir -p staging/${{ matrix.repo.repo }}
+          # Path might be different for generic so we use a more direct approach
+          # matrix.repo.transifex_file_path is usually relative to repo root
+          cp --parents ${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }} staging/
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: extract-${{ matrix.repo.repo }}
-          path: ${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }}
+          path: staging/
+          include-hidden-files: true
 
   # STEP 3 & 4: Logic and Final Merge
   finalize:

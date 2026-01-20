@@ -54,61 +54,94 @@ def update_custom_layer(extracted_dir):
 
     print(f"Found {len(supported_langs)} supported languages in upstream: {', '.join(supported_langs)}")
 
-    # 2. Iterate through extracted files
-    for extracted_file in extracted_path.glob("**/LC_MESSAGES/*.po"):
-        rel_path = extracted_file.relative_to(extracted_path)
-        # rel_path looks like: edx-platform/conf/locale/en/LC_MESSAGES/django.po
+    # 2. Iterate through extracted files (.po and .json)
+    for ext in ["**/*.po", "**/*.json"]:
+        for extracted_file in extracted_path.glob(ext):
+            rel_path = extracted_file.relative_to(extracted_path)
+            # rel_path starts with repo_name/
+            repo_name = rel_path.parts[0]
+            
+            # Find corresponding upstream source file
+            upstream_source = UPSTREAM_DIR / rel_path
+            upstream_repo_dir = UPSTREAM_DIR / repo_name
+            
+            print(f"Processing: {rel_path} (Upstream exists: {upstream_source.exists()})")
 
-        # Find corresponding upstream source file
-        upstream_source = UPSTREAM_DIR / rel_path
-        print(f"Processing: {rel_path} (Upstream exists: {upstream_source.exists()})")
-
-        # If upstream doesn't exist, the entire repo is custom
-        upstream_ids = get_msgids(upstream_source)
-        extracted_po = polib.pofile(extracted_file)
-
-        custom_entries = [e for e in extracted_po if e.msgid not in upstream_ids]
-
-        if not custom_entries:
-            print(f"No custom strings found for {rel_path}")
-            continue
-
-        print(f"Found {len(custom_entries)} custom strings for {rel_path}")
-
-        # Update English Custom File
-        custom_en_path = CUSTOM_DIR / rel_path
-        ensure_directory(custom_en_path.parent)
-
-        if custom_en_path.exists():
-            custom_en_po = polib.pofile(custom_en_path)
-            existing_custom_ids = {e.msgid for e in custom_en_po}
-        else:
-            custom_en_po = polib.POFile()
-            custom_en_po.metadata = extracted_po.metadata.copy()
-            existing_custom_ids = set()
-
-        for entry in custom_entries:
-            if entry.msgid not in existing_custom_ids:
-                custom_en_po.append(entry)
-        custom_en_po.save(custom_en_path)
-
-        # Update Placeholders for ALL other languages
-        for lang in supported_langs:
-            # We need to construct the localized path for custom
-            # rel_path: edx-platform/conf/locale/en/LC_MESSAGES/django.po
-            # parts: ('edx-platform', 'conf', 'locale', 'en', 'LC_MESSAGES', 'django.po')
-            parts = list(rel_path.parts)
-            try:
-                en_index = parts.index("en")
-                parts[en_index] = lang
-            except ValueError:
-                # If 'en' is not in path, we assume it's some other structure?
-                # Usually it should be there.
+            # Check if this is a brand new repo not in upstream
+            if not upstream_repo_dir.exists():
+                print(f"New repo detected: {repo_name}. Skipping diff, treating all as custom.")
+                # For new repos, we just copy everything to custom
+                custom_file_path = CUSTOM_DIR / rel_path
+                ensure_directory(custom_file_path.parent)
+                shutil.copy(extracted_file, custom_file_path)
+                
+                # Still need to handle placeholders for other languages?
+                # For new repos, we might want to create empty files for all langs
+                if extracted_file.suffix == ".po":
+                    create_po_placeholders(extracted_file, rel_path, supported_langs)
                 continue
 
+            # Standard diff logic for existing repos
+            if extracted_file.suffix == ".po":
+                process_po_diff(extracted_file, upstream_source, rel_path, supported_langs)
+            elif extracted_file.suffix == ".json":
+                process_json_diff(extracted_file, upstream_source, rel_path)
+
+def create_po_placeholders(extracted_file, rel_path, supported_langs):
+    po = polib.pofile(extracted_file)
+    for lang in supported_langs:
+        parts = list(rel_path.parts)
+        try:
+            en_index = parts.index("en")
+            parts[en_index] = lang
+            p_path = CUSTOM_DIR / Path(*parts)
+            if not p_path.exists():
+                ensure_directory(p_path.parent)
+                new_po = polib.POFile()
+                new_po.metadata = po.metadata.copy()
+                for entry in po:
+                    new_po.append(polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences))
+                new_po.save(p_path)
+        except ValueError:
+            continue
+
+def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
+    upstream_ids = get_msgids(upstream_source)
+    extracted_po = polib.pofile(extracted_file)
+    custom_entries = [e for e in extracted_po if e.msgid not in upstream_ids]
+    
+    if not custom_entries:
+        print(f"No custom PO strings found for {rel_path}")
+        return
+
+    print(f"Found {len(custom_entries)} custom strings for {rel_path}")
+    
+    # Update English Custom File
+    custom_en_path = CUSTOM_DIR / rel_path
+    ensure_directory(custom_en_path.parent)
+    
+    if custom_en_path.exists():
+        custom_en_po = polib.pofile(custom_en_path)
+        existing_custom_ids = {e.msgid for e in custom_en_po}
+    else:
+        custom_en_po = polib.POFile()
+        custom_en_po.metadata = extracted_po.metadata.copy()
+        existing_custom_ids = set()
+
+    for entry in custom_entries:
+        if entry.msgid not in existing_custom_ids:
+            custom_en_po.append(entry)
+    custom_en_po.save(custom_en_path)
+
+    # Update Placeholders for ALL other languages
+    for lang in supported_langs:
+        parts = list(rel_path.parts)
+        try:
+            en_index = parts.index("en")
+            parts[en_index] = lang
             custom_lang_path = CUSTOM_DIR / Path(*parts)
             ensure_directory(custom_lang_path.parent)
-
+            
             if custom_lang_path.exists():
                 custom_lang_po = polib.pofile(custom_lang_path)
                 existing_lang_map = {e.msgid: e for e in custom_lang_po}
@@ -119,17 +152,41 @@ def update_custom_layer(extracted_dir):
 
             for entry in custom_entries:
                 if entry.msgid not in existing_lang_map:
-                    # New placeholder
-                    new_entry = polib.POEntry(
-                        msgid=entry.msgid,
-                        msgstr="", # Empty translation
-                        occurrences=entry.occurrences
-                    )
+                    new_entry = polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences)
                     custom_lang_po.append(new_entry)
-                else:
-                    # Maintain existing translation
-                    pass
             custom_lang_po.save(custom_lang_path)
+        except ValueError:
+            continue
+
+def process_json_diff(extracted_file, upstream_source, rel_path):
+    # Javascript transifex_input.json is a simple { "msgid": "En String" } map
+    with open(extracted_file, "r") as f:
+        extracted_data = json.load(f)
+    
+    if upstream_source.exists():
+        with open(upstream_source, "r") as f:
+            upstream_data = json.load(f)
+    else:
+        upstream_data = {}
+
+    custom_data = {k: v for k, v in extracted_data.items() if k not in upstream_data}
+    
+    if not custom_data:
+        print(f"No custom JSON strings for {rel_path}")
+        return
+
+    custom_path = CUSTOM_DIR / rel_path
+    ensure_directory(custom_path.parent)
+    
+    if custom_path.exists():
+        with open(custom_path, "r") as f:
+            existing_custom = json.load(f)
+    else:
+        existing_custom = {}
+
+    existing_custom.update(custom_data)
+    with open(custom_path, "w") as f:
+        json.dump(existing_custom, f, indent=2, sort_keys=True)
 
 def merge_final():
     """
@@ -143,34 +200,37 @@ def merge_final():
     shutil.copytree(UPSTREAM_DIR, FINAL_DIR)
 
     # Overlay custom
-    for custom_file in CUSTOM_DIR.glob("**/*.po"):
-        rel_path = custom_file.relative_to(CUSTOM_DIR)
-        final_file = FINAL_DIR / rel_path
-
-        if not final_file.exists():
-            # Brand new custom file (e.g. from a new custom repo)
-            ensure_directory(final_file.parent)
-            shutil.copy(custom_file, final_file)
-            continue
-
-        # Merge contents
-        upstream_po = polib.pofile(final_file)
-        custom_po = polib.pofile(custom_file)
-
-        upstream_map = {e.msgid: e for e in upstream_po}
-
-        for entry in custom_po:
-            if entry.msgid in upstream_map:
-                # Override
-                if entry.msgstr: # Only override if custom has a translation?
-                                 # Or override anyway to keep it empty if that's what's in custom?
-                                 # Usually custom wins.
-                    upstream_map[entry.msgid].msgstr = entry.msgstr
-            else:
-                # Completely new string (WM Specific)
-                upstream_po.append(entry)
-
-        upstream_po.save(final_file)
+    for ext in ["**/*.po", "**/*.json"]:
+        for custom_file in CUSTOM_DIR.glob(ext):
+            rel_path = custom_file.relative_to(CUSTOM_DIR)
+            final_file = FINAL_DIR / rel_path
+            
+            if not final_file.exists():
+                # Brand new custom file (e.g. from a new custom repo)
+                ensure_directory(final_file.parent)
+                shutil.copy(custom_file, final_file)
+                continue
+                
+            # Merge contents
+            if custom_file.suffix == ".po":
+                upstream_po = polib.pofile(final_file)
+                custom_po = polib.pofile(custom_file)
+                upstream_map = {e.msgid: e for e in upstream_po}
+                for entry in custom_po:
+                    if entry.msgid in upstream_map:
+                        if entry.msgstr:
+                            upstream_map[entry.msgid].msgstr = entry.msgstr
+                    else:
+                        upstream_po.append(entry)
+                upstream_po.save(final_file)
+            elif custom_file.suffix == ".json":
+                with open(final_file, "r") as f:
+                    final_data = json.load(f)
+                with open(custom_file, "r") as f:
+                    custom_data = json.load(f)
+                final_data.update(custom_data)
+                with open(final_file, "w") as f:
+                    json.dump(final_data, f, indent=2, sort_keys=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
