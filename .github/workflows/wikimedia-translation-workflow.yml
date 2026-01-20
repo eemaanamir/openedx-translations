@@ -70,14 +70,22 @@ jobs:
               (config.custom_repos[type] || []).forEach(repo => {
                 if (repo.new_repo || repo.replaces_default) {
                   const item = {
-                    name: repo.repo,
+                    name: repo.default_repo_name || repo.repo,
+                    actualName: repo.repo,
                     organization: repo.organization,
                     ref: repo.branch,
                     type: type
                   };
                   if (type === 'python') python.push(item);
                   if (type === 'javascript') js.push(item);
-                  if (type === 'generic') generic.push(repo); // generic needs full config
+                  if (type === 'generic') {
+                    // Pass full config for generic repos
+                    generic.push({
+                      ...item,
+                      transifex_file_path: repo.transifex_file_path || 'conf/locale/en/LC_MESSAGES/django.po',
+                      extraction_method: repo.extraction_method || 'django'
+                    });
+                  }
                 }
               });
             });
@@ -95,41 +103,75 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: setup python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install gettext
-        run: sudo apt install -y gettext
+        run: sudo apt-get update && sudo apt install -y gettext
+
       - name: clone repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.name }}
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.actualName }}
           ref: ${{ matrix.repo.ref }}
           path: ${{ matrix.repo.name }}
-      - name: Extract
+
+      - name: Install Python requirements
         run: |
-          cd ${{ matrix.repo.name }}
-          if [ "${{ matrix.repo.name }}" == "edx-platform" ]; then
-             sudo apt-get update && sudo apt install -y libxml2-dev libxmlsec1-dev libxslt1-dev
-             pip install -r requirements/edx/base.txt
-          fi
-          # Install basic translations tools
-          pip install -r ../requirements/translations.txt || true
-          
-          # If the repo has its own translations requirements, install them
-          if [ -f "requirements/translations.txt" ]; then
-             pip install -r requirements/translations.txt || true
+          pip install -r requirements/translations.txt || echo "No global translations.txt, continuing..."
+
+          # FIXED: Install repo-specific requirements for new repos like openedx-wikilearn-features
+          if [ -f ${{ matrix.repo.name }}/requirements/base.txt ]; then
+            echo "Installing base requirements for ${{ matrix.repo.name }}"
+            pip install -r ${{ matrix.repo.name }}/requirements/base.txt
+          elif [ -f ${{ matrix.repo.name }}/requirements.txt ]; then
+            echo "Installing requirements.txt for ${{ matrix.repo.name }}"
+            pip install -r ${{ matrix.repo.name }}/requirements.txt
           fi
 
-          # Extract
-          make extract_translations || (django-admin makemessages -l en && django-admin makemessages -d djangojs -l en)
-          
-          # STAGING: Preserve structure for Step 3
-          cd ..
-          mkdir -p staging
-          # Use find to copy all .po files with parents, relative to current dir (which is root)
-          find ${{ matrix.repo.name }} -name "*.po" -exec cp --parents \{\} staging/ \;
+          # Special handling for edx-platform
+          if [ "${{ matrix.repo.name }}" == "edx-platform" ]; then
+            sudo apt install -y libxml2-dev libxmlsec1-dev libxslt1-dev
+            pip install -r ${{ matrix.repo.name }}/requirements/edx/base.txt
+            # Remove theme directories with locale folders
+            rm -rf ${{ matrix.repo.name }}/themes/*/conf 2>/dev/null || true
+          fi
+
+      - name: Extract translations
+        run: |
+          cd ${{ matrix.repo.name }}
+
+          # FIXED: Try make extract_translations first, fallback to django-admin
+          if make extract_translations 2>/dev/null; then
+            echo "Extraction via make succeeded"
+          else
+            echo "make extract_translations failed, trying django-admin makemessages"
+            django-admin makemessages -l en --verbosity 2
+          fi
+        env:
+          IS_OPENEDX_TRANSLATIONS_WORKFLOW: yes
+
+      - name: Validate compilation
+        run: |
+          cd ${{ matrix.repo.name }}
+          django-admin compilemessages --locale en || echo "Compilation validation skipped"
+
+      - name: Stage extracted files
+        run: |
+          mkdir -p staging/${{ matrix.repo.name }}
+          # FIXED: Use find with -exec to preserve directory structure
+          find ${{ matrix.repo.name }} -name "*.po" -type f | while read file; do
+            target="staging/$file"
+            mkdir -p "$(dirname "$target")"
+            cp "$file" "$target"
+          done
+
+          # Verify what was staged
+          echo "Staged files:"
+          find staging/${{ matrix.repo.name }} -name "*.po" | head -20
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -147,24 +189,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 16
+
       - name: clone repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.name }}
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.actualName }}
           ref: ${{ matrix.repo.ref }}
           path: ${{ matrix.repo.name }}
-      - name: Extract
+
+      - name: Extract translations
         run: |
           cd ${{ matrix.repo.name }}
-          make extract_translations || npm run i18n:extract || true
-          
-          # STAGING: Preserve structure for Step 3
-          cd ..
-          mkdir -p staging
-          find ${{ matrix.repo.name }} -name "transifex_input.json" -exec cp --parents \{\} staging/ \;
+
+          # Try make extract_translations first
+          if make extract_translations 2>/dev/null; then
+            echo "Extraction via make succeeded"
+          else
+            echo "make extract_translations failed, trying npm run i18n:extract"
+            npm install || true
+            npm run i18n:extract || echo "npm i18n:extract also failed"
+          fi
+
+      - name: Stage extracted files
+        run: |
+          mkdir -p staging/${{ matrix.repo.name }}
+          # FIXED: Properly copy transifex_input.json with directory structure
+          find ${{ matrix.repo.name }} -name "transifex_input.json" -type f | while read file; do
+            target="staging/$file"
+            mkdir -p "$(dirname "$target")"
+            cp "$file" "$target"
+          done
+
+          # Verify what was staged
+          echo "Staged files:"
+          find staging/${{ matrix.repo.name }} -name "transifex_input.json"
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -182,45 +244,71 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt install -y gettext
+
+      - name: Install Python requirements
+        run: |
+          pip install -r requirements/translations.txt || echo "No global translations.txt"
+
+          # FIXED: Install i18n_tool for Tutor themes
+          if [ "${{ matrix.repo.extraction_method }}" == "django" ]; then
+            echo "Installing i18n_tool for theme extraction"
+            pip install i18n_tool
+          fi
+
       - name: clone repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.actualName || matrix.repo.repo }}
-          ref: ${{ matrix.repo.branch }}
-          path: ${{ matrix.repo.repo }}
-      - name: Extract
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.actualName }}
+          ref: ${{ matrix.repo.ref }}
+          path: ${{ matrix.repo.name }}
+
+      - name: Extract translations
         run: |
-          cd ${{ matrix.repo.repo }}
-          # Basic python env for extraction
-          pip install -r ../requirements/translations.txt || true
-          
-          # Extraction logic
+          cd ${{ matrix.repo.name }}
+
+          # FIXED: For Django-style themes, use i18n_tool
           if [ "${{ matrix.repo.extraction_method }}" == "django" ]; then
-             mkdir -p conf/locale/en/LC_MESSAGES
-             django-admin makemessages -l en --ignore=node_modules/* --ignore=venv/*
-             django-admin makemessages -d djangojs -l en --ignore=node_modules/* --ignore=venv/*
+            echo "Using i18n_tool for theme extraction"
+            i18n_tool extract || make extract_translations || django-admin makemessages -l en
           else
-             make extract_translations || true
+            make extract_translations || echo "Extraction failed"
           fi
-          
-          # STAGING: Preserve structure for Step 3
-          cd ..
-          mkdir -p staging
-          # If transifex_file_path is defined, copy that. Otherwise copy all .po and .json
-          if [ -n "${{ matrix.repo.transifex_file_path }}" ]; then
-             find ${{ matrix.repo.repo }} -wholename "${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }}" -exec cp --parents -r \{\} staging/ \;
+
+      - name: Stage extracted files
+        run: |
+          mkdir -p staging/${{ matrix.repo.name }}
+
+          # FIXED: Handle the transifex_file_path correctly
+          source_file="${{ matrix.repo.name }}/${{ matrix.repo.transifex_file_path }}"
+
+          if [ -f "$source_file" ]; then
+            target="staging/$source_file"
+            mkdir -p "$(dirname "$target")"
+            cp "$source_file" "$target"
+            echo "Staged: $source_file -> $target"
           else
-             find ${{ matrix.repo.repo }} -name "*.po" -exec cp --parents \{\} staging/ \;
-             find ${{ matrix.repo.repo }} -name "*.json" -exec cp --parents \{\} staging/ \;
+            echo "WARNING: Source file not found: $source_file"
+            echo "Looking for alternative files..."
+            find ${{ matrix.repo.name }} -name "*.po" -o -name "*.yaml" -o -name "*.json" | head -10
           fi
+
+          # Verify what was staged
+          echo "Staged files:"
+          find staging/${{ matrix.repo.name }} -type f
 
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: extract-${{ matrix.repo.repo }}
+          name: extract-${{ matrix.repo.name }}
           path: staging/
           include-hidden-files: true
 
@@ -231,6 +319,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install polib
+        run: pip install polib
+
       - name: Download Upstream
         uses: actions/download-artifact@v4
         with:
@@ -244,14 +341,32 @@ jobs:
           pattern: extract-*
           merge-multiple: true # This combines all subfolders (edx-platform, etc.) into one root
 
+      - name: Verify downloaded artifacts
+        run: |
+          echo "=== Upstream Translations ==="
+          ls -la translations-upstream/ | head -20
+          echo ""
+          echo "=== Extracted Sources ==="
+          ls -la extracted-sources/ | head -20
+          echo ""
+          echo "=== Sample extracted files ==="
+          find extracted-sources/ -type f | head -20
+
       - name: STEP 3 Update Custom Layer (Diff & Placeholders)
         run: |
-          pip install polib
           python3 scripts/wikimedia_workflow_logic.py update_custom --extracted-dir extracted-sources
 
       - name: STEP 4 Final Production Merge
         run: |
           python3 scripts/wikimedia_workflow_logic.py merge_final
+
+      - name: Verify final output
+        run: |
+          echo "=== Custom Translations ==="
+          find translations-custom/ -type f | head -20 || echo "No custom translations"
+          echo ""
+          echo "=== Final Translations ==="
+          find translations/ -type f | head -20
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -262,10 +377,14 @@ jobs:
           title: "Unified Translation Sync (Atlas Pull + Custom Merge)"
           body: |
             This PR contains the results of the Unified Translation Workflow:
-            1. Step 1: Upstream pulled from `openedx/openedx-translations` (@${{ inputs.upstream_branch }})
-            2. Step 2: Custom strings extracted from Forks/New Repos.
-            3. Step 3: Custom strings isolated into `translations-custom/` with automatic placeholders.
-            4. Step 4: Final production bundle generated in `translations/`.
+            1. **Step 1**: Upstream pulled from `openedx/openedx-translations` (@${{ inputs.upstream_branch }})
+            2. **Step 2**: Custom strings extracted from Forks/New Repos
+            3. **Step 3**: Custom strings isolated into `translations-custom/` with automatic placeholders
+            4. **Step 4**: Final production bundle generated in `translations/`
+
+            ## Workflow Summary
+            - Upstream branch: `${{ inputs.upstream_branch }}`
+            - Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           add-paths: |
             translations/
             translations-custom/

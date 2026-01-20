@@ -17,9 +17,11 @@ UPSTREAM_DIR = REPO_ROOT / "translations-upstream"
 CUSTOM_DIR = REPO_ROOT / "translations-custom"
 FINAL_DIR = REPO_ROOT / "translations"
 
+
 def ensure_directory(path):
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
+
 
 def get_msgids(po_file_path):
     if not os.path.exists(po_file_path):
@@ -31,6 +33,37 @@ def get_msgids(po_file_path):
         print(f"Error reading {po_file_path}: {e}")
         return set()
 
+
+def get_supported_languages():
+    """
+    Determine all supported languages from upstream translations.
+    Returns a list of language codes.
+    """
+    supported_langs = set()
+
+    # Scan upstream for language directories
+    for repo_dir in UPSTREAM_DIR.iterdir():
+        if not repo_dir.is_dir():
+            continue
+
+        # Check for Django-style locale directories
+        locale_dir = repo_dir / "conf" / "locale"
+        if locale_dir.exists():
+            for lang_dir in locale_dir.iterdir():
+                if lang_dir.is_dir() and lang_dir.name != "en":
+                    supported_langs.add(lang_dir.name)
+
+        # Check for MFE-style i18n directories (src/i18n/messages/)
+        i18n_dir = repo_dir / "src" / "i18n" / "messages"
+        if i18n_dir.exists():
+            for lang_file in i18n_dir.glob("*.json"):
+                lang_code = lang_file.stem
+                if lang_code != "en":
+                    supported_langs.add(lang_code)
+
+    return sorted(list(supported_langs))
+
+
 def update_custom_layer(extracted_dir):
     """
     Step 3: Update translations-custom based on diff between extracted and upstream.
@@ -41,18 +74,8 @@ def update_custom_layer(extracted_dir):
     extracted_path = Path(extracted_dir)
 
     # 1. Determine all supported languages from upstream
-    supported_langs = []
-    # Upstream structure: translations-upstream/<repo>/conf/locale/<lang>/...
-    # We'll scan a known large repo like edx-platform or just aggregate all langs found.
-    for repo_dir in UPSTREAM_DIR.iterdir():
-        if not repo_dir.is_dir(): continue
-        locale_dir = repo_dir / "conf" / "locale"
-        if locale_dir.exists():
-            for lang_dir in locale_dir.iterdir():
-                if lang_dir.is_dir() and lang_dir.name != "en" and lang_dir.name not in supported_langs:
-                    supported_langs.append(lang_dir.name)
-
-    print(f"Found {len(supported_langs)} supported languages in upstream: {', '.join(supported_langs)}")
+    supported_langs = get_supported_languages()
+    print(f"Found {len(supported_langs)} supported languages in upstream: {', '.join(supported_langs[:10])}...")
 
     # 2. Iterate through extracted files (.po and .json)
     for ext in ["**/*.po", "**/*.json"]:
@@ -60,60 +83,38 @@ def update_custom_layer(extracted_dir):
             rel_path = extracted_file.relative_to(extracted_path)
             # rel_path starts with repo_name/
             repo_name = rel_path.parts[0]
-            
-            # 2.1 Resolve Upstream Source Path (Handle MFE specialized naming)
-            upstream_source = resolve_upstream_path(rel_path)
-            upstream_repo_dir = UPSTREAM_DIR / repo_name
-            
-            print(f"Processing: {rel_path} (Mapped Upstream: {upstream_source.relative_to(REPO_ROOT) if upstream_source.exists() else 'N/A'})")
 
-            # 2.2 Check if this is a brand new repo not in upstream
+            # Find corresponding upstream source file
+            upstream_source = UPSTREAM_DIR / rel_path
+            upstream_repo_dir = UPSTREAM_DIR / repo_name
+
+            print(
+                f"Processing: {rel_path} (Upstream repo exists: {upstream_repo_dir.exists()}, Source exists: {upstream_source.exists()})")
+
+            # Check if this is a brand new repo not in upstream
             if not upstream_repo_dir.exists():
-                print(f"New repo detected: {repo_name}. Skipping diff, treating all as custom.")
-                # We save it to custom
+                print(f"New repo detected: {repo_name}. Treating all content as custom.")
+                # For new repos, copy everything to custom
                 custom_file_path = CUSTOM_DIR / rel_path
                 ensure_directory(custom_file_path.parent)
                 shutil.copy(extracted_file, custom_file_path)
-                
-                # Setup placeholders for all languages to ensure full coverage
+
+                # Create placeholders for other languages
                 if extracted_file.suffix == ".po":
                     create_po_placeholders(extracted_file, rel_path, supported_langs)
                 elif extracted_file.suffix == ".json":
                     create_json_placeholders(extracted_file, rel_path, supported_langs)
                 continue
 
-            # 2.3 Existing repo: Standard diff logic
+            # Standard diff logic for existing repos
             if extracted_file.suffix == ".po":
                 process_po_diff(extracted_file, upstream_source, rel_path, supported_langs)
             elif extracted_file.suffix == ".json":
                 process_json_diff(extracted_file, upstream_source, rel_path, supported_langs)
 
-def resolve_upstream_path(rel_path):
-    """
-    Maps an extracted file path to its corresponding upstream path.
-    Example: frontend-app-learning/src/i18n/transifex_input.json 
-             -> translations-upstream/frontend-app-learning/src/i18n/messages/en.json
-    """
-    # Default
-    upstream_path = UPSTREAM_DIR / rel_path
-    if upstream_path.exists():
-        return upstream_path
-    
-    # MFE Logic: transifex_input.json -> src/i18n/messages/en.json or src/i18n/en.json
-    if rel_path.name == "transifex_input.json":
-        repo_name = rel_path.parts[0]
-        repo_upstream_base = UPSTREAM_DIR / repo_name
-        
-        # Search for any en.json in the upstream repo that might be the source
-        # Usually it's in src/i18n/messages/en.json or src/i18n/en.json
-        possible_patterns = ["**/messages/en.json", "**/i18n/en.json", "**/locale/en.json"]
-        for pattern in possible_patterns:
-            for found in repo_upstream_base.glob(pattern):
-                return found
-                
-    return upstream_path
 
 def create_po_placeholders(extracted_file, rel_path, supported_langs):
+    """Create empty PO files for all supported languages."""
     po = polib.pofile(extracted_file)
     for lang in supported_langs:
         parts = list(rel_path.parts)
@@ -128,56 +129,56 @@ def create_po_placeholders(extracted_file, rel_path, supported_langs):
                 for entry in po:
                     new_po.append(polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences))
                 new_po.save(p_path)
+                print(f"  Created placeholder: {p_path}")
         except ValueError:
             continue
 
+
 def create_json_placeholders(extracted_file, rel_path, supported_langs):
     """
-    For JSON repos, we create <lang>.json entries in the custom layer.
+    Create empty JSON message files for all supported languages (MFE pattern).
+    Assumes structure: <repo>/src/i18n/messages/en.json
+    Creates: <repo>/src/i18n/messages/{lang}.json
     """
     with open(extracted_file, "r") as f:
-        extracted_data = json.load(f)
-    
-    # For JSON, often the file itself is 'en.json' or 'transifex_input.json'
-    # We want to create counterparts for other languages.
-    for lang in supported_langs:
-        parts = list(rel_path.parts)
-        # If the file is 'transifex_input.json' (MFE), we map to messages/<lang>.json
-        if rel_path.name == "transifex_input.json":
-            # For custom layer, we follow the structured path: /src/i18n/messages/<lang>.json
-            p_path = CUSTOM_DIR / rel_path.parent / "messages" / f"{lang}.json"
-        else:
-            # Generic case: swap 'en' in path or just sibling file
-            try:
-                en_index = parts.index("en")
-                parts[en_index] = lang
-                p_path = CUSTOM_DIR / Path(*parts)
-            except ValueError:
-                # Just sibling with lang name if it's a specific filename
-                p_path = CUSTOM_DIR / rel_path.parent / f"{lang}.json"
+        en_data = json.load(f)
 
-        if not p_path.exists():
-            ensure_directory(p_path.parent)
-            # Empty translations
-            placeholder_data = {k: "" for k in extracted_data.keys()}
-            with open(p_path, "w") as f:
-                json.dump(placeholder_data, f, indent=2, sort_keys=True)
+    parts = list(rel_path.parts)
+    try:
+        # Find the language code in the path (usually the filename stem)
+        if "en.json" in str(rel_path):
+            # MFE pattern: src/i18n/messages/en.json
+            for lang in supported_langs:
+                lang_parts = parts[:-1] + [f"{lang}.json"]
+                lang_path = CUSTOM_DIR / Path(*lang_parts)
+
+                if not lang_path.exists():
+                    ensure_directory(lang_path.parent)
+                    # Create empty placeholder with same keys
+                    placeholder_data = {key: "" for key in en_data.keys()}
+                    with open(lang_path, "w") as f:
+                        json.dump(placeholder_data, f, indent=2, sort_keys=True)
+                    print(f"  Created JSON placeholder: {lang_path}")
+    except Exception as e:
+        print(f"  Warning: Could not create JSON placeholders for {rel_path}: {e}")
+
 
 def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
+    """Process PO file diff and update custom layer."""
     upstream_ids = get_msgids(upstream_source)
     extracted_po = polib.pofile(extracted_file)
     custom_entries = [e for e in extracted_po if e.msgid not in upstream_ids]
-    
+
     if not custom_entries:
-        print(f"No custom PO strings found for {rel_path}")
+        print(f"  No custom PO strings found for {rel_path}")
         return
 
-    print(f"Found {len(custom_entries)} custom strings for {rel_path}")
-    
+    print(f"  Found {len(custom_entries)} custom strings for {rel_path}")
+
     # Update English Custom File
     custom_en_path = CUSTOM_DIR / rel_path
     ensure_directory(custom_en_path.parent)
-    
+
     if custom_en_path.exists():
         custom_en_po = polib.pofile(custom_en_path)
         existing_custom_ids = {e.msgid for e in custom_en_po}
@@ -186,10 +187,15 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
         custom_en_po.metadata = extracted_po.metadata.copy()
         existing_custom_ids = set()
 
+    new_count = 0
     for entry in custom_entries:
         if entry.msgid not in existing_custom_ids:
             custom_en_po.append(entry)
-    custom_en_po.save(custom_en_path)
+            new_count += 1
+
+    if new_count > 0:
+        custom_en_po.save(custom_en_path)
+        print(f"  Added {new_count} new custom strings to {custom_en_path}")
 
     # Update Placeholders for ALL other languages
     for lang in supported_langs:
@@ -199,7 +205,7 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
             parts[en_index] = lang
             custom_lang_path = CUSTOM_DIR / Path(*parts)
             ensure_directory(custom_lang_path.parent)
-            
+
             if custom_lang_path.exists():
                 custom_lang_po = polib.pofile(custom_lang_path)
                 existing_lang_map = {e.msgid: e for e in custom_lang_po}
@@ -208,77 +214,103 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
                 custom_lang_po.metadata = extracted_po.metadata.copy()
                 existing_lang_map = {}
 
+            added = 0
             for entry in custom_entries:
                 if entry.msgid not in existing_lang_map:
                     new_entry = polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences)
                     custom_lang_po.append(new_entry)
-            custom_lang_po.save(custom_lang_path)
+                    added += 1
+
+            if added > 0:
+                custom_lang_po.save(custom_lang_path)
         except ValueError:
             continue
 
+
 def process_json_diff(extracted_file, upstream_source, rel_path, supported_langs):
-    # Javascript transifex_input.json is a simple { "msgid": "En String" } map
+    """
+    Process JSON diff for MFE transifex_input.json files.
+    Only keeps keys that don't exist in upstream.
+    """
     with open(extracted_file, "r") as f:
         extracted_data = json.load(f)
-    
+
     if upstream_source.exists():
         with open(upstream_source, "r") as f:
             upstream_data = json.load(f)
     else:
         upstream_data = {}
 
-    custom_keys = [k for k in extracted_data.keys() if k not in upstream_data]
-    
-    if not custom_keys:
-        print(f"No custom JSON strings for {rel_path}")
+    # FIXED: Only keep keys that are NOT in upstream
+    custom_data = {k: v for k, v in extracted_data.items() if k not in upstream_data}
+
+    if not custom_data:
+        print(f"  No custom JSON strings for {rel_path}")
         return
 
-    print(f"Found {len(custom_keys)} custom JSON strings for {rel_path}")
+    print(f"  Found {len(custom_data)} custom JSON keys for {rel_path}")
 
-    # 1. Update English Custom Source
     custom_path = CUSTOM_DIR / rel_path
     ensure_directory(custom_path.parent)
-    
+
     if custom_path.exists():
         with open(custom_path, "r") as f:
             existing_custom = json.load(f)
     else:
         existing_custom = {}
 
-    for k in custom_keys:
-        if k not in existing_custom:
-            existing_custom[k] = extracted_data[k]
-            
+    # Merge new custom keys while preserving existing ones
+    new_keys = {k: v for k, v in custom_data.items() if k not in existing_custom}
+    existing_custom.update(new_keys)
+
     with open(custom_path, "w") as f:
         json.dump(existing_custom, f, indent=2, sort_keys=True)
 
-    # 2. Update Placeholders for all languages
+    print(f"  Added {len(new_keys)} new custom JSON keys to {custom_path}")
+
+    # FIXED: Create JSON placeholders for MFE localized files
+    # Pattern: transifex_input.json -> convert to src/i18n/messages/{lang}.json placeholders
+    if "transifex_input.json" in str(rel_path):
+        create_mfe_localized_placeholders(custom_data, rel_path, supported_langs)
+
+
+def create_mfe_localized_placeholders(custom_data, rel_path, supported_langs):
+    """
+    Create localized JSON placeholders for MFE custom strings.
+    Converts transifex_input.json custom keys -> src/i18n/messages/{lang}.json
+    """
+    # Determine the base path for localized files
+    # transifex_input.json is usually at <repo>/src/i18n/transifex_input.json
+    # localized files are at <repo>/src/i18n/messages/{lang}.json
+
+    parts = list(rel_path.parts)
+    repo_name = parts[0]
+
+    # Construct the messages directory path
+    messages_base = CUSTOM_DIR / repo_name / "src" / "i18n" / "messages"
+    ensure_directory(messages_base)
+
     for lang in supported_langs:
-        # Resolve target lang path (MFE style vs Generic style)
-        if rel_path.name == "transifex_input.json":
-            lang_path = CUSTOM_DIR / rel_path.parent / "messages" / f"{lang}.json"
-        else:
-            parts = list(rel_path.parts)
-            try:
-                en_index = parts.index("en")
-                parts[en_index] = lang
-                lang_path = CUSTOM_DIR / Path(*parts)
-            except ValueError:
-                lang_path = CUSTOM_DIR / rel_path.parent / f"{lang}.json"
+        lang_file = messages_base / f"{lang}.json"
 
-        ensure_directory(lang_path.parent)
-        if lang_path.exists():
-            with open(lang_path, "r") as f:
-                lang_data = json.load(f)
+        if lang_file.exists():
+            with open(lang_file, "r") as f:
+                existing_data = json.load(f)
         else:
-            lang_data = {}
+            existing_data = {}
 
-        for k in custom_keys:
-            if k not in lang_data:
-                lang_data[k] = "" # New placeholder
-        
-        with open(lang_path, "w") as f:
-            json.dump(lang_data, f, indent=2, sort_keys=True)
+        # Add placeholders for custom keys that don't exist
+        new_keys = 0
+        for key in custom_data.keys():
+            if key not in existing_data:
+                existing_data[key] = ""
+                new_keys += 1
+
+        if new_keys > 0:
+            with open(lang_file, "w") as f:
+                json.dump(existing_data, f, indent=2, sort_keys=True)
+            print(f"  Created/Updated {lang_file} with {new_keys} placeholder keys")
+
 
 def merge_final():
     """
@@ -296,49 +328,51 @@ def merge_final():
         for custom_file in CUSTOM_DIR.glob(ext):
             rel_path = custom_file.relative_to(CUSTOM_DIR)
             final_file = FINAL_DIR / rel_path
-            
+
             if not final_file.exists():
                 # Brand new custom file (e.g. from a new custom repo)
                 ensure_directory(final_file.parent)
                 shutil.copy(custom_file, final_file)
+                print(f"  Copied new custom file: {rel_path}")
                 continue
-                
+
             # Merge contents
             if custom_file.suffix == ".po":
-                try:
-                    upstream_po = polib.pofile(final_file)
-                    custom_po = polib.pofile(custom_file)
-                    upstream_map = {e.msgid: e for e in upstream_po}
-                    for entry in custom_po:
-                        if entry.msgid in upstream_map:
-                            if entry.msgstr:
-                                upstream_map[entry.msgid].msgstr = entry.msgstr
-                        else:
-                            upstream_po.append(entry)
-                    upstream_po.save(final_file)
-                except Exception as e:
-                    print(f"Error merging PO {rel_path}: {e}")
+                upstream_po = polib.pofile(final_file)
+                custom_po = polib.pofile(custom_file)
+                upstream_map = {e.msgid: e for e in upstream_po}
+                added = 0
+                updated = 0
+                for entry in custom_po:
+                    if entry.msgid in upstream_map:
+                        if entry.msgstr:
+                            upstream_map[entry.msgid].msgstr = entry.msgstr
+                            updated += 1
+                    else:
+                        upstream_po.append(entry)
+                        added += 1
+                upstream_po.save(final_file)
+                if added > 0 or updated > 0:
+                    print(f"  Merged PO {rel_path}: +{added} entries, ~{updated} updated")
+
             elif custom_file.suffix == ".json":
-                print(f"Merging JSON: {rel_path}")
-                try:
-                    with open(final_file, "r") as f:
-                        f_content = f.read().strip()
-                        final_data = json.loads(f_content) if f_content else {}
-                    with open(custom_file, "r") as f:
-                        c_content = f.read().strip()
-                        custom_data = json.loads(c_content) if c_content else {}
-                    
-                    final_data.update(custom_data)
-                    with open(final_file, "w") as f:
-                        json.dump(final_data, f, indent=2, sort_keys=True)
-                except json.JSONDecodeError as e:
-                    print(f"CRITICAL ERROR: Malformed JSON in {rel_path}")
-                    print(f"Error details: {e}")
-                    # Show a bit of the file for debugging if possible
-                    raise
-                except Exception as e:
-                    print(f"Unexpected error merging JSON {rel_path}: {e}")
-                    raise
+                with open(final_file, "r") as f:
+                    final_data = json.load(f)
+                with open(custom_file, "r") as f:
+                    custom_data = json.load(f)
+
+                original_count = len(final_data)
+                final_data.update(custom_data)
+                added = len(final_data) - original_count
+
+                with open(final_file, "w") as f:
+                    json.dump(final_data, f, indent=2, sort_keys=True)
+
+                if added > 0:
+                    print(f"  Merged JSON {rel_path}: +{added} keys")
+
+    print("--- Merge Complete ---")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
