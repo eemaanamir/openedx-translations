@@ -24,11 +24,13 @@ def ensure_directory(path):
 
 
 def get_msgids(po_file_path):
+    """Get all msgids from a PO file, handling edge cases."""
     if not os.path.exists(po_file_path):
         return set()
     try:
         po = polib.pofile(po_file_path)
-        return {entry.msgid for entry in po}
+        # Filter out empty msgids and metadata entries
+        return {entry.msgid for entry in po if entry.msgid and not entry.obsolete}
     except Exception as e:
         print(f"Error reading {po_file_path}: {e}")
         return set()
@@ -69,6 +71,7 @@ def update_custom_layer(extracted_dir):
     Step 3: Update translations-custom based on diff between extracted and upstream.
     Always maintains existing translations.
     Creates placeholders for all languages.
+    Handles BOTH django.po and djangojs.po files.
     """
     print(f"--- Updating Custom Layer from {extracted_dir} ---")
     extracted_path = Path(extracted_dir)
@@ -78,6 +81,7 @@ def update_custom_layer(extracted_dir):
     print(f"Found {len(supported_langs)} supported languages in upstream: {', '.join(supported_langs[:10])}...")
 
     # 2. Iterate through extracted files (.po and .json)
+    # IMPORTANT: Process both django.po and djangojs.po
     for ext in ["**/*.po", "**/*.json"]:
         for extracted_file in extracted_path.glob(ext):
             rel_path = extracted_file.relative_to(extracted_path)
@@ -88,8 +92,17 @@ def update_custom_layer(extracted_dir):
             upstream_source = UPSTREAM_DIR / rel_path
             upstream_repo_dir = UPSTREAM_DIR / repo_name
 
+            # Identify file type for logging
+            file_type = "unknown"
+            if "djangojs.po" in str(rel_path):
+                file_type = "djangojs.po (JavaScript)"
+            elif "django.po" in str(rel_path):
+                file_type = "django.po (Templates/Python)"
+            elif ".json" in str(rel_path):
+                file_type = "JSON (MFE)"
+
             print(
-                f"Processing: {rel_path} (Upstream repo exists: {upstream_repo_dir.exists()}, Source exists: {upstream_source.exists()})")
+                f"Processing: {rel_path} [{file_type}] (Upstream repo exists: {upstream_repo_dir.exists()}, Source exists: {upstream_source.exists()})")
 
             # Check if this is a brand new repo not in upstream
             if not upstream_repo_dir.exists():
@@ -114,8 +127,16 @@ def update_custom_layer(extracted_dir):
 
 
 def create_po_placeholders(extracted_file, rel_path, supported_langs):
-    """Create empty PO files for all supported languages."""
-    po = polib.pofile(extracted_file)
+    """
+    Create empty PO files for all supported languages.
+    Handles both django.po and djangojs.po files.
+    """
+    try:
+        po = polib.pofile(extracted_file)
+    except Exception as e:
+        print(f"  WARNING: Cannot read extracted file for placeholders: {e}")
+        return
+
     for lang in supported_langs:
         parts = list(rel_path.parts)
         try:
@@ -126,8 +147,18 @@ def create_po_placeholders(extracted_file, rel_path, supported_langs):
                 ensure_directory(p_path.parent)
                 new_po = polib.POFile()
                 new_po.metadata = po.metadata.copy()
+
+                # Preserve Domain metadata for djangojs.po files
+                if "djangojs" in str(rel_path):
+                    new_po.metadata['Domain'] = 'djangojs'
+
                 for entry in po:
-                    new_po.append(polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences))
+                    if entry.msgid:  # Skip empty msgids
+                        new_po.append(polib.POEntry(
+                            msgid=entry.msgid,
+                            msgstr="",
+                            occurrences=entry.occurrences
+                        ))
                 new_po.save(p_path)
                 print(f"  Created placeholder: {p_path}")
         except ValueError:
@@ -173,8 +204,15 @@ def create_json_placeholders(extracted_file, rel_path, supported_langs):
 def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
     """Process PO file diff and update custom layer."""
     upstream_ids = get_msgids(upstream_source)
-    extracted_po = polib.pofile(extracted_file)
-    custom_entries = [e for e in extracted_po if e.msgid not in upstream_ids]
+
+    try:
+        extracted_po = polib.pofile(extracted_file)
+    except Exception as e:
+        print(f"  ERROR: Cannot read extracted PO file {rel_path}: {e}")
+        return
+
+    # Filter out empty msgids and metadata
+    custom_entries = [e for e in extracted_po if e.msgid and not e.obsolete and e.msgid not in upstream_ids]
 
     if not custom_entries:
         print(f"  No custom PO strings found for {rel_path}")
@@ -187,8 +225,14 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
     ensure_directory(custom_en_path.parent)
 
     if custom_en_path.exists():
-        custom_en_po = polib.pofile(custom_en_path)
-        existing_custom_ids = {e.msgid for e in custom_en_po}
+        try:
+            custom_en_po = polib.pofile(custom_en_path)
+            existing_custom_ids = {e.msgid for e in custom_en_po}
+        except Exception as e:
+            print(f"  WARNING: Cannot read existing custom file, creating new: {e}")
+            custom_en_po = polib.POFile()
+            custom_en_po.metadata = extracted_po.metadata.copy()
+            existing_custom_ids = set()
     else:
         custom_en_po = polib.POFile()
         custom_en_po.metadata = extracted_po.metadata.copy()
@@ -214,8 +258,14 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
             ensure_directory(custom_lang_path.parent)
 
             if custom_lang_path.exists():
-                custom_lang_po = polib.pofile(custom_lang_path)
-                existing_lang_map = {e.msgid: e for e in custom_lang_po}
+                try:
+                    custom_lang_po = polib.pofile(custom_lang_path)
+                    existing_lang_map = {e.msgid: e for e in custom_lang_po}
+                except Exception as e:
+                    print(f"  WARNING: Cannot read existing placeholder for {lang}, creating new: {e}")
+                    custom_lang_po = polib.POFile()
+                    custom_lang_po.metadata = extracted_po.metadata.copy()
+                    existing_lang_map = {}
             else:
                 custom_lang_po = polib.POFile()
                 custom_lang_po.metadata = extracted_po.metadata.copy()
