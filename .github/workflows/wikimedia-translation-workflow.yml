@@ -1,0 +1,231 @@
+name: Wikimedia Translation Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      upstream_branch:
+        description: 'Upstream branch for Atlas pull'
+        required: true
+        default: 'open-release/teak.master'
+
+jobs:
+  # STEP 1: Upstream Pull (Atlas)
+  pull-upstream:
+    runs-on: ubuntu-latest
+    outputs:
+      langs: ${{ steps.get-langs.outputs.langs }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install openedx-atlas polib
+
+      - name: STEP 1 Atlas Pull Upstream
+        run: |
+          # Create dir
+          mkdir -p translations-upstream
+          # Run atlas pull using the provided revision (-n)
+          # We pull the 'translations' directory from openedx/openedx-translations
+          # the -g (expand-glob) ensures we get all subdirectories.
+          atlas pull -n ${{ inputs.upstream_branch }} -g translations:translations-upstream
+
+          # Verify pull
+          ls -R translations-upstream/ | head -n 20
+
+      - name: Upload Upstream Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: translations-upstream
+          path: translations-upstream/
+
+  # STEP 2: Selective Extraction (Custom Repos)
+  # We reuse the matrix generation logic but filtered for custom
+  setup-extraction-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      python_repos: ${{ steps.generate.outputs.python_repos }}
+      js_repos: ${{ steps.generate.outputs.js_repos }}
+      generic_repos: ${{ steps.generate.outputs.generic_repos }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/github-script@v7
+        id: generate
+        with:
+          script: |
+            const fs = require('fs');
+            const config = JSON.parse(fs.readFileSync('.github/wikilearn-repos-config.json', 'utf8'));
+
+            const python = [];
+            const js = [];
+            const generic = [];
+
+            ['python', 'javascript', 'generic'].forEach(type => {
+              (config.custom_repos[type] || []).forEach(repo => {
+                if (repo.new_repo || repo.replaces_default) {
+                  const item = {
+                    name: repo.repo,
+                    organization: repo.organization,
+                    ref: repo.branch,
+                    type: type
+                  };
+                  if (type === 'python') python.push(item);
+                  if (type === 'javascript') js.push(item);
+                  if (type === 'generic') generic.push(repo); // generic needs full config
+                }
+              });
+            });
+
+            core.setOutput('python_repos', JSON.stringify(python));
+            core.setOutput('js_repos', JSON.stringify(js));
+            core.setOutput('generic_repos', JSON.stringify(generic));
+
+  extract-python:
+    needs: [setup-extraction-matrix]
+    if: fromJson(needs.setup-extraction-matrix.outputs.python_repos)[0] != null
+    strategy:
+      matrix:
+        repo: ${{ fromJson(needs.setup-extraction-matrix.outputs.python_repos) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install gettext
+        run: sudo apt install -y gettext
+      - name: clone repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.name }}
+          ref: ${{ matrix.repo.ref }}
+          path: ${{ matrix.repo.name }}
+      - name: Extract
+        run: |
+          cd ${{ matrix.repo.name }}
+          # Basic attempt. edx-platform needs requirements.
+          if [ "${{ matrix.repo.name }}" == "edx-platform" ]; then
+             sudo apt-get update && sudo apt install -y libxml2-dev libxmlsec1-dev libxslt1-dev
+             pip install -r requirements/edx/base.txt
+          fi
+          pip install -r ../requirements/translations.txt || true
+          make extract_translations || django-admin makemessages -l en
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: extract-${{ matrix.repo.name }}
+          path: ${{ matrix.repo.name }}/**/locale/en/LC_MESSAGES/*.po
+
+  extract-javascript:
+    needs: [setup-extraction-matrix]
+    if: fromJson(needs.setup-extraction-matrix.outputs.js_repos)[0] != null
+    strategy:
+      matrix:
+        repo: ${{ fromJson(needs.setup-extraction-matrix.outputs.js_repos) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - name: clone repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.name }}
+          ref: ${{ matrix.repo.ref }}
+          path: ${{ matrix.repo.name }}
+      - name: Extract
+        run: |
+          cd ${{ matrix.repo.name }}
+          make extract_translations || npm run i18n:extract || true
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: extract-${{ matrix.repo.name }}
+          path: ${{ matrix.repo.name }}/**/transifex_input.json
+
+  extract-generic:
+    needs: [setup-extraction-matrix]
+    if: fromJson(needs.setup-extraction-matrix.outputs.generic_repos)[0] != null
+    strategy:
+      matrix:
+        repo: ${{ fromJson(needs.setup-extraction-matrix.outputs.generic_repos) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: clone repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo.organization }}/${{ matrix.repo.actualName || matrix.repo.repo }}
+          ref: ${{ matrix.repo.branch }}
+          path: ${{ matrix.repo.repo }}
+      - name: Extract
+        run: |
+          cd ${{ matrix.repo.repo }}
+          make extract_translations || true
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: extract-${{ matrix.repo.repo }}
+          path: ${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }}
+
+  # STEP 3 & 4: Logic and Final Merge
+  finalize:
+    needs: [pull-upstream, extract-python, extract-javascript, extract-generic]
+    if: always() # Ensure we merge what we managed to extract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Upstream
+        uses: actions/download-artifact@v4
+        with:
+          name: translations-upstream
+          path: translations-upstream
+
+      - name: Download Extractions
+        uses: actions/download-artifact@v4
+        with:
+          path: extracted-sources
+          pattern: extract-*
+          merge-multiple: false # Keep repo dirs separate?
+                                # Logic script expects a flat-ish structure or can handle.
+
+      - name: STEP 3 Update Custom Layer (Diff & Placeholders)
+        run: |
+          pip install polib
+          # We need to organize extracted files into a staging area
+          mkdir -p staging-extracted
+          cp -r extracted-sources/extract-*/* staging-extracted/ || true
+          python3 scripts/wikimedia_workflow_logic.py update_custom --extracted-dir staging-extracted
+
+      - name: STEP 4 Final Production Merge
+        run: |
+          python3 scripts/wikimedia_workflow_logic.py merge_final
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.EDX_TRANSIFEX_BOT_GITHUB_TOKEN }}
+          commit-message: "feat: unified translation update (Upstream + Custom Override)"
+          branch: "chore/unified-translations-${{ github.run_id }}"
+          title: "Unified Translation Sync (Atlas Pull + Custom Merge)"
+          body: |
+            This PR contains the results of the Unified Translation Workflow:
+            1. Step 1: Upstream pulled from `openedx/openedx-translations` (@${{ inputs.upstream_branch }})
+            2. Step 2: Custom strings extracted from Forks/New Repos.
+            3. Step 3: Custom strings isolated into `translations-custom/` with automatic placeholders.
+            4. Step 4: Final production bundle generated in `translations/`.
+          add-paths: |
+            translations/
+            translations-custom/
+            translations-upstream/

@@ -17,9 +17,6 @@ on:
         default: ''
         type: string
 
-  schedule:
-    - cron: '0 0 * * *'  # every day at midnight
-
 jobs:
   setup-matrix:
     runs-on: ubuntu-latest
@@ -49,7 +46,7 @@ jobs:
             // Build custom repo mappings
             const customRepoMap = {};
             const newRepos = { python: [], javascript: [], generic: [] };
-            
+
             ['python', 'javascript', 'generic'].forEach(type => {
               (config.custom_repos[type] || []).forEach(repoConfig => {
                 const standardName = repoConfig.default_repo_name || repoConfig.repo;
