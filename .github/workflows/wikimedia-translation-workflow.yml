@@ -123,7 +123,7 @@ jobs:
           fi
 
           # Extract
-          make extract_translations || django-admin makemessages -l en
+          make extract_translations || (django-admin makemessages -l en && django-admin makemessages -d djangojs -l en)
           
           # STAGING: Preserve structure for Step 3
           cd ..
@@ -196,13 +196,26 @@ jobs:
           cd ${{ matrix.repo.repo }}
           # Basic python env for extraction
           pip install -r ../requirements/translations.txt || true
-          make extract_translations || true
+          
+          # Extraction logic
+          if [ "${{ matrix.repo.extraction_method }}" == "django" ]; then
+             mkdir -p conf/locale/en/LC_MESSAGES
+             django-admin makemessages -l en --ignore=node_modules/* --ignore=venv/*
+             django-admin makemessages -d djangojs -l en --ignore=node_modules/* --ignore=venv/*
+          else
+             make extract_translations || true
+          fi
           
           # STAGING: Preserve structure for Step 3
           cd ..
           mkdir -p staging
-          # Find the specific file we extracted and copy with parents
-          find ${{ matrix.repo.repo }} -wholename "${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }}" -exec cp --parents \{\} staging/ \;
+          # If transifex_file_path is defined, copy that. Otherwise copy all .po and .json
+          if [ -n "${{ matrix.repo.transifex_file_path }}" ]; then
+             find ${{ matrix.repo.repo }} -wholename "${{ matrix.repo.repo }}/${{ matrix.repo.transifex_file_path }}" -exec cp --parents -r \{\} staging/ \;
+          else
+             find ${{ matrix.repo.repo }} -name "*.po" -exec cp --parents \{\} staging/ \;
+             find ${{ matrix.repo.repo }} -name "*.json" -exec cp --parents \{\} staging/ \;
+          fi
 
       - name: Upload
         uses: actions/upload-artifact@v4

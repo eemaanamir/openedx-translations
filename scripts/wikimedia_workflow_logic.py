@@ -96,18 +96,21 @@ def resolve_upstream_path(rel_path):
     """
     # Default
     upstream_path = UPSTREAM_DIR / rel_path
+    if upstream_path.exists():
+        return upstream_path
     
-    # MFE Logic: transifex_input.json -> src/i18n/messages/en.json
+    # MFE Logic: transifex_input.json -> src/i18n/messages/en.json or src/i18n/en.json
     if rel_path.name == "transifex_input.json":
-        # Check standard MFE messages location
-        mfe_upstream = UPSTREAM_DIR / rel_path.parent / "messages" / "en.json"
-        if mfe_upstream.exists():
-            return mfe_upstream
-        # Fallback: maybe it's directly in i18n/en.json?
-        mfe_fallback = UPSTREAM_DIR / rel_path.parent / "en.json"
-        if mfe_fallback.exists():
-            return mfe_fallback
-            
+        repo_name = rel_path.parts[0]
+        repo_upstream_base = UPSTREAM_DIR / repo_name
+        
+        # Search for any en.json in the upstream repo that might be the source
+        # Usually it's in src/i18n/messages/en.json or src/i18n/en.json
+        possible_patterns = ["**/messages/en.json", "**/i18n/en.json", "**/locale/en.json"]
+        for pattern in possible_patterns:
+            for found in repo_upstream_base.glob(pattern):
+                return found
+                
     return upstream_path
 
 def create_po_placeholders(extracted_file, rel_path, supported_langs):
@@ -302,24 +305,40 @@ def merge_final():
                 
             # Merge contents
             if custom_file.suffix == ".po":
-                upstream_po = polib.pofile(final_file)
-                custom_po = polib.pofile(custom_file)
-                upstream_map = {e.msgid: e for e in upstream_po}
-                for entry in custom_po:
-                    if entry.msgid in upstream_map:
-                        if entry.msgstr:
-                            upstream_map[entry.msgid].msgstr = entry.msgstr
-                    else:
-                        upstream_po.append(entry)
-                upstream_po.save(final_file)
+                try:
+                    upstream_po = polib.pofile(final_file)
+                    custom_po = polib.pofile(custom_file)
+                    upstream_map = {e.msgid: e for e in upstream_po}
+                    for entry in custom_po:
+                        if entry.msgid in upstream_map:
+                            if entry.msgstr:
+                                upstream_map[entry.msgid].msgstr = entry.msgstr
+                        else:
+                            upstream_po.append(entry)
+                    upstream_po.save(final_file)
+                except Exception as e:
+                    print(f"Error merging PO {rel_path}: {e}")
             elif custom_file.suffix == ".json":
-                with open(final_file, "r") as f:
-                    final_data = json.load(f)
-                with open(custom_file, "r") as f:
-                    custom_data = json.load(f)
-                final_data.update(custom_data)
-                with open(final_file, "w") as f:
-                    json.dump(final_data, f, indent=2, sort_keys=True)
+                print(f"Merging JSON: {rel_path}")
+                try:
+                    with open(final_file, "r") as f:
+                        f_content = f.read().strip()
+                        final_data = json.loads(f_content) if f_content else {}
+                    with open(custom_file, "r") as f:
+                        c_content = f.read().strip()
+                        custom_data = json.loads(c_content) if c_content else {}
+                    
+                    final_data.update(custom_data)
+                    with open(final_file, "w") as f:
+                        json.dump(final_data, f, indent=2, sort_keys=True)
+                except json.JSONDecodeError as e:
+                    print(f"CRITICAL ERROR: Malformed JSON in {rel_path}")
+                    print(f"Error details: {e}")
+                    # Show a bit of the file for debugging if possible
+                    raise
+                except Exception as e:
+                    print(f"Unexpected error merging JSON {rel_path}: {e}")
+                    raise
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
