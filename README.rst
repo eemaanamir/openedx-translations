@@ -161,7 +161,7 @@ Using in Tutor
 
 To use these translations in your Tutor installation, configure::
 
-   
+
    ATLAS_REPOSITORY: wikimedia/openedx-translations
    ATLAS_REVISION: release/teak
 
