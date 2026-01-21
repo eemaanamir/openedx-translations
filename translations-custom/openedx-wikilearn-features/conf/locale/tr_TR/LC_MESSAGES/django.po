@@ -35,7 +35,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:138
 msgid "progress"
-msgstr ""
+msgstr "ilerleme"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
@@ -44,7 +44,7 @@ msgstr ""
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:225
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api_helper.py:101
 msgid "enrollment"
-msgstr ""
+msgstr "kayıtlanma"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:253
 msgid "user_pref_lang"

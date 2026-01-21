@@ -35,7 +35,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:138
 msgid "progress"
-msgstr ""
+msgstr "fremskridt"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
@@ -44,7 +44,7 @@ msgstr ""
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:225
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api_helper.py:101
 msgid "enrollment"
-msgstr ""
+msgstr "indskrivning"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:253
 msgid "user_pref_lang"
@@ -137,6 +137,7 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:14
 msgid "This email was automatically sent from %(platform_name)s to %(email)s"
 msgstr ""
+"Denne e-mail blev automatisk sendt fra %(platform_name)s til %(email)s"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/subject.txt:2
 msgid "%(platform_name)s -> Your report is ready."
@@ -152,7 +153,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:42
 msgid "Missing request object."
-msgstr ""
+msgstr "Manglende anmodningsobjekt."
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:71
 msgid "Invalid request - request object not found."
@@ -164,11 +165,11 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:156
 msgid "with_user param is required."
-msgstr ""
+msgstr "with_user param er påkrævet."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:162
 msgid "User with username: {} does not exist."
-msgstr ""
+msgstr "Bruger med brugernavn: {} findes ikke."
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:9
 msgid "Hi "
@@ -179,17 +180,17 @@ msgstr ""
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "You have "
-msgstr ""
+msgstr "Du har "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:14
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 msgid "unread message(s) waiting for your response from following users:"
-msgstr ""
+msgstr "ulæste beskeder, der venter på dit svar fra følgende brugere:"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:25
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "unread message(s) waiting for your response from "
-msgstr ""
+msgstr "ulæste beskeder venter på dit svar fra "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:28
 msgid "Login your platform to view all new messages."
@@ -205,7 +206,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:13
 msgid "Login your platform to view all new messages "
-msgstr ""
+msgstr "Log på din platform for at se alle nye beskeder "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/subject.txt:3
 msgid "%(subject)s"
@@ -217,7 +218,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/models.py:97
 msgid "Destination"
-msgstr ""
+msgstr "Destination"
 
 #: openedx_wikilearn_features/meta_translations/models.py:98
 msgid "Source"
@@ -230,7 +231,7 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/utils.py:270
 msgid ""
 "Translated rerun for Source Course in selected language already exists."
-msgstr ""
+msgstr "Oversættelse af Source Course på det valgte sprog findes allerede."
 
 #: openedx_wikilearn_features/meta_translations/utils.py:278
 msgid ""
@@ -260,7 +261,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:79
 msgid "Select Rerun Course"
-msgstr ""
+msgstr "Vælg Rerun kursus"
 
 #: openedx_wikilearn_features/meta_translations/views.py:81
 msgid "No Translated Course Found!"
@@ -268,11 +269,11 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:82
 msgid "No Translations Found!, Please apply mapping."
-msgstr ""
+msgstr "Ingen oversættelser fundet! Anvend venligst kortlægning."
 
 #: openedx_wikilearn_features/meta_translations/views.py:84
 msgid "Filter My Courses"
-msgstr ""
+msgstr "Filtrer mine kurser"
 
 #: openedx_wikilearn_features/meta_translations/views.py:86
 msgid "APPROVE"
@@ -281,15 +282,15 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:87
 #: openedx_wikilearn_features/meta_translations/views.py:96
 msgid "Translation is Disabled"
-msgstr ""
+msgstr "Oversættelse er deaktiveret"
 
 #: openedx_wikilearn_features/meta_translations/views.py:88
 msgid "Incomplete Translation"
-msgstr ""
+msgstr "Ufuldstændig oversættelse"
 
 #: openedx_wikilearn_features/meta_translations/views.py:89
 msgid "Approve"
-msgstr ""
+msgstr "Godkend"
 
 #: openedx_wikilearn_features/meta_translations/views.py:90
 msgid "Approved"
@@ -298,7 +299,7 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:91
 #: openedx_wikilearn_features/meta_translations/views.py:108
 msgid "Unable to approve this time, Please try again later."
-msgstr ""
+msgstr "Kan ikke godkende denne gang. Prøv venligst igen senere."
 
 #: openedx_wikilearn_features/meta_translations/views.py:92
 msgid ""
@@ -308,11 +309,11 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:95
 msgid "APPLY"
-msgstr ""
+msgstr "ANVEND"
 
 #: openedx_wikilearn_features/meta_translations/views.py:97
 msgid "Applied"
-msgstr ""
+msgstr "Anvendt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:98
 #: openedx_wikilearn_features/meta_translations/views.py:192
@@ -321,7 +322,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:99
 msgid "Unable to apply this time, Please try again later."
-msgstr ""
+msgstr "Kan ikke ansøge denne gang. Prøv venligst igen senere."
 
 #: openedx_wikilearn_features/meta_translations/views.py:100
 msgid "Congratulations! The translation is applied to the Course Block"
@@ -347,7 +348,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:112
 msgid "pending translation"
-msgstr ""
+msgstr "afventer oversættelse"
 
 #: openedx_wikilearn_features/meta_translations/views.py:113
 msgid "recent"
@@ -355,7 +356,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:114
 msgid "applied"
-msgstr ""
+msgstr "anvendt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:115
 msgid "other"
@@ -371,7 +372,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:120
 msgid "Unable to load Course Outline."
-msgstr ""
+msgstr "Kursusoversigten kunne ikke indlæses."
 
 #: openedx_wikilearn_features/meta_translations/views.py:121
 msgid "Unable to load content."
@@ -482,7 +483,7 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
 msgid "Catalog"
-msgstr ""
+msgstr "Katalog"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:44
 msgid "Courses"
@@ -498,7 +499,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:81
 msgid "Inbox"
-msgstr ""
+msgstr "Indbakke"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:11
 msgid "%(thread_username)s mentioned you on post: <b>%(thread_title)s</b>:"
@@ -523,6 +524,8 @@ msgstr ""
 msgid ""
 "%(comment_username)s mentioned you in the comment on post: %(thread_title)s:"
 msgstr ""
+"%(comment_username)s nævnte dig i kommentaren til indlægget: "
+"%(thread_title)s:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/subject.txt:2
 msgid "%(platform_name)s -> %(mentioned_by)s mentioned you on the post."

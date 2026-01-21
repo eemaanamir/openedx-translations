@@ -26,7 +26,7 @@ msgstr ""
 
 #: xmodule/course_block.py:1056
 msgid "Select Course Font Family"
-msgstr ""
+msgstr "Välj typsnittsfamilj för kursen"
 
 #: xmodule/course_block.py:1058
 msgid ""

@@ -16,13 +16,13 @@ msgstr ""
 
 #: lms/djangoapps/instructor/views/api.py:1428
 msgid "Certificate link"
-msgstr ""
+msgstr "인증서 링크"
 
 #: openedx/core/djangoapps/user_api/accounts/__init__.py:43
 msgid ""
 "Usernames must not contain the following symbols: #, <, >, [, ], |, {, }, /,"
 " \\, :, @"
-msgstr ""
+msgstr "사용자 이름에는 다음과 같은 기호를 포함할 수 없습니다: #, <, >, [, ], |, {, }, /, \\, :, @"
 
 #: xmodule/course_block.py:1056
 msgid "Select Course Font Family"

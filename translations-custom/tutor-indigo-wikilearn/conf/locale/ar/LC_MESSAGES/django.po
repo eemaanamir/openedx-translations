@@ -54,7 +54,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:16
 msgid "Unlock The World’s Knowledge"
-msgstr ""
+msgstr "استكشف المعرفة العالمية"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:40
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:77

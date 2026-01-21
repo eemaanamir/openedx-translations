@@ -26,7 +26,7 @@ msgstr ""
 
 #: xmodule/course_block.py:1056
 msgid "Select Course Font Family"
-msgstr ""
+msgstr "Chọn họ phông chữ khóa học"
 
 #: xmodule/course_block.py:1058
 msgid ""

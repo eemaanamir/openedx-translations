@@ -39,12 +39,12 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
-msgstr ""
+msgstr "Все_зачисления_статистик"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:225
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api_helper.py:101
 msgid "enrollment"
-msgstr ""
+msgstr "Зачисление"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:253
 msgid "user_pref_lang"
@@ -148,7 +148,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:35
 msgid "recipient list can not be empty."
-msgstr ""
+msgstr "список получателей не может быть пустым."
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:42
 msgid "Missing request object."
@@ -221,7 +221,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/models.py:98
 msgid "Source"
-msgstr ""
+msgstr "Источник"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:266
 msgid "Course Language is required field for Translated rerun."
@@ -252,7 +252,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:77
 msgid "course name"
-msgstr ""
+msgstr "название курса"
 
 #: openedx_wikilearn_features/meta_translations/views.py:78
 msgid "Select Base Course"
@@ -281,11 +281,11 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:87
 #: openedx_wikilearn_features/meta_translations/views.py:96
 msgid "Translation is Disabled"
-msgstr ""
+msgstr "Перевод отключен"
 
 #: openedx_wikilearn_features/meta_translations/views.py:88
 msgid "Incomplete Translation"
-msgstr ""
+msgstr "Неполный перевод"
 
 #: openedx_wikilearn_features/meta_translations/views.py:89
 msgid "Approve"
@@ -317,7 +317,7 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:98
 #: openedx_wikilearn_features/meta_translations/views.py:192
 msgid "Apply"
-msgstr ""
+msgstr "Применить"
 
 #: openedx_wikilearn_features/meta_translations/views.py:99
 msgid "Unable to apply this time, Please try again later."
@@ -379,11 +379,11 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:170
 msgid "Courses available for translation"
-msgstr ""
+msgstr "Курсы, доступные для перевода"
 
 #: openedx_wikilearn_features/meta_translations/views.py:171
 msgid "Filters"
-msgstr ""
+msgstr "Фильтры"
 
 #: openedx_wikilearn_features/meta_translations/views.py:172
 msgid "From Language"
@@ -399,7 +399,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:175
 msgid "Translation"
-msgstr ""
+msgstr "Перевод"
 
 #: openedx_wikilearn_features/meta_translations/views.py:176
 #: openedx_wikilearn_features/meta_translations/views.py:199
@@ -425,11 +425,11 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:181
 #: openedx_wikilearn_features/meta_translations/views.py:202
 msgid "Translated"
-msgstr ""
+msgstr "Переведено"
 
 #: openedx_wikilearn_features/meta_translations/views.py:183
 msgid "Last Updated:"
-msgstr ""
+msgstr "Последнее обновление:"
 
 #: openedx_wikilearn_features/meta_translations/views.py:184
 msgid "Translated:"
@@ -445,7 +445,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:191
 msgid "Load More"
-msgstr ""
+msgstr "Загрузить ещё"
 
 #: openedx_wikilearn_features/meta_translations/views.py:195
 msgid "Section Header"
@@ -482,7 +482,7 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
 msgid "Catalog"
-msgstr ""
+msgstr "Каталог"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:44
 msgid "Courses"
@@ -498,7 +498,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:81
 msgid "Inbox"
-msgstr ""
+msgstr "Входящие"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:11
 msgid "%(thread_username)s mentioned you on post: <b>%(thread_title)s</b>:"

@@ -35,7 +35,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:138
 msgid "progress"
-msgstr ""
+msgstr "tiến trình"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
@@ -144,7 +144,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:17
 msgid "User does not exist - invalid username {}"
-msgstr ""
+msgstr "Người dùng không hề tồn tại - tên người dùng không hợp lệ {}"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:35
 msgid "recipient list can not be empty."
@@ -156,7 +156,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:71
 msgid "Invalid request - request object not found."
-msgstr ""
+msgstr "Yêu cầu không hợp lệ - không tìm thấy đối tượng được yêu cầu."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:55
 msgid "Search query param is required."
@@ -172,14 +172,14 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:9
 msgid "Hi "
-msgstr ""
+msgstr "Chào "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:12
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:23
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "You have "
-msgstr ""
+msgstr "Bạn có "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:14
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
@@ -193,11 +193,11 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:28
 msgid "Login your platform to view all new messages."
-msgstr ""
+msgstr "Đăng nhập vào nền tảng của bạn để xem tất cả tin nhắn mới."
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:47
 msgid " <font color=\"#ffffff\"><b>View Messenger</b></font>"
-msgstr ""
+msgstr "<font color=\"#ffffff\"><b>Xem Messenger</b></font>"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:2
 msgid "Dear "
@@ -276,7 +276,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:86
 msgid "APPROVE"
-msgstr ""
+msgstr "DUYỆT"
 
 #: openedx_wikilearn_features/meta_translations/views.py:87
 #: openedx_wikilearn_features/meta_translations/views.py:96
@@ -289,7 +289,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:89
 msgid "Approve"
-msgstr ""
+msgstr "Chấp nhận"
 
 #: openedx_wikilearn_features/meta_translations/views.py:90
 msgid "Approved"
@@ -308,16 +308,16 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:95
 msgid "APPLY"
-msgstr ""
+msgstr "ÁP DỤNG"
 
 #: openedx_wikilearn_features/meta_translations/views.py:97
 msgid "Applied"
-msgstr ""
+msgstr "Đã áp dụng"
 
 #: openedx_wikilearn_features/meta_translations/views.py:98
 #: openedx_wikilearn_features/meta_translations/views.py:192
 msgid "Apply"
-msgstr ""
+msgstr "Áp dụng"
 
 #: openedx_wikilearn_features/meta_translations/views.py:99
 msgid "Unable to apply this time, Please try again later."
@@ -329,15 +329,15 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:103
 msgid "APPLIED"
-msgstr ""
+msgstr "ĐÃ DUYỆT"
 
 #: openedx_wikilearn_features/meta_translations/views.py:106
 msgid "APPROVE ALL"
-msgstr ""
+msgstr "DUYỆT TẤT CẢ"
 
 #: openedx_wikilearn_features/meta_translations/views.py:107
 msgid "No pending translations to be approved"
-msgstr ""
+msgstr "Không có bản dịch đang chờ phê duyệt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:109
 msgid ""
@@ -347,15 +347,15 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:112
 msgid "pending translation"
-msgstr ""
+msgstr "Bản dịch đang chờ được xử lý"
 
 #: openedx_wikilearn_features/meta_translations/views.py:113
 msgid "recent"
-msgstr ""
+msgstr "gần đây"
 
 #: openedx_wikilearn_features/meta_translations/views.py:114
 msgid "applied"
-msgstr ""
+msgstr "đã áp dụng"
 
 #: openedx_wikilearn_features/meta_translations/views.py:115
 msgid "other"
@@ -375,7 +375,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:121
 msgid "Unable to load content."
-msgstr ""
+msgstr "Không thể tải nội dung."
 
 #: openedx_wikilearn_features/meta_translations/views.py:170
 msgid "Courses available for translation"
@@ -383,23 +383,23 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:171
 msgid "Filters"
-msgstr ""
+msgstr "bộ lọc"
 
 #: openedx_wikilearn_features/meta_translations/views.py:172
 msgid "From Language"
-msgstr ""
+msgstr "từ ngôn ngữ"
 
 #: openedx_wikilearn_features/meta_translations/views.py:173
 msgid "To Language"
-msgstr ""
+msgstr "sang ngôn ngữ"
 
 #: openedx_wikilearn_features/meta_translations/views.py:174
 msgid "Block Type"
-msgstr ""
+msgstr "Loại khối"
 
 #: openedx_wikilearn_features/meta_translations/views.py:175
 msgid "Translation"
-msgstr ""
+msgstr "Dịch"
 
 #: openedx_wikilearn_features/meta_translations/views.py:176
 #: openedx_wikilearn_features/meta_translations/views.py:199
@@ -408,48 +408,48 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:177
 msgid "Translated Course Name"
-msgstr ""
+msgstr "Tên khóa học đã dịch"
 
 #: openedx_wikilearn_features/meta_translations/views.py:178
 msgid "Search Course By Name"
-msgstr ""
+msgstr "Tìm khóa học theo tên"
 
 #: openedx_wikilearn_features/meta_translations/views.py:179
 msgid "Hrs Ago"
-msgstr ""
+msgstr "giờ trước"
 
 #: openedx_wikilearn_features/meta_translations/views.py:180
 msgid "N/A"
-msgstr ""
+msgstr "không áp dụng"
 
 #: openedx_wikilearn_features/meta_translations/views.py:181
 #: openedx_wikilearn_features/meta_translations/views.py:202
 msgid "Translated"
-msgstr ""
+msgstr "Đã dịch"
 
 #: openedx_wikilearn_features/meta_translations/views.py:183
 msgid "Last Updated:"
-msgstr ""
+msgstr "Cập nhật mới nhất:"
 
 #: openedx_wikilearn_features/meta_translations/views.py:184
 msgid "Translated:"
-msgstr ""
+msgstr "Đã dịch:"
 
 #: openedx_wikilearn_features/meta_translations/views.py:187
 msgid "No course blocks found"
-msgstr ""
+msgstr "Không tìm thấy khối khóa học nào"
 
 #: openedx_wikilearn_features/meta_translations/views.py:188
 msgid "No courses found"
-msgstr ""
+msgstr "Không tìm thấy khóa học nào"
 
 #: openedx_wikilearn_features/meta_translations/views.py:191
 msgid "Load More"
-msgstr ""
+msgstr "Tải thêm"
 
 #: openedx_wikilearn_features/meta_translations/views.py:195
 msgid "Section Header"
-msgstr ""
+msgstr "Tiêu đề mục"
 
 #: openedx_wikilearn_features/meta_translations/views.py:196
 msgid "HTML"
@@ -465,19 +465,19 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:203
 msgid "Untranslated"
-msgstr ""
+msgstr "chưa dịch"
 
 #: openedx_wikilearn_features/meta_translations/views.py:206
 msgid "Unable to load course blocks"
-msgstr ""
+msgstr "Không thể tải khối khóa học"
 
 #: openedx_wikilearn_features/meta_translations/views.py:207
 msgid "Unable to load a course"
-msgstr ""
+msgstr "Không thể tải khóa học"
 
 #: openedx_wikilearn_features/meta_translations/views.py:208
 msgid "Unable to load courses"
-msgstr ""
+msgstr "Không thể tải các khóa học"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
@@ -498,7 +498,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:81
 msgid "Inbox"
-msgstr ""
+msgstr "Hộp thư đến"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:11
 msgid "%(thread_username)s mentioned you on post: <b>%(thread_title)s</b>:"
