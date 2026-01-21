@@ -19,7 +19,9 @@ def get_translation_files(translation_directory):
     for root, _dirs, files in os.walk(translation_directory):
         for file_name in files:
             pofile_path = os.path.join(root, file_name)
-            if file_name.endswith('.po') and '/en/LC_MESSAGES/' not in pofile_path:
+            if (file_name.endswith('.po') and
+                '/en/LC_MESSAGES/' not in pofile_path and
+                '/qqq/LC_MESSAGES/' not in pofile_path):
                 po_files.append(pofile_path)
     return po_files
 
