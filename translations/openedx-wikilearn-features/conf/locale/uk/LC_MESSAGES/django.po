@@ -355,7 +355,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:114
 msgid "applied"
-msgstr ""
+msgstr "застосовано"
 
 #: openedx_wikilearn_features/meta_translations/views.py:115
 msgid "other"

@@ -16,17 +16,19 @@ msgstr ""
 
 #: lms/djangoapps/instructor/views/api.py:1428
 msgid "Certificate link"
-msgstr ""
+msgstr "Lien vers le certificat"
 
 #: openedx/core/djangoapps/user_api/accounts/__init__.py:43
 msgid ""
 "Usernames must not contain the following symbols: #, <, >, [, ], |, {, }, /,"
 " \\, :, @"
 msgstr ""
+"Les noms d'utilisateur ne doivent pas contenir les symboles suivants: #, "
+"&lt;, &gt;, [, ], ➡, {, }, /, \\,:, @"
 
 #: xmodule/course_block.py:1056
 msgid "Select Course Font Family"
-msgstr ""
+msgstr "Sélectionner la famille de police du cours"
 
 #: xmodule/course_block.py:1058
 msgid ""
@@ -36,6 +38,11 @@ msgid ""
 "            If value is invalid or empty the default font-family will be \"Helvetica Neue\".\n"
 "            "
 msgstr ""
+"\n"
+"            Sélectionner une famille de polices dans laquelle vous voulez afficher votre cours.\n"
+"            Les options disponibles sont « font-trebuchet », « font-open-sans », « font-noto-kufi-arabic », « font-montserrat » et « font-source-sans-pro ».\n"
+"            Si la valeur n’est pas valide ou vide, la famille de polices par défaut sera « Helvetica Neue ».\n"
+"            "
 
 #: xmodule/course_block.py:1068
 msgid "Issue Open Badges"

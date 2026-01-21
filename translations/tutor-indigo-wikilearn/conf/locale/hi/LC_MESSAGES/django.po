@@ -127,7 +127,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:131
 msgid "Subscribe"
-msgstr ""
+msgstr "सदस्यता लें"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:23
 msgid "has successfully completed"

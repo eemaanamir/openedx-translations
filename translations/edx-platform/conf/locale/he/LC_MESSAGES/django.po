@@ -15812,17 +15812,19 @@ msgstr "עורך קוד"
 
 #: lms/djangoapps/instructor/views/api.py:1428
 msgid "Certificate link"
-msgstr ""
+msgstr "קישור לתעודה"
 
 #: openedx/core/djangoapps/user_api/accounts/__init__.py:43
 msgid ""
 "Usernames must not contain the following symbols: #, <, >, [, ], |, {, }, /,"
 " \\, :, @"
 msgstr ""
+"שמות משתמשים לא יכולים להכיל את הסימנים הבאים: #, <, >, [, ], |, {, }, /, "
+"\\, :, @"
 
 #: xmodule/course_block.py:1056
 msgid "Select Course Font Family"
-msgstr ""
+msgstr "בחירת משפחת גופנים לקורס"
 
 #: xmodule/course_block.py:1058
 msgid ""

@@ -54,7 +54,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:16
 msgid "Unlock The World’s Knowledge"
-msgstr ""
+msgstr "Lås upp världens kunskap"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:40
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:77
@@ -67,27 +67,27 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:65
 msgid "Featured"
-msgstr ""
+msgstr "Utmärkt"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:66
 msgid "Recently Added"
-msgstr ""
+msgstr "Nyligen tillagda"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:67
 msgid "All Courses"
-msgstr ""
+msgstr "Alla kurser"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:80
 msgid "See what we have been up to"
-msgstr ""
+msgstr "Se vad vi har hållit på med"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:81
 msgid "View All News >"
-msgstr ""
+msgstr "Visa alla nyheter >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:87
 msgid "19 April 2021"
-msgstr ""
+msgstr "19 april 2021"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:88
 #: tutorindigo/templates/indigo/lms/templates/index.html:108
@@ -99,39 +99,41 @@ msgid ""
 "Wikipedia readers in Latin America invited to support 20 years of free "
 "knowledge through new fundraising campaign"
 msgstr ""
+"Wikipedias läsare i Latinamerika inbjuds stödja 20 år av fri kunskap i en ny"
+" insamlingskampanj"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:95
 msgid "By Pats Pena"
-msgstr ""
+msgstr "Av Pats Pena"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:96
 #: tutorindigo/templates/indigo/lms/templates/index.html:112
 msgid "Read More >"
-msgstr ""
+msgstr "Läs mer >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:107
 msgid "26 Februrary 2021"
-msgstr ""
+msgstr "26 februari 2021"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:110
 msgid "Wikipedia needs local journalism and the open Web"
-msgstr ""
+msgstr "Wikipedia behöver lokala journalism och den öppna webben"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:111
 msgid "By Jan Gerlach"
-msgstr ""
+msgstr "Av Jan Gerlach"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:125
 msgid "Subscribe to news about ongoing projects and initiatives"
-msgstr ""
+msgstr "Prenumerera på nyheter om pågående projekt och initiativ"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:131
 msgid "Subscribe"
-msgstr ""
+msgstr "Prenumerera"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:23
 msgid "has successfully completed"
-msgstr ""
+msgstr "har framgångsrikt slutfört"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:24
 msgid "the"
