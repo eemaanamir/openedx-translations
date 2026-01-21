@@ -98,6 +98,8 @@ def update_custom_layer(extracted_dir):
                 file_type = "djangojs.po (JavaScript)"
             elif "django.po" in str(rel_path):
                 file_type = "django.po (Templates/Python)"
+            elif "transifex_input.json" in str(rel_path):
+                file_type = "transifex_input.json (MFE source)"
             elif ".json" in str(rel_path):
                 file_type = "JSON (MFE)"
 
@@ -107,12 +109,13 @@ def update_custom_layer(extracted_dir):
             # Check if this is a brand new repo not in upstream
             if not upstream_repo_dir.exists():
                 print(f"New repo detected: {repo_name}. Treating all content as custom.")
-                # For new repos, copy everything to custom
+
+                # Copy English source to custom
                 custom_file_path = CUSTOM_DIR / rel_path
                 ensure_directory(custom_file_path.parent)
                 shutil.copy(extracted_file, custom_file_path)
 
-                # Create placeholders for other languages
+                # Create placeholders for other languages (only if they don't exist)
                 if extracted_file.suffix == ".po":
                     create_po_placeholders(extracted_file, rel_path, supported_langs)
                 elif extracted_file.suffix == ".json":
@@ -168,8 +171,7 @@ def create_po_placeholders(extracted_file, rel_path, supported_langs):
 def create_json_placeholders(extracted_file, rel_path, supported_langs):
     """
     Create empty JSON message files for all supported languages (MFE pattern).
-    Assumes structure: <repo>/src/i18n/messages/en.json
-    Creates: <repo>/src/i18n/messages/{lang}.json
+    Handles both transifex_input.json and en.json sources.
     """
     try:
         with open(extracted_file, "r", encoding="utf-8") as f:
@@ -181,24 +183,19 @@ def create_json_placeholders(extracted_file, rel_path, supported_langs):
         print(f"  ERROR reading {extracted_file}: {e}")
         return
 
-    parts = list(rel_path.parts)
-    try:
-        # Find the language code in the path (usually the filename stem)
-        if "en.json" in str(rel_path):
-            # MFE pattern: src/i18n/messages/en.json
-            for lang in supported_langs:
-                lang_parts = parts[:-1] + [f"{lang}.json"]
-                lang_path = CUSTOM_DIR / Path(*lang_parts)
+    # Determine messages directory based on extracted file location
+    repo_name = rel_path.parts[0]
+    messages_dir = CUSTOM_DIR / repo_name / "src" / "i18n" / "messages"
+    messages_dir.mkdir(parents=True, exist_ok=True)
 
-                if not lang_path.exists():
-                    ensure_directory(lang_path.parent)
-                    # Create empty placeholder with same keys
-                    placeholder_data = {key: "" for key in en_data.keys()}
-                    with open(lang_path, "w", encoding="utf-8") as f:
-                        json.dump(placeholder_data, f, indent=2, sort_keys=True, ensure_ascii=False)
-                    print(f"  Created JSON placeholder: {lang_path}")
-    except Exception as e:
-        print(f"  Warning: Could not create JSON placeholders for {rel_path}: {e}")
+    # Create placeholder for each language
+    for lang in supported_langs:
+        lang_path = messages_dir / f"{lang}.json"
+        if not lang_path.exists():
+            placeholder_data = {key: "" for key in en_data.keys()}
+            with open(lang_path, "w", encoding="utf-8") as f:
+                json.dump(placeholder_data, f, indent=2, sort_keys=True, ensure_ascii=False)
+            print(f"  Created JSON placeholder: {lang_path}")
 
 
 def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
@@ -408,6 +405,7 @@ def create_mfe_localized_placeholders(custom_data, rel_path, supported_langs):
 def merge_final():
     """
     Step 4: Combine Upstream and Custom Layer.
+    Handles languages that exist in custom but not in upstream.
     """
     print("--- Merging Final Layer (Step 4) ---")
     if FINAL_DIR.exists():
@@ -416,20 +414,20 @@ def merge_final():
     # Start with upstream
     shutil.copytree(UPSTREAM_DIR, FINAL_DIR)
 
-    # Overlay custom
+    # Overlay custom - this includes languages that may not exist in upstream
     for ext in ["**/*.po", "**/*.json"]:
         for custom_file in CUSTOM_DIR.glob(ext):
             rel_path = custom_file.relative_to(CUSTOM_DIR)
             final_file = FINAL_DIR / rel_path
 
             if not final_file.exists():
-                # Brand new custom file (e.g. from a new custom repo)
+                # New file (could be new repo, new language, or both)
                 ensure_directory(final_file.parent)
                 shutil.copy(custom_file, final_file)
                 print(f"  Copied new custom file: {rel_path}")
                 continue
 
-            # Merge contents
+            # Merge contents for existing files
             if custom_file.suffix == ".po":
                 try:
                     upstream_po = polib.pofile(final_file)
