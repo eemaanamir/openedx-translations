@@ -662,7 +662,7 @@
   "course-authoring.create-or-rerun-course.translation-options.help-text": "",
   "course-authoring.create-or-rerun-course.translation-options.label": "",
   "course-authoring.create-or-rerun-course.translation-options.standard.label": "",
-  "course-authoring.create-or-rerun-course.translation-options.translated.label": "",
+  "course-authoring.create-or-rerun-course.translation-options.translated.label": "Terjemahan Kursus kembali berjalan",
   "course-authoring.custom-pages..deleteConfirmation.message": "Are you sure you want to delete this page? This action cannot be undone.",
   "course-authoring.custom-pages..deleteConfirmation.title": "Delete Page Confirmation",
   "course-authoring.custom-pages.body.addPage.label": "Add a new page",

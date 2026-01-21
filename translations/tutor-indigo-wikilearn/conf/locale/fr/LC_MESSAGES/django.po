@@ -54,7 +54,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:16
 msgid "Unlock The World’s Knowledge"
-msgstr ""
+msgstr "Déverrouiller la connaissance du monde"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:40
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:77
@@ -67,27 +67,27 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:65
 msgid "Featured"
-msgstr ""
+msgstr "En vedette"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:66
 msgid "Recently Added"
-msgstr ""
+msgstr "Récemment ajouté"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:67
 msgid "All Courses"
-msgstr ""
+msgstr "Tous les cours"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:80
 msgid "See what we have been up to"
-msgstr ""
+msgstr "Voyez ce que nous avons fait"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:81
 msgid "View All News >"
-msgstr ""
+msgstr "Afficher toutes les nouvelles >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:87
 msgid "19 April 2021"
-msgstr ""
+msgstr "19 avril 2021"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:88
 #: tutorindigo/templates/indigo/lms/templates/index.html:108
@@ -99,39 +99,41 @@ msgid ""
 "Wikipedia readers in Latin America invited to support 20 years of free "
 "knowledge through new fundraising campaign"
 msgstr ""
+"Les lecteurs de Wikipédia en Amérique latine sont invités à soutenir 20 ans "
+"de connaissance libre via une nouvelle campagne de collecte de fonds."
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:95
 msgid "By Pats Pena"
-msgstr ""
+msgstr "Par Pats Pena"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:96
 #: tutorindigo/templates/indigo/lms/templates/index.html:112
 msgid "Read More >"
-msgstr ""
+msgstr "Lire davantage >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:107
 msgid "26 Februrary 2021"
-msgstr ""
+msgstr "26 février 2021"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:110
 msgid "Wikipedia needs local journalism and the open Web"
-msgstr ""
+msgstr "Wikipédia a besoin de journalisme local et du web ouvert"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:111
 msgid "By Jan Gerlach"
-msgstr ""
+msgstr "Par Jan Gerlach"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:125
 msgid "Subscribe to news about ongoing projects and initiatives"
-msgstr ""
+msgstr "S’abonner aux nouvelles sur les projets et initiatives en cours"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:131
 msgid "Subscribe"
-msgstr ""
+msgstr "S’abonner"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:23
 msgid "has successfully completed"
-msgstr ""
+msgstr "a terminé avec succès"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:24
 msgid "the"
@@ -164,7 +166,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:49
 msgid "What to study next?"
-msgstr ""
+msgstr "Qu’étudier ensuite ?"
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:68
 msgid "Refine Your Search"
@@ -306,6 +308,14 @@ msgid ""
 "accessibility and diversity. For inquiries, contact the Community "
 "Development team at "
 msgstr ""
+"WikiLearn, hébergé par la Wikimedia Foundation, est une plateforme "
+"d'apprentissage dédiée au mouvement Wikimedia. Il propose une gamme complète"
+" de cours à votre rythme et dirigés par un instructeur visant au "
+"renforcement des capacités et au développement du leadership au sein de la "
+"communauté Wikimédia. Les cours sur WikiLearn sont développés en "
+"collaboration par et pour les Wikimédiens avec un engagement en faveur de "
+"l'accessibilité et de la diversité. Pour toute demande de renseignements, "
+"contactez l'équipe de développement communautaire au "
 
 #: tutorindigo/templates/indigo/lms/templates/static_templates/blog.html:6
 #: tutorindigo/templates/indigo/lms/templates/static_templates/blog.html:11

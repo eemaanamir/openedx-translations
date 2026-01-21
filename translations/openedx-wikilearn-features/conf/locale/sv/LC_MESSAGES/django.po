@@ -35,7 +35,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:138
 msgid "progress"
-msgstr ""
+msgstr "förlopp"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
@@ -137,6 +137,8 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:14
 msgid "This email was automatically sent from %(platform_name)s to %(email)s"
 msgstr ""
+"Detta e-postmeddelande skickades automatiskt från %(platform_name)s till "
+"%(email)s"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/subject.txt:2
 msgid "%(platform_name)s -> Your report is ready."
@@ -144,68 +146,68 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:17
 msgid "User does not exist - invalid username {}"
-msgstr ""
+msgstr "Användaren finns inte - ogiltigt användarnamn {}"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:35
 msgid "recipient list can not be empty."
-msgstr ""
+msgstr "mottagarlistan kan inte vara tom."
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:42
 msgid "Missing request object."
-msgstr ""
+msgstr "Förfrågningsobjekt saknas."
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:71
 msgid "Invalid request - request object not found."
-msgstr ""
+msgstr "Ogiltig begäran - objektet du begärde kan inte hittas."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:55
 msgid "Search query param is required."
-msgstr ""
+msgstr "Sökfrågeparameter krävs."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:156
 msgid "with_user param is required."
-msgstr ""
+msgstr "parametern with_user är obligatorisk."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:162
 msgid "User with username: {} does not exist."
-msgstr ""
+msgstr "Användare med användarnamn {} finns inte."
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:9
 msgid "Hi "
-msgstr ""
+msgstr "Hej "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:12
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:23
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "You have "
-msgstr ""
+msgstr "Du har "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:14
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 msgid "unread message(s) waiting for your response from following users:"
-msgstr ""
+msgstr "olästa meddelanden som väntar på ditt svar från följande användare:"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:25
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "unread message(s) waiting for your response from "
-msgstr ""
+msgstr "oläst(a) meddelande(n) från \\ som väntar på svar"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:28
 msgid "Login your platform to view all new messages."
-msgstr ""
+msgstr "Logga in på din sida för att se alla nya meddelanden."
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:47
 msgid " <font color=\"#ffffff\"><b>View Messenger</b></font>"
-msgstr ""
+msgstr " <font color=\"#ffffff\"><b>Visa Messenger</b></font>"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:2
 msgid "Dear "
-msgstr ""
+msgstr "Kära "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:13
 msgid "Login your platform to view all new messages "
-msgstr ""
+msgstr "Logga in på din plattform för att se alla nya meddelanden "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/subject.txt:3
 msgid "%(subject)s"
@@ -213,83 +215,85 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/models.py:31
 msgid "Days settings for next Fetch call"
-msgstr ""
+msgstr "Daginställningar för nästa Fetch-samtal"
 
 #: openedx_wikilearn_features/meta_translations/models.py:97
 msgid "Destination"
-msgstr ""
+msgstr "Destination"
 
 #: openedx_wikilearn_features/meta_translations/models.py:98
 msgid "Source"
-msgstr ""
+msgstr "Källa"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:266
 msgid "Course Language is required field for Translated rerun."
-msgstr ""
+msgstr "Kursspråk är obligatoriskt fält för översatt repris."
 
 #: openedx_wikilearn_features/meta_translations/utils.py:270
 msgid ""
 "Translated rerun for Source Course in selected language already exists."
-msgstr ""
+msgstr "Översatt repris för källkurs på valt språk finns redan."
 
 #: openedx_wikilearn_features/meta_translations/utils.py:278
 msgid ""
 "Translated rerun can not be created for the base course with no language. "
 "Please set base course language from settings."
 msgstr ""
+"Översatt repris kan inte skapas för baskursen utan språk. Ange baskursspråk "
+"i inställningarna."
 
 #: openedx_wikilearn_features/meta_translations/views.py:74
 msgid "Expand Outline"
-msgstr ""
+msgstr "Expandera översikt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:75
 msgid "Collapse Outline"
-msgstr ""
+msgstr "Fäll ihop Innehåll"
 
 #: openedx_wikilearn_features/meta_translations/views.py:76
 msgid "outline"
-msgstr ""
+msgstr "översikt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:77
 msgid "course name"
-msgstr ""
+msgstr "kursnamn"
 
 #: openedx_wikilearn_features/meta_translations/views.py:78
 msgid "Select Base Course"
-msgstr ""
+msgstr "Välj baskurs"
 
 #: openedx_wikilearn_features/meta_translations/views.py:79
 msgid "Select Rerun Course"
-msgstr ""
+msgstr "Välj repriskurs"
 
 #: openedx_wikilearn_features/meta_translations/views.py:81
 msgid "No Translated Course Found!"
-msgstr ""
+msgstr "Ingen översatt kurs hittades!"
 
 #: openedx_wikilearn_features/meta_translations/views.py:82
 msgid "No Translations Found!, Please apply mapping."
-msgstr ""
+msgstr "Inga översättningar hittades! Tillämpa kartläggning."
 
 #: openedx_wikilearn_features/meta_translations/views.py:84
 msgid "Filter My Courses"
-msgstr ""
+msgstr "Filtrera mina kurser"
 
 #: openedx_wikilearn_features/meta_translations/views.py:86
 msgid "APPROVE"
-msgstr ""
+msgstr "GODKÄNN"
 
 #: openedx_wikilearn_features/meta_translations/views.py:87
 #: openedx_wikilearn_features/meta_translations/views.py:96
 msgid "Translation is Disabled"
-msgstr ""
+msgstr "Översättning är inaktiverad"
 
 #: openedx_wikilearn_features/meta_translations/views.py:88
 msgid "Incomplete Translation"
-msgstr ""
+msgstr "Ofullständig översättning"
 
 #: openedx_wikilearn_features/meta_translations/views.py:89
 msgid "Approve"
-msgstr ""
+msgstr "Godkänn"
 
 #: openedx_wikilearn_features/meta_translations/views.py:90
 msgid "Approved"
@@ -298,108 +302,112 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:91
 #: openedx_wikilearn_features/meta_translations/views.py:108
 msgid "Unable to approve this time, Please try again later."
-msgstr ""
+msgstr "Det gick inte att ansöka den här gången. Försök igen senare."
 
 #: openedx_wikilearn_features/meta_translations/views.py:92
 msgid ""
 "Congratulations! The translation is approved. It's also applied "
 "automatically to the Course Block"
 msgstr ""
+"Grattis! Översättningen är godkänd. De tillämpas också automatiskt på "
+"kursmodulerna"
 
 #: openedx_wikilearn_features/meta_translations/views.py:95
 msgid "APPLY"
-msgstr ""
+msgstr "TILLÄMPA"
 
 #: openedx_wikilearn_features/meta_translations/views.py:97
 msgid "Applied"
-msgstr ""
+msgstr "Tillämpad"
 
 #: openedx_wikilearn_features/meta_translations/views.py:98
 #: openedx_wikilearn_features/meta_translations/views.py:192
 msgid "Apply"
-msgstr ""
+msgstr "Verkställ"
 
 #: openedx_wikilearn_features/meta_translations/views.py:99
 msgid "Unable to apply this time, Please try again later."
-msgstr ""
+msgstr "Det gick inte att ansöka den här gången. Försök igen senare."
 
 #: openedx_wikilearn_features/meta_translations/views.py:100
 msgid "Congratulations! The translation is applied to the Course Block"
-msgstr ""
+msgstr "Grattis! Översättningen tillämpas nu på kursmodulen"
 
 #: openedx_wikilearn_features/meta_translations/views.py:103
 msgid "APPLIED"
-msgstr ""
+msgstr "TILLÄMPAD"
 
 #: openedx_wikilearn_features/meta_translations/views.py:106
 msgid "APPROVE ALL"
-msgstr ""
+msgstr "GODKÄNN ALLA"
 
 #: openedx_wikilearn_features/meta_translations/views.py:107
 msgid "No pending translations to be approved"
-msgstr ""
+msgstr "Det finns inga översättningar som väntar på godkännande"
 
 #: openedx_wikilearn_features/meta_translations/views.py:109
 msgid ""
 "Congratulations! Translations are approved. They're also applied "
 "automatically to the Course Blocks"
 msgstr ""
+"Grattis! Översättningarna är godkänd. De tillämpas också automatiskt på "
+"kursmodulerna"
 
 #: openedx_wikilearn_features/meta_translations/views.py:112
 msgid "pending translation"
-msgstr ""
+msgstr "väntar på översättning"
 
 #: openedx_wikilearn_features/meta_translations/views.py:113
 msgid "recent"
-msgstr ""
+msgstr "senaste"
 
 #: openedx_wikilearn_features/meta_translations/views.py:114
 msgid "applied"
-msgstr ""
+msgstr "tillämpad"
 
 #: openedx_wikilearn_features/meta_translations/views.py:115
 msgid "other"
-msgstr ""
+msgstr "övrigt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:118
 msgid "Unable to fetch translation this time, Please try again later."
-msgstr ""
+msgstr "Det gick inte att hämta översättningen just nu, försök igen senare."
 
 #: openedx_wikilearn_features/meta_translations/views.py:119
 msgid "Unable to load Courses."
-msgstr ""
+msgstr "Det gick inte att ladda kurser."
 
 #: openedx_wikilearn_features/meta_translations/views.py:120
 msgid "Unable to load Course Outline."
-msgstr ""
+msgstr "Kunde inte ladda in kursöversikt."
 
 #: openedx_wikilearn_features/meta_translations/views.py:121
 msgid "Unable to load content."
-msgstr ""
+msgstr "Det gick inte att ladda innehållet."
 
 #: openedx_wikilearn_features/meta_translations/views.py:170
 msgid "Courses available for translation"
-msgstr ""
+msgstr "Kurser tillgängliga för översättning"
 
 #: openedx_wikilearn_features/meta_translations/views.py:171
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 #: openedx_wikilearn_features/meta_translations/views.py:172
 msgid "From Language"
-msgstr ""
+msgstr "Från språk"
 
 #: openedx_wikilearn_features/meta_translations/views.py:173
 msgid "To Language"
-msgstr ""
+msgstr "Till språk"
 
 #: openedx_wikilearn_features/meta_translations/views.py:174
 msgid "Block Type"
-msgstr ""
+msgstr "Modultyp"
 
 #: openedx_wikilearn_features/meta_translations/views.py:175
 msgid "Translation"
-msgstr ""
+msgstr "Översättning"
 
 #: openedx_wikilearn_features/meta_translations/views.py:176
 #: openedx_wikilearn_features/meta_translations/views.py:199
@@ -408,48 +416,48 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:177
 msgid "Translated Course Name"
-msgstr ""
+msgstr "Översatt kursnamn"
 
 #: openedx_wikilearn_features/meta_translations/views.py:178
 msgid "Search Course By Name"
-msgstr ""
+msgstr "Sök kurs utifrån namn"
 
 #: openedx_wikilearn_features/meta_translations/views.py:179
 msgid "Hrs Ago"
-msgstr ""
+msgstr "timmar sedan"
 
 #: openedx_wikilearn_features/meta_translations/views.py:180
 msgid "N/A"
-msgstr ""
+msgstr "Ej tillämpbart"
 
 #: openedx_wikilearn_features/meta_translations/views.py:181
 #: openedx_wikilearn_features/meta_translations/views.py:202
 msgid "Translated"
-msgstr ""
+msgstr "Översatt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:183
 msgid "Last Updated:"
-msgstr ""
+msgstr "Senast uppdaterade:"
 
 #: openedx_wikilearn_features/meta_translations/views.py:184
 msgid "Translated:"
-msgstr ""
+msgstr "Översatt:"
 
 #: openedx_wikilearn_features/meta_translations/views.py:187
 msgid "No course blocks found"
-msgstr ""
+msgstr "Inga kursmoduler hittades"
 
 #: openedx_wikilearn_features/meta_translations/views.py:188
 msgid "No courses found"
-msgstr ""
+msgstr "Inga kurser hittades"
 
 #: openedx_wikilearn_features/meta_translations/views.py:191
 msgid "Load More"
-msgstr ""
+msgstr "Visa mer"
 
 #: openedx_wikilearn_features/meta_translations/views.py:195
 msgid "Section Header"
-msgstr ""
+msgstr "Avsnittsrubrik"
 
 #: openedx_wikilearn_features/meta_translations/views.py:196
 msgid "HTML"
@@ -465,24 +473,24 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:203
 msgid "Untranslated"
-msgstr ""
+msgstr "Ej översatt"
 
 #: openedx_wikilearn_features/meta_translations/views.py:206
 msgid "Unable to load course blocks"
-msgstr ""
+msgstr "Det gick inte att ladda kursmoduler"
 
 #: openedx_wikilearn_features/meta_translations/views.py:207
 msgid "Unable to load a course"
-msgstr ""
+msgstr "Det gick inte att ladda en kurs"
 
 #: openedx_wikilearn_features/meta_translations/views.py:208
 msgid "Unable to load courses"
-msgstr ""
+msgstr "Det gick inte att ladda kurser"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
 msgid "Catalog"
-msgstr ""
+msgstr "Katalog"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:44
 msgid "Courses"
@@ -498,17 +506,18 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:81
 msgid "Inbox"
-msgstr ""
+msgstr "Inkorg"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:11
 msgid "%(thread_username)s mentioned you on post: <b>%(thread_title)s</b>:"
-msgstr ""
+msgstr "%(thread_username)s nämnde dig i inlägget: <b>%(thread_title)s</b> :"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:15
 msgid ""
 "%(comment_username)s mentioned you in the comment on post: "
 "<b>%(thread_title)s</b>:"
 msgstr ""
+"%(comment_username)s nämnde dig i kommentaren på inlägg: %(thread_title)s:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:33
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:13
@@ -517,13 +526,14 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:4
 msgid "%(thread_username)s mentioned you on post: %(thread_title)s:"
-msgstr ""
+msgstr "%(thread_username)s nämnde dig i inlägget: %(thread_title)s:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:6
 msgid ""
 "%(comment_username)s mentioned you in the comment on post: %(thread_title)s:"
 msgstr ""
+"%(comment_username)s nämnde dig i kommentaren på inlägg: %(thread_title)s:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/subject.txt:2
 msgid "%(platform_name)s -> %(mentioned_by)s mentioned you on the post."
-msgstr ""
+msgstr "%(platform_name)s -> %(mentioned_by)s nämnde dig i inlägget."

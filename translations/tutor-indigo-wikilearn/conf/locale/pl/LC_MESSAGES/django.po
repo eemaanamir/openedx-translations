@@ -75,7 +75,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:67
 msgid "All Courses"
-msgstr ""
+msgstr "Wszystkie kursy"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:80
 msgid "See what we have been up to"
@@ -131,7 +131,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:23
 msgid "has successfully completed"
-msgstr ""
+msgstr "ukończył/a kurs"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:24
 msgid "the"

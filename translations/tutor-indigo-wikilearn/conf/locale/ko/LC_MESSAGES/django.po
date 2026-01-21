@@ -54,7 +54,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:16
 msgid "Unlock The World’s Knowledge"
-msgstr ""
+msgstr "세계의 지식을 풀다"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:40
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:77
@@ -71,7 +71,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:66
 msgid "Recently Added"
-msgstr ""
+msgstr "최근 추가됨"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:67
 msgid "All Courses"
@@ -83,11 +83,11 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:81
 msgid "View All News >"
-msgstr ""
+msgstr "모든 뉴스 보기 >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:87
 msgid "19 April 2021"
-msgstr ""
+msgstr "2021년 4월 19일"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:88
 #: tutorindigo/templates/indigo/lms/templates/index.html:108
@@ -107,11 +107,11 @@ msgstr ""
 #: tutorindigo/templates/indigo/lms/templates/index.html:96
 #: tutorindigo/templates/indigo/lms/templates/index.html:112
 msgid "Read More >"
-msgstr ""
+msgstr "더 읽기 >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:107
 msgid "26 Februrary 2021"
-msgstr ""
+msgstr "2021년 2월 26일"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:110
 msgid "Wikipedia needs local journalism and the open Web"
@@ -127,7 +127,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:131
 msgid "Subscribe"
-msgstr ""
+msgstr "구독"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:23
 msgid "has successfully completed"

@@ -17264,7 +17264,7 @@ msgstr ""
 
 #: xmodule/course_block.py:1056
 msgid "Select Course Font Family"
-msgstr ""
+msgstr "Pilih Keluarga Font Kursus"
 
 #: xmodule/course_block.py:1058
 msgid ""

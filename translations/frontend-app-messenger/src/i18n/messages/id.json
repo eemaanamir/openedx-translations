@@ -6,7 +6,7 @@
   "messenger.button.send": "",
   "messenger.error.loadConversation": "",
   "messenger.error.readMessages": "",
-  "messenger.error.sendMessage": "",
+  "messenger.error.sendMessage": "Kesalahan dalam mengirim pesan. Tolong coba lagi!",
   "messenger.error.sendMessages": "",
   "messenger.error.userConversation": "",
   "messenger.error.userSearch": "",
