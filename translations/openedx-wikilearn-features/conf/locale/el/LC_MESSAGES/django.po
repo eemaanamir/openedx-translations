@@ -248,11 +248,11 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:76
 msgid "outline"
-msgstr ""
+msgstr "περίγραμμα"
 
 #: openedx_wikilearn_features/meta_translations/views.py:77
 msgid "course name"
-msgstr ""
+msgstr "όνομα μαθήματος"
 
 #: openedx_wikilearn_features/meta_translations/views.py:78
 msgid "Select Base Course"

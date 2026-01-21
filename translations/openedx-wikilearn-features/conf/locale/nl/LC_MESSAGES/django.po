@@ -35,28 +35,28 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:138
 msgid "progress"
-msgstr ""
+msgstr "voortgang"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
-msgstr ""
+msgstr "alle_inschrijvingsstatistieken"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:225
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api_helper.py:101
 msgid "enrollment"
-msgstr ""
+msgstr "inschrijving"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:253
 msgid "user_pref_lang"
-msgstr ""
+msgstr "gebruikervoorkeur_taal"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:272
 msgid "all_users_enrollment"
-msgstr ""
+msgstr "inschrijving_alle_gebruikers"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:299
 msgid "enrollment_acctivity_report"
-msgstr ""
+msgstr "overzicht_inschrijvingsactiviteit"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api_helper.py:24
 msgid "Requested task is already running"
@@ -122,12 +122,12 @@ msgstr ""
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.html:10
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.txt:4
 msgid "%(email_msg)s"
-msgstr ""
+msgstr "%(email_msg)s"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.html:16
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.txt:5
 msgid "View Reports"
-msgstr ""
+msgstr "Rapportages weergeven"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.html:24
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.txt:6
@@ -137,75 +137,77 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:14
 msgid "This email was automatically sent from %(platform_name)s to %(email)s"
 msgstr ""
+"Deze e-mail is automatisch verzonden van %(platform_name)s naar %(email)s"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/subject.txt:2
 msgid "%(platform_name)s -> Your report is ready."
-msgstr ""
+msgstr "%(platform_name)s -> Uw rapportage is klaar."
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:17
 msgid "User does not exist - invalid username {}"
-msgstr ""
+msgstr "Gebruiker bestaat niet; de gebruikersnaam {} is ongeldig"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:35
 msgid "recipient list can not be empty."
-msgstr ""
+msgstr "lijst met ontvangers mag niet leeg zijn."
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:42
 msgid "Missing request object."
-msgstr ""
+msgstr "Verzoekobject ontbreekt."
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:71
 msgid "Invalid request - request object not found."
-msgstr ""
+msgstr "Ongeldig verzoek – verzoekobject niet gevonden."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:55
 msgid "Search query param is required."
-msgstr ""
+msgstr "Zoekvraagparameter is vereist."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:156
 msgid "with_user param is required."
-msgstr ""
+msgstr "De parameter with_user is vereist."
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:162
 msgid "User with username: {} does not exist."
-msgstr ""
+msgstr "Er is geen gebruiker met gebruikersnaam {}."
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:9
 msgid "Hi "
-msgstr ""
+msgstr "Hallo "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:12
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:23
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "You have "
-msgstr ""
+msgstr "U hebt "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:14
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 msgid "unread message(s) waiting for your response from following users:"
 msgstr ""
+"ongelezen bericht(en) die wachten op uw antwoord van de volgende gebruikers:"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:25
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "unread message(s) waiting for your response from "
-msgstr ""
+msgstr "ongelezen bericht(en) die wachten op uw antwoord van "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:28
 msgid "Login your platform to view all new messages."
-msgstr ""
+msgstr "Meld u aan bij uw platform om alle nieuwe berichten te bekijken."
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:47
 msgid " <font color=\"#ffffff\"><b>View Messenger</b></font>"
-msgstr ""
+msgstr " <font color=\"#ffffff\"><b>Messenger bekijken</b></font>"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:2
 msgid "Dear "
-msgstr ""
+msgstr "Beste "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:13
 msgid "Login your platform to view all new messages "
-msgstr ""
+msgstr "Meld u aan bij uw platform om alle nieuwe berichten te bekijken "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/subject.txt:3
 msgid "%(subject)s"
@@ -213,83 +215,87 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/models.py:31
 msgid "Days settings for next Fetch call"
-msgstr ""
+msgstr "Daginstellingen voor de volgende Fetch-oproep"
 
 #: openedx_wikilearn_features/meta_translations/models.py:97
 msgid "Destination"
-msgstr ""
+msgstr "Bestemming"
 
 #: openedx_wikilearn_features/meta_translations/models.py:98
 msgid "Source"
-msgstr ""
+msgstr "Bron"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:266
 msgid "Course Language is required field for Translated rerun."
-msgstr ""
+msgstr "Cursustaal is verplicht veld voor vertaalde herhaling."
 
 #: openedx_wikilearn_features/meta_translations/utils.py:270
 msgid ""
 "Translated rerun for Source Course in selected language already exists."
 msgstr ""
+"Er is al een vertaalde herhaling voor de broncursus in de geselecteerde "
+"taal."
 
 #: openedx_wikilearn_features/meta_translations/utils.py:278
 msgid ""
 "Translated rerun can not be created for the base course with no language. "
 "Please set base course language from settings."
 msgstr ""
+"Voor een basiscursus zonder taal kan geen vertaalde herhaling worden "
+"gemaakt. Stel de taal van de basiscursus in via de instellingen."
 
 #: openedx_wikilearn_features/meta_translations/views.py:74
 msgid "Expand Outline"
-msgstr ""
+msgstr "Overzicht uitvouwen"
 
 #: openedx_wikilearn_features/meta_translations/views.py:75
 msgid "Collapse Outline"
-msgstr ""
+msgstr "Overzicht samenvouwen"
 
 #: openedx_wikilearn_features/meta_translations/views.py:76
 msgid "outline"
-msgstr ""
+msgstr "overzicht"
 
 #: openedx_wikilearn_features/meta_translations/views.py:77
 msgid "course name"
-msgstr ""
+msgstr "naam cursus"
 
 #: openedx_wikilearn_features/meta_translations/views.py:78
 msgid "Select Base Course"
-msgstr ""
+msgstr "Selecteer basiscursus"
 
 #: openedx_wikilearn_features/meta_translations/views.py:79
 msgid "Select Rerun Course"
-msgstr ""
+msgstr "Selecteer herhaling cursus"
 
 #: openedx_wikilearn_features/meta_translations/views.py:81
 msgid "No Translated Course Found!"
-msgstr ""
+msgstr "Geen vertaalde cursus gevonden!"
 
 #: openedx_wikilearn_features/meta_translations/views.py:82
 msgid "No Translations Found!, Please apply mapping."
-msgstr ""
+msgstr "Geen vertalingen gevonden! Wijs cursusblokken toe."
 
 #: openedx_wikilearn_features/meta_translations/views.py:84
 msgid "Filter My Courses"
-msgstr ""
+msgstr "Mijn cursussen filteren"
 
 #: openedx_wikilearn_features/meta_translations/views.py:86
 msgid "APPROVE"
-msgstr ""
+msgstr "GOEDKEUREN"
 
 #: openedx_wikilearn_features/meta_translations/views.py:87
 #: openedx_wikilearn_features/meta_translations/views.py:96
 msgid "Translation is Disabled"
-msgstr ""
+msgstr "Vertaling is uitgeschakeld"
 
 #: openedx_wikilearn_features/meta_translations/views.py:88
 msgid "Incomplete Translation"
-msgstr ""
+msgstr "Onvolledige vertaling"
 
 #: openedx_wikilearn_features/meta_translations/views.py:89
 msgid "Approve"
-msgstr ""
+msgstr "Goedkeuren"
 
 #: openedx_wikilearn_features/meta_translations/views.py:90
 msgid "Approved"
@@ -298,108 +304,112 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:91
 #: openedx_wikilearn_features/meta_translations/views.py:108
 msgid "Unable to approve this time, Please try again later."
-msgstr ""
+msgstr "Kan het deze keer niet goedkeuren. Probeer het later opnieuw."
 
 #: openedx_wikilearn_features/meta_translations/views.py:92
 msgid ""
 "Congratulations! The translation is approved. It's also applied "
 "automatically to the Course Block"
 msgstr ""
+"Gefeliciteerd! De vertaling is goedgekeurd. Deze wordt ook automatisch "
+"toegepast op het cursusblok"
 
 #: openedx_wikilearn_features/meta_translations/views.py:95
 msgid "APPLY"
-msgstr ""
+msgstr "TOEPASSEN"
 
 #: openedx_wikilearn_features/meta_translations/views.py:97
 msgid "Applied"
-msgstr ""
+msgstr "Toegepast"
 
 #: openedx_wikilearn_features/meta_translations/views.py:98
 #: openedx_wikilearn_features/meta_translations/views.py:192
 msgid "Apply"
-msgstr ""
+msgstr "Toepassen"
 
 #: openedx_wikilearn_features/meta_translations/views.py:99
 msgid "Unable to apply this time, Please try again later."
-msgstr ""
+msgstr "Kan het deze keer niet toepassen. Probeer het later opnieuw."
 
 #: openedx_wikilearn_features/meta_translations/views.py:100
 msgid "Congratulations! The translation is applied to the Course Block"
-msgstr ""
+msgstr "Gefeliciteerd! De vertaling wordt toegepast op het cursusblok"
 
 #: openedx_wikilearn_features/meta_translations/views.py:103
 msgid "APPLIED"
-msgstr ""
+msgstr "TOEGEPAST"
 
 #: openedx_wikilearn_features/meta_translations/views.py:106
 msgid "APPROVE ALL"
-msgstr ""
+msgstr "ALLES GOEDKEUREN"
 
 #: openedx_wikilearn_features/meta_translations/views.py:107
 msgid "No pending translations to be approved"
-msgstr ""
+msgstr "Er zijn geen wachtende vertalingen om goed te keuren"
 
 #: openedx_wikilearn_features/meta_translations/views.py:109
 msgid ""
 "Congratulations! Translations are approved. They're also applied "
 "automatically to the Course Blocks"
 msgstr ""
+"Gefeliciteerd! De vertalingen zijn goedgekeurd. Ze worden ook automatisch "
+"toegepast op de cursusblokken"
 
 #: openedx_wikilearn_features/meta_translations/views.py:112
 msgid "pending translation"
-msgstr ""
+msgstr "vertaling in afwachting"
 
 #: openedx_wikilearn_features/meta_translations/views.py:113
 msgid "recent"
-msgstr ""
+msgstr "recent"
 
 #: openedx_wikilearn_features/meta_translations/views.py:114
 msgid "applied"
-msgstr ""
+msgstr "toegepast"
 
 #: openedx_wikilearn_features/meta_translations/views.py:115
 msgid "other"
-msgstr ""
+msgstr "overige"
 
 #: openedx_wikilearn_features/meta_translations/views.py:118
 msgid "Unable to fetch translation this time, Please try again later."
-msgstr ""
+msgstr "Kan deze keer geen vertaling ophalen. Probeer het later opnieuw."
 
 #: openedx_wikilearn_features/meta_translations/views.py:119
 msgid "Unable to load Courses."
-msgstr ""
+msgstr "Kan cursussen niet laden."
 
 #: openedx_wikilearn_features/meta_translations/views.py:120
 msgid "Unable to load Course Outline."
-msgstr ""
+msgstr "Kan cursusoverzicht niet laden."
 
 #: openedx_wikilearn_features/meta_translations/views.py:121
 msgid "Unable to load content."
-msgstr ""
+msgstr "Kan inhoud niet laden."
 
 #: openedx_wikilearn_features/meta_translations/views.py:170
 msgid "Courses available for translation"
-msgstr ""
+msgstr "Voor vertaling beschikbare cursussen"
 
 #: openedx_wikilearn_features/meta_translations/views.py:171
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 #: openedx_wikilearn_features/meta_translations/views.py:172
 msgid "From Language"
-msgstr ""
+msgstr "Uit het"
 
 #: openedx_wikilearn_features/meta_translations/views.py:173
 msgid "To Language"
-msgstr ""
+msgstr "In het"
 
 #: openedx_wikilearn_features/meta_translations/views.py:174
 msgid "Block Type"
-msgstr ""
+msgstr "Bloktype"
 
 #: openedx_wikilearn_features/meta_translations/views.py:175
 msgid "Translation"
-msgstr ""
+msgstr "Vertaling"
 
 #: openedx_wikilearn_features/meta_translations/views.py:176
 #: openedx_wikilearn_features/meta_translations/views.py:199
@@ -408,48 +418,48 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:177
 msgid "Translated Course Name"
-msgstr ""
+msgstr "Naam vertaalde cursus"
 
 #: openedx_wikilearn_features/meta_translations/views.py:178
 msgid "Search Course By Name"
-msgstr ""
+msgstr "Cursus zoeken op naam"
 
 #: openedx_wikilearn_features/meta_translations/views.py:179
 msgid "Hrs Ago"
-msgstr ""
+msgstr "Uur geleden"
 
 #: openedx_wikilearn_features/meta_translations/views.py:180
 msgid "N/A"
-msgstr ""
+msgstr "N.v.t."
 
 #: openedx_wikilearn_features/meta_translations/views.py:181
 #: openedx_wikilearn_features/meta_translations/views.py:202
 msgid "Translated"
-msgstr ""
+msgstr "Vertaald"
 
 #: openedx_wikilearn_features/meta_translations/views.py:183
 msgid "Last Updated:"
-msgstr ""
+msgstr "Laatst bijgewerkt:"
 
 #: openedx_wikilearn_features/meta_translations/views.py:184
 msgid "Translated:"
-msgstr ""
+msgstr "Vertaald:"
 
 #: openedx_wikilearn_features/meta_translations/views.py:187
 msgid "No course blocks found"
-msgstr ""
+msgstr "Geen cursusblokken gevonden"
 
 #: openedx_wikilearn_features/meta_translations/views.py:188
 msgid "No courses found"
-msgstr ""
+msgstr "Geen cursussen gevonden"
 
 #: openedx_wikilearn_features/meta_translations/views.py:191
 msgid "Load More"
-msgstr ""
+msgstr "Meer laden"
 
 #: openedx_wikilearn_features/meta_translations/views.py:195
 msgid "Section Header"
-msgstr ""
+msgstr "Sectiekop"
 
 #: openedx_wikilearn_features/meta_translations/views.py:196
 msgid "HTML"
@@ -465,24 +475,24 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:203
 msgid "Untranslated"
-msgstr ""
+msgstr "Onvertaald"
 
 #: openedx_wikilearn_features/meta_translations/views.py:206
 msgid "Unable to load course blocks"
-msgstr ""
+msgstr "Kan cursusblokken niet laden"
 
 #: openedx_wikilearn_features/meta_translations/views.py:207
 msgid "Unable to load a course"
-msgstr ""
+msgstr "Kan een cursus niet laden"
 
 #: openedx_wikilearn_features/meta_translations/views.py:208
 msgid "Unable to load courses"
-msgstr ""
+msgstr "Kan cursussen niet laden"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
 msgid "Catalog"
-msgstr ""
+msgstr "Catalogus"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:44
 msgid "Courses"
@@ -498,17 +508,20 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:81
 msgid "Inbox"
-msgstr ""
+msgstr "Postvak IN"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:11
 msgid "%(thread_username)s mentioned you on post: <b>%(thread_title)s</b>:"
 msgstr ""
+"%(thread_username)s heeft u genoemd in bericht: <b>%(thread_title)s</b>:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:15
 msgid ""
 "%(comment_username)s mentioned you in the comment on post: "
 "<b>%(thread_title)s</b>:"
 msgstr ""
+"%(comment_username)s heeft u genoemd in het commentaar op het bericht: "
+"<b>%(thread_title)s</b>:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:33
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:13
@@ -517,13 +530,15 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:4
 msgid "%(thread_username)s mentioned you on post: %(thread_title)s:"
-msgstr ""
+msgstr "%(thread_username)s heeft u genoemd in bericht:  %(thread_title)s:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:6
 msgid ""
 "%(comment_username)s mentioned you in the comment on post: %(thread_title)s:"
 msgstr ""
+"%(comment_username)s heeft u genoemd in het commentaar op het bericht: "
+"%(thread_title)s"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/subject.txt:2
 msgid "%(platform_name)s -> %(mentioned_by)s mentioned you on the post."
-msgstr ""
+msgstr "%(platform_name)s -> %(mentioned_by)s heeft u genoemd in het bericht."

@@ -35,7 +35,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:138
 msgid "progress"
-msgstr ""
+msgstr "प्रगति"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
@@ -144,19 +144,19 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:17
 msgid "User does not exist - invalid username {}"
-msgstr ""
+msgstr "उपयोगकर्ता मौज़ूद नहीं है - अमान्य उपयोगकर्ता नाम {}"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:35
 msgid "recipient list can not be empty."
-msgstr ""
+msgstr "प्राप्तकर्ता सूची खाली नहीं हो सकती है।"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:42
 msgid "Missing request object."
-msgstr ""
+msgstr "अनुरोध वस्तु गायब है।"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:71
 msgid "Invalid request - request object not found."
-msgstr ""
+msgstr "अमान्य अनुरोध - अनुरोध वस्तु नहीं पाई गई।"
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:55
 msgid "Search query param is required."
@@ -168,18 +168,18 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:162
 msgid "User with username: {} does not exist."
-msgstr ""
+msgstr "उपयोगकर्ता नाम: {} वाला उपयोगकर्ता मौजूद नहीं है।"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:9
 msgid "Hi "
-msgstr ""
+msgstr "नमस्ते "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:12
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:23
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "You have "
-msgstr ""
+msgstr "आपके पास "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:14
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
@@ -193,7 +193,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:28
 msgid "Login your platform to view all new messages."
-msgstr ""
+msgstr "सभी नए संदेशों को देखने के लिए अपने प्लेटफॉर्म पर लॉग इन करें।"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:47
 msgid " <font color=\"#ffffff\"><b>View Messenger</b></font>"
@@ -201,7 +201,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:2
 msgid "Dear "
-msgstr ""
+msgstr "प्रिय "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:13
 msgid "Login your platform to view all new messages "
@@ -217,20 +217,22 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/models.py:97
 msgid "Destination"
-msgstr ""
+msgstr "लक्ष्य"
 
 #: openedx_wikilearn_features/meta_translations/models.py:98
 msgid "Source"
-msgstr ""
+msgstr "स्रोत"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:266
 msgid "Course Language is required field for Translated rerun."
-msgstr ""
+msgstr "अनुवादित पुनः संचालन के लिए पाठ्यक्रम भाषा आवश्यक है।"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:270
 msgid ""
 "Translated rerun for Source Course in selected language already exists."
 msgstr ""
+"चयनित भाषा में स्रोत पाठ्यक्रम के लिए अनुवादित पुन:प्रसारण पहले से मौज़ूद "
+"है।"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:278
 msgid ""
@@ -240,7 +242,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:74
 msgid "Expand Outline"
-msgstr ""
+msgstr "रूपरेखा विस्तृत करें"
 
 #: openedx_wikilearn_features/meta_translations/views.py:75
 msgid "Collapse Outline"
@@ -260,36 +262,36 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:79
 msgid "Select Rerun Course"
-msgstr ""
+msgstr "पुनः चलाएँ पाठ्यक्रम का चयन करें"
 
 #: openedx_wikilearn_features/meta_translations/views.py:81
 msgid "No Translated Course Found!"
-msgstr ""
+msgstr "कोई अनुवादित पाठ्यक्रम नहीं मिला!"
 
 #: openedx_wikilearn_features/meta_translations/views.py:82
 msgid "No Translations Found!, Please apply mapping."
-msgstr ""
+msgstr "कोई अनुवाद नहीं मिला!, कृपया मैपिंग लागू करें।"
 
 #: openedx_wikilearn_features/meta_translations/views.py:84
 msgid "Filter My Courses"
-msgstr ""
+msgstr "मेरे पाठ्यक्रमों को फ़िल्टर करें"
 
 #: openedx_wikilearn_features/meta_translations/views.py:86
 msgid "APPROVE"
-msgstr ""
+msgstr "मंजूर"
 
 #: openedx_wikilearn_features/meta_translations/views.py:87
 #: openedx_wikilearn_features/meta_translations/views.py:96
 msgid "Translation is Disabled"
-msgstr ""
+msgstr "अनुवाद अक्षम है"
 
 #: openedx_wikilearn_features/meta_translations/views.py:88
 msgid "Incomplete Translation"
-msgstr ""
+msgstr "अधूरा अनुवाद"
 
 #: openedx_wikilearn_features/meta_translations/views.py:89
 msgid "Approve"
-msgstr ""
+msgstr "अनुमोदन"
 
 #: openedx_wikilearn_features/meta_translations/views.py:90
 msgid "Approved"
@@ -298,7 +300,7 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:91
 #: openedx_wikilearn_features/meta_translations/views.py:108
 msgid "Unable to approve this time, Please try again later."
-msgstr ""
+msgstr "इस बार आवेदन करने में असमर्थ, कृपया बाद में पुनः प्रयास करें।"
 
 #: openedx_wikilearn_features/meta_translations/views.py:92
 msgid ""
@@ -308,20 +310,20 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:95
 msgid "APPLY"
-msgstr ""
+msgstr "आवेदन करें"
 
 #: openedx_wikilearn_features/meta_translations/views.py:97
 msgid "Applied"
-msgstr ""
+msgstr "लागू किया गया"
 
 #: openedx_wikilearn_features/meta_translations/views.py:98
 #: openedx_wikilearn_features/meta_translations/views.py:192
 msgid "Apply"
-msgstr ""
+msgstr "लागू करें"
 
 #: openedx_wikilearn_features/meta_translations/views.py:99
 msgid "Unable to apply this time, Please try again later."
-msgstr ""
+msgstr "इस बार आवेदन करने में असमर्थ, कृपया बाद में पुनः प्रयास करें।"
 
 #: openedx_wikilearn_features/meta_translations/views.py:100
 msgid "Congratulations! The translation is applied to the Course Block"
@@ -333,7 +335,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:106
 msgid "APPROVE ALL"
-msgstr ""
+msgstr "सभी को स्वीकार करें"
 
 #: openedx_wikilearn_features/meta_translations/views.py:107
 msgid "No pending translations to be approved"
@@ -347,19 +349,19 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:112
 msgid "pending translation"
-msgstr ""
+msgstr "अनुवाद लंबित"
 
 #: openedx_wikilearn_features/meta_translations/views.py:113
 msgid "recent"
-msgstr ""
+msgstr "हाल ही का"
 
 #: openedx_wikilearn_features/meta_translations/views.py:114
 msgid "applied"
-msgstr ""
+msgstr "लागू किया गया"
 
 #: openedx_wikilearn_features/meta_translations/views.py:115
 msgid "other"
-msgstr ""
+msgstr "अन्य"
 
 #: openedx_wikilearn_features/meta_translations/views.py:118
 msgid "Unable to fetch translation this time, Please try again later."
@@ -367,11 +369,11 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:119
 msgid "Unable to load Courses."
-msgstr ""
+msgstr "पाठ्यक्रम लोड करने में असमर्थ।"
 
 #: openedx_wikilearn_features/meta_translations/views.py:120
 msgid "Unable to load Course Outline."
-msgstr ""
+msgstr "पाठ्यक्रम की रूपरेखा लोड करने में असमर्थ।"
 
 #: openedx_wikilearn_features/meta_translations/views.py:121
 msgid "Unable to load content."
@@ -482,7 +484,7 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
 msgid "Catalog"
-msgstr ""
+msgstr "सूची"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:44
 msgid "Courses"
@@ -498,7 +500,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:81
 msgid "Inbox"
-msgstr ""
+msgstr "इनबॉक्स"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:11
 msgid "%(thread_username)s mentioned you on post: <b>%(thread_title)s</b>:"

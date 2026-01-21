@@ -20,7 +20,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/static/js/courses.js:27
 msgid "Show All Courses"
-msgstr ""
+msgstr "Показать все курсы"
 
 #: tutorindigo/templates/indigo/lms/static/js/courses.js:77
 msgid "No results found"
