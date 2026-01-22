@@ -165,6 +165,8 @@ msgstr ""
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:49
 msgid "What to study next?"
 msgstr ""
+"O que\n"
+"  estudar a seguir?"
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:68
 msgid "Refine Your Search"
