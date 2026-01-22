@@ -16,11 +16,11 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/static/js/courses.js:24
 msgid "What to study next?"
-msgstr ""
+msgstr "接下来要学习什么？"
 
 #: tutorindigo/templates/indigo/lms/static/js/courses.js:27
 msgid "Show All Courses"
-msgstr ""
+msgstr "显示所有课程"
 
 #: tutorindigo/templates/indigo/lms/static/js/courses.js:77
 msgid "No results found"

@@ -54,7 +54,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:16
 msgid "Unlock The World’s Knowledge"
-msgstr ""
+msgstr "解开世界知识"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:40
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:77
@@ -67,27 +67,27 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:65
 msgid "Featured"
-msgstr ""
+msgstr "精选"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:66
 msgid "Recently Added"
-msgstr ""
+msgstr "最近新增"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:67
 msgid "All Courses"
-msgstr ""
+msgstr "所有课程"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:80
 msgid "See what we have been up to"
-msgstr ""
+msgstr "看看我们做了什么"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:81
 msgid "View All News >"
-msgstr ""
+msgstr "查看所有新闻 >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:87
 msgid "19 April 2021"
-msgstr ""
+msgstr "2021年4月19日"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:88
 #: tutorindigo/templates/indigo/lms/templates/index.html:108
@@ -98,40 +98,40 @@ msgstr ""
 msgid ""
 "Wikipedia readers in Latin America invited to support 20 years of free "
 "knowledge through new fundraising campaign"
-msgstr ""
+msgstr "拉丁美洲的维基百科读者受邀通过新的筹款运动来支持20年的免费知识"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:95
 msgid "By Pats Pena"
-msgstr ""
+msgstr "由 Pats Pena 发布"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:96
 #: tutorindigo/templates/indigo/lms/templates/index.html:112
 msgid "Read More >"
-msgstr ""
+msgstr "了解更多 >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:107
 msgid "26 Februrary 2021"
-msgstr ""
+msgstr "2021年2月26日"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:110
 msgid "Wikipedia needs local journalism and the open Web"
-msgstr ""
+msgstr "维基百科需要本地新闻与开放式网络"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:111
 msgid "By Jan Gerlach"
-msgstr ""
+msgstr "由 Jan Gerlach 发布"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:125
 msgid "Subscribe to news about ongoing projects and initiatives"
-msgstr ""
+msgstr "订阅关于正在进行的计划与举措的新闻"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:131
 msgid "Subscribe"
-msgstr ""
+msgstr "订阅"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:23
 msgid "has successfully completed"
-msgstr ""
+msgstr "已成功完成"
 
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:24
 msgid "the"
@@ -164,7 +164,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:49
 msgid "What to study next?"
-msgstr ""
+msgstr "接下来要学习什么？"
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:68
 msgid "Refine Your Search"
@@ -306,6 +306,7 @@ msgid ""
 "accessibility and diversity. For inquiries, contact the Community "
 "Development team at "
 msgstr ""
+"WikiLearn是由维基媒体基金会托管、用于维基媒体运动的专用学习平台。它提供了全方位的自己决定进度、由导师指引的课程，以在维基媒体社区中培养能力、发展领导力。WikiLearn上的课程由维基人协作开发并面向维基人群体，致力于可及性与多样性。若需询问，请联系社区开发团队：\\"
 
 #: tutorindigo/templates/indigo/lms/templates/static_templates/blog.html:6
 #: tutorindigo/templates/indigo/lms/templates/static_templates/blog.html:11

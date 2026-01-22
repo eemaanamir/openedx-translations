@@ -6,7 +6,7 @@
   "authoring.schedule.course-direction.confirmation-modal.confirm": "",
   "authoring.schedule.course-direction.confirmation-modal.message": "",
   "authoring.schedule.course-direction.confirmation-modal.title": "",
-  "authoring.schedule.course-direction.description": "",
+  "authoring.schedule.course-direction.description": "Converter o curso para Origem",
   "authoring.schedule.course-direction.disabled-tip": "",
   "authoring.schedule.course-direction.title": "",
   "authoring.videoeditor.license.creativeCommons.shareAlike.text": "",
@@ -24,6 +24,6 @@
   "course-authoring.create-or-rerun-course.translation-options.help-text": "",
   "course-authoring.create-or-rerun-course.translation-options.label": "",
   "course-authoring.create-or-rerun-course.translation-options.standard.label": "",
-  "course-authoring.create-or-rerun-course.translation-options.translated.label": "",
+  "course-authoring.create-or-rerun-course.translation-options.translated.label": "Tradução do curso re-run",
   "course-authoring.schedule-section.creativeCommons.shareAlike.text": ""
 }
