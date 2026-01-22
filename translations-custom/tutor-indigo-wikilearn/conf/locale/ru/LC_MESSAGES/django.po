@@ -75,7 +75,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:67
 msgid "All Courses"
-msgstr ""
+msgstr "Все курсы"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:80
 msgid "See what we have been up to"
@@ -107,7 +107,7 @@ msgstr ""
 #: tutorindigo/templates/indigo/lms/templates/index.html:96
 #: tutorindigo/templates/indigo/lms/templates/index.html:112
 msgid "Read More >"
-msgstr ""
+msgstr "Читать далее >"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:107
 msgid "26 Februrary 2021"
@@ -164,7 +164,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:49
 msgid "What to study next?"
-msgstr ""
+msgstr "Что изучать дальше?"
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:68
 msgid "Refine Your Search"

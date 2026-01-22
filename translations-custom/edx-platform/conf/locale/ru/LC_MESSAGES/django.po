@@ -16,7 +16,7 @@ msgstr ""
 
 #: lms/djangoapps/instructor/views/api.py:1428
 msgid "Certificate link"
-msgstr ""
+msgstr "Ссылка на сертификат"
 
 #: openedx/core/djangoapps/user_api/accounts/__init__.py:43
 msgid ""
