@@ -75,7 +75,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:67
 msgid "All Courses"
-msgstr ""
+msgstr "Všetky kurzy"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:80
 msgid "See what we have been up to"
@@ -87,7 +87,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:87
 msgid "19 April 2021"
-msgstr ""
+msgstr "19 apríla 2021"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:88
 #: tutorindigo/templates/indigo/lms/templates/index.html:108
@@ -111,7 +111,7 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:107
 msgid "26 Februrary 2021"
-msgstr ""
+msgstr "26 februára 2021"
 
 #: tutorindigo/templates/indigo/lms/templates/index.html:110
 msgid "Wikipedia needs local journalism and the open Web"
