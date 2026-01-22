@@ -252,7 +252,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:77
 msgid "course name"
-msgstr ""
+msgstr "názov kurzu"
 
 #: openedx_wikilearn_features/meta_translations/views.py:78
 msgid "Select Base Course"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:172
 msgid "From Language"
-msgstr ""
+msgstr "Z jazyka"
 
 #: openedx_wikilearn_features/meta_translations/views.py:173
 msgid "To Language"
@@ -441,7 +441,7 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:188
 msgid "No courses found"
-msgstr ""
+msgstr "Nenašli sa žiadne kurzy"
 
 #: openedx_wikilearn_features/meta_translations/views.py:191
 msgid "Load More"
@@ -482,7 +482,7 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
 msgid "Catalog"
-msgstr ""
+msgstr "Katalóg"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:44
 msgid "Courses"
