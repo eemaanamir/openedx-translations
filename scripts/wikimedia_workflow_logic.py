@@ -3,6 +3,7 @@
 Logic for Wikimedia Unified Translation Workflow:
 1. diff_and_update_custom: Compares extracted sources against upstream and updates translations-custom/.
 2. merge_final: Overlays translations-custom/ onto translations-upstream/ to produce translations/.
+Support for nested repo structures (e.g., repo/subdir/conf/locale/en/LC_MESSAGES/)
 """
 import os
 import sys
@@ -48,20 +49,21 @@ def get_supported_languages():
         if not repo_dir.is_dir():
             continue
 
-        # Check for Django-style locale directories
-        locale_dir = repo_dir / "conf" / "locale"
-        if locale_dir.exists():
-            for lang_dir in locale_dir.iterdir():
-                if lang_dir.is_dir() and lang_dir.name != "en":
-                    supported_langs.add(lang_dir.name)
+        # Check for Django-style locale directories (including nested structures)
+        for locale_dir in repo_dir.rglob("locale"):
+            if locale_dir.is_dir():
+                for lang_dir in locale_dir.iterdir():
+                    if lang_dir.is_dir() and lang_dir.name != "en":
+                        supported_langs.add(lang_dir.name)
 
         # Check for MFE-style i18n directories (src/i18n/messages/)
-        i18n_dir = repo_dir / "src" / "i18n" / "messages"
-        if i18n_dir.exists():
-            for lang_file in i18n_dir.glob("*.json"):
-                lang_code = lang_file.stem
-                if lang_code != "en":
-                    supported_langs.add(lang_code)
+        for i18n_dir in repo_dir.rglob("i18n"):
+            messages_dir = i18n_dir / "messages"
+            if messages_dir.exists():
+                for lang_file in messages_dir.glob("*.json"):
+                    lang_code = lang_file.stem
+                    if lang_code != "en":
+                        supported_langs.add(lang_code)
 
     return sorted(list(supported_langs))
 
@@ -143,28 +145,35 @@ def create_po_placeholders(extracted_file, rel_path, supported_langs):
     for lang in supported_langs:
         parts = list(rel_path.parts)
         try:
+            # Find 'en' in the path - it should be in locale/en pattern
             en_index = parts.index("en")
-            parts[en_index] = lang
-            p_path = CUSTOM_DIR / Path(*parts)
-            if not p_path.exists():
-                ensure_directory(p_path.parent)
-                new_po = polib.POFile()
-                new_po.metadata = po.metadata.copy()
 
-                # Preserve Domain metadata for djangojs.po files
-                if "djangojs" in str(rel_path):
-                    new_po.metadata['Domain'] = 'djangojs'
+            # Verify this is actually a locale directory (should have 'locale' before 'en')
+            if en_index > 0 and parts[en_index - 1] == "locale":
+                parts[en_index] = lang
+                p_path = CUSTOM_DIR / Path(*parts)
+                if not p_path.exists():
+                    ensure_directory(p_path.parent)
+                    new_po = polib.POFile()
+                    new_po.metadata = po.metadata.copy()
 
-                for entry in po:
-                    if entry.msgid:  # Skip empty msgids
-                        new_po.append(polib.POEntry(
-                            msgid=entry.msgid,
-                            msgstr="",
-                            occurrences=entry.occurrences
-                        ))
-                new_po.save(p_path)
-                print(f"  Created placeholder: {p_path}")
+                    # Preserve Domain metadata for djangojs.po files
+                    if "djangojs" in str(rel_path):
+                        new_po.metadata['Domain'] = 'djangojs'
+
+                    for entry in po:
+                        if entry.msgid:  # Skip empty msgids
+                            new_po.append(polib.POEntry(
+                                msgid=entry.msgid,
+                                msgstr="",
+                                occurrences=entry.occurrences
+                            ))
+                    new_po.save(p_path)
+                    print(f"  Created placeholder: {p_path}")
+            else:
+                print(f"  WARNING: Found 'en' at index {en_index} but not in locale directory pattern for {rel_path}")
         except ValueError:
+            print(f"  WARNING: Could not find 'en' in path for {rel_path}, skipping placeholder creation")
             continue
 
 
@@ -249,35 +258,41 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
     for lang in supported_langs:
         parts = list(rel_path.parts)
         try:
+            # Find 'en' in the path - it should be in locale/en pattern
             en_index = parts.index("en")
-            parts[en_index] = lang
-            custom_lang_path = CUSTOM_DIR / Path(*parts)
-            ensure_directory(custom_lang_path.parent)
 
-            if custom_lang_path.exists():
-                try:
-                    custom_lang_po = polib.pofile(custom_lang_path)
-                    existing_lang_map = {e.msgid: e for e in custom_lang_po}
-                except Exception as e:
-                    print(f"  WARNING: Cannot read existing placeholder for {lang}, creating new: {e}")
+            # Verify this is actually a locale directory
+            if en_index > 0 and parts[en_index - 1] == "locale":
+                parts[en_index] = lang
+                custom_lang_path = CUSTOM_DIR / Path(*parts)
+                ensure_directory(custom_lang_path.parent)
+
+                if custom_lang_path.exists():
+                    try:
+                        custom_lang_po = polib.pofile(custom_lang_path)
+                        existing_lang_map = {e.msgid: e for e in custom_lang_po}
+                    except Exception as e:
+                        print(f"  WARNING: Cannot read existing placeholder for {lang}, creating new: {e}")
+                        custom_lang_po = polib.POFile()
+                        custom_lang_po.metadata = extracted_po.metadata.copy()
+                        existing_lang_map = {}
+                else:
                     custom_lang_po = polib.POFile()
                     custom_lang_po.metadata = extracted_po.metadata.copy()
                     existing_lang_map = {}
-            else:
-                custom_lang_po = polib.POFile()
-                custom_lang_po.metadata = extracted_po.metadata.copy()
-                existing_lang_map = {}
 
-            added = 0
-            for entry in custom_entries:
-                if entry.msgid not in existing_lang_map:
-                    new_entry = polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences)
-                    custom_lang_po.append(new_entry)
-                    added += 1
+                added = 0
+                for entry in custom_entries:
+                    if entry.msgid not in existing_lang_map:
+                        new_entry = polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences)
+                        custom_lang_po.append(new_entry)
+                        added += 1
 
-            if added > 0:
-                custom_lang_po.save(custom_lang_path)
+                if added > 0:
+                    custom_lang_po.save(custom_lang_path)
+                    print(f"  Added {added} placeholder entries to {custom_lang_path}")
         except ValueError:
+            print(f"  WARNING: Could not find 'en' in path for {rel_path}, skipping language {lang}")
             continue
 
 
