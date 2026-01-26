@@ -3,7 +3,6 @@
 Logic for Wikimedia Unified Translation Workflow:
 1. diff_and_update_custom: Compares extracted sources against upstream and updates translations-custom/.
 2. merge_final: Overlays translations-custom/ onto translations-upstream/ to produce translations/.
-Support for nested repo structures (e.g., repo/subdir/conf/locale/en/LC_MESSAGES/)
 """
 import os
 import sys
@@ -116,12 +115,13 @@ def update_custom_layer(extracted_dir):
                 custom_file_path = CUSTOM_DIR / rel_path
                 ensure_directory(custom_file_path.parent)
                 shutil.copy(extracted_file, custom_file_path)
+                print(f"  → Copied to custom: {custom_file_path}")
 
-                # Create placeholders for other languages (only if they don't exist)
+                # Create/update placeholders for other languages
                 if extracted_file.suffix == ".po":
-                    create_po_placeholders(extracted_file, rel_path, supported_langs)
+                    create_or_update_po_placeholders(extracted_file, rel_path, supported_langs)
                 elif extracted_file.suffix == ".json":
-                    create_json_placeholders(extracted_file, rel_path, supported_langs)
+                    create_or_update_json_placeholders(extracted_file, rel_path, supported_langs)
                 continue
 
             # Standard diff logic for existing repos
@@ -131,28 +131,63 @@ def update_custom_layer(extracted_dir):
                 process_json_diff(extracted_file, upstream_source, rel_path, supported_langs)
 
 
-def create_po_placeholders(extracted_file, rel_path, supported_langs):
+def create_or_update_po_placeholders(extracted_file, rel_path, supported_langs):
     """
-    Create empty PO files for all supported languages.
+    Create NEW PO files OR update EXISTING ones with new strings for all supported languages.
     Handles both django.po and djangojs.po files.
+    Supports nested repo structures.
     """
+    print(f"  Creating/updating PO placeholders for {len(supported_langs)} languages...")
+
     try:
         po = polib.pofile(extracted_file)
+        en_entries = {e.msgid: e for e in po if e.msgid and not e.obsolete}
     except Exception as e:
         print(f"  WARNING: Cannot read extracted file for placeholders: {e}")
         return
 
+    created = 0
+    updated = 0
+    skipped = 0
+
     for lang in supported_langs:
         parts = list(rel_path.parts)
+
         try:
             # Find 'en' in the path - it should be in locale/en pattern
             en_index = parts.index("en")
 
-            # Verify this is actually a locale directory (should have 'locale' before 'en')
+            # Verify this is a locale/en pattern
             if en_index > 0 and parts[en_index - 1] == "locale":
                 parts[en_index] = lang
                 p_path = CUSTOM_DIR / Path(*parts)
-                if not p_path.exists():
+
+                if p_path.exists():
+                    # File exists - update it with new strings
+                    try:
+                        existing_po = polib.pofile(p_path)
+                        existing_msgids = {e.msgid for e in existing_po}
+
+                        added = 0
+                        for msgid, entry in en_entries.items():
+                            if msgid not in existing_msgids:
+                                existing_po.append(polib.POEntry(
+                                    msgid=msgid,
+                                    msgstr="",
+                                    occurrences=entry.occurrences
+                                ))
+                                added += 1
+
+                        if added > 0:
+                            existing_po.save(p_path)
+                            updated += 1
+                            print(f"    ✅ Updated {lang}: +{added} strings")
+                        else:
+                            skipped += 1
+                    except Exception as e:
+                        print(f"    ❌ ERROR updating {lang}: {e}")
+                else:
+                    # File doesn't exist - create it
                     ensure_directory(p_path.parent)
                     new_po = polib.POFile()
                     new_po.metadata = po.metadata.copy()
@@ -162,26 +197,29 @@ def create_po_placeholders(extracted_file, rel_path, supported_langs):
                         new_po.metadata['Domain'] = 'djangojs'
 
                     for entry in po:
-                        if entry.msgid:  # Skip empty msgids
+                        if entry.msgid:
                             new_po.append(polib.POEntry(
                                 msgid=entry.msgid,
                                 msgstr="",
                                 occurrences=entry.occurrences
                             ))
                     new_po.save(p_path)
-                    print(f"  Created placeholder: {p_path}")
-            else:
-                print(f"  WARNING: Found 'en' at index {en_index} but not in locale directory pattern for {rel_path}")
+                    created += 1
+                    print(f"    ✅ Created {lang}: {len(en_entries)} strings")
         except ValueError:
             print(f"  WARNING: Could not find 'en' in path for {rel_path}, skipping placeholder creation")
             continue
 
+    print(f"  Summary: Created {created}, Updated {updated}, Already synced {skipped}")
 
-def create_json_placeholders(extracted_file, rel_path, supported_langs):
+
+def create_or_update_json_placeholders(extracted_file, rel_path, supported_langs):
     """
-    Create empty JSON message files for all supported languages (MFE pattern).
-    Handles both transifex_input.json and en.json sources.
+    Create NEW JSON files OR update EXISTING ones for all supported languages (MFE pattern).
+    Handles both transifex_input.json and direct message files.
     """
+    print(f"  Creating/updating JSON placeholders for {len(supported_langs)} languages...")
+
     try:
         with open(extracted_file, "r", encoding="utf-8") as f:
             en_data = json.load(f)
@@ -197,18 +235,48 @@ def create_json_placeholders(extracted_file, rel_path, supported_langs):
     messages_dir = CUSTOM_DIR / repo_name / "src" / "i18n" / "messages"
     messages_dir.mkdir(parents=True, exist_ok=True)
 
-    # Create placeholder for each language
+    created = 0
+    updated = 0
+    skipped = 0
+
+    # Create/update placeholder for each language
     for lang in supported_langs:
         lang_path = messages_dir / f"{lang}.json"
-        if not lang_path.exists():
+
+        if lang_path.exists():
+            # File exists - update with new keys
+            try:
+                with open(lang_path, "r", encoding="utf-8") as f:
+                    existing_data = json.load(f)
+            except:
+                existing_data = {}
+
+            new_keys = {k: "" for k in en_data.keys() if k not in existing_data}
+
+            if new_keys:
+                existing_data.update(new_keys)
+                with open(lang_path, "w", encoding="utf-8") as f:
+                    json.dump(existing_data, f, indent=2, sort_keys=True, ensure_ascii=False)
+                updated += 1
+                print(f"    ✅ Updated {lang}: +{len(new_keys)} keys")
+            else:
+                skipped += 1
+        else:
+            # File doesn't exist - create it
             placeholder_data = {key: "" for key in en_data.keys()}
             with open(lang_path, "w", encoding="utf-8") as f:
                 json.dump(placeholder_data, f, indent=2, sort_keys=True, ensure_ascii=False)
-            print(f"  Created JSON placeholder: {lang_path}")
+            created += 1
+            print(f"    ✅ Created {lang}: {len(en_data)} keys")
+
+    print(f"  Summary: Created {created}, Updated {updated}, Already synced {skipped}")
 
 
 def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
-    """Process PO file diff and update custom layer."""
+    """
+    Process PO file diff and update custom layer.
+    Updates existing placeholder files with new custom strings.
+    """
     upstream_ids = get_msgids(upstream_source)
 
     try:
@@ -290,16 +358,20 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
 
                 if added > 0:
                     custom_lang_po.save(custom_lang_path)
-                    print(f"  Added {added} placeholder entries to {custom_lang_path}")
+                    updated_count += 1
         except ValueError:
             print(f"  WARNING: Could not find 'en' in path for {rel_path}, skipping language {lang}")
             continue
+
+    if updated_count > 0:
+        print(f"  Updated {updated_count} language placeholder files")
 
 
 def process_json_diff(extracted_file, upstream_source, rel_path, supported_langs):
     """
     Process JSON diff for MFE transifex_input.json files.
     Only keeps keys that don't exist in upstream.
+    Updates existing placeholder files with new keys.
     """
     try:
         with open(extracted_file, "r", encoding="utf-8") as f:
@@ -315,17 +387,12 @@ def process_json_diff(extracted_file, upstream_source, rel_path, supported_langs
         try:
             with open(upstream_source, "r", encoding="utf-8") as f:
                 upstream_data = json.load(f)
-        except json.JSONDecodeError as e:
-            print(f"  WARNING: Malformed upstream JSON {upstream_source}: {e}")
-            print(f"  Treating all extracted data as custom")
-            upstream_data = {}
-        except Exception as e:
-            print(f"  ERROR reading upstream JSON {upstream_source}: {e}")
+        except:
             upstream_data = {}
     else:
         upstream_data = {}
 
-    # FIXED: Only keep keys that are NOT in upstream
+    # Only keep keys that are NOT in upstream
     custom_data = {k: v for k, v in extracted_data.items() if k not in upstream_data}
 
     if not custom_data:
@@ -341,11 +408,7 @@ def process_json_diff(extracted_file, upstream_source, rel_path, supported_langs
         try:
             with open(custom_path, "r", encoding="utf-8") as f:
                 existing_custom = json.load(f)
-        except json.JSONDecodeError as e:
-            print(f"  WARNING: Malformed existing custom JSON {custom_path}: {e}")
-            existing_custom = {}
-        except Exception as e:
-            print(f"  ERROR reading existing custom JSON {custom_path}: {e}")
+        except:
             existing_custom = {}
     else:
         existing_custom = {}
@@ -363,28 +426,24 @@ def process_json_diff(extracted_file, upstream_source, rel_path, supported_langs
         print(f"  ERROR writing custom JSON {custom_path}: {e}")
         return
 
-    # FIXED: Create JSON placeholders for MFE localized files
-    # Pattern: transifex_input.json -> convert to src/i18n/messages/{lang}.json placeholders
+    # Update MFE localized placeholders
     if "transifex_input.json" in str(rel_path):
-        create_mfe_localized_placeholders(custom_data, rel_path, supported_langs)
+        update_mfe_localized_placeholders(custom_data, rel_path, supported_langs)
 
 
-def create_mfe_localized_placeholders(custom_data, rel_path, supported_langs):
+def update_mfe_localized_placeholders(custom_data, rel_path, supported_langs):
     """
-    Create localized JSON placeholders for MFE custom strings.
+    Create/update localized JSON placeholders for MFE custom strings.
     Converts transifex_input.json custom keys -> src/i18n/messages/{lang}.json
     """
-    # Determine the base path for localized files
-    # transifex_input.json is usually at <repo>/src/i18n/transifex_input.json
-    # localized files are at <repo>/src/i18n/messages/{lang}.json
-
     parts = list(rel_path.parts)
     repo_name = parts[0]
-
-    # Construct the messages directory path
     messages_base = CUSTOM_DIR / repo_name / "src" / "i18n" / "messages"
     ensure_directory(messages_base)
 
+    print(f"  Updating MFE localized files for {len(supported_langs)} languages...")
+
+    updated_count = 0
     for lang in supported_langs:
         lang_file = messages_base / f"{lang}.json"
 
@@ -394,11 +453,7 @@ def create_mfe_localized_placeholders(custom_data, rel_path, supported_langs):
                     existing_data = json.load(f)
             else:
                 existing_data = {}
-        except json.JSONDecodeError as e:
-            print(f"  WARNING: Malformed existing JSON {lang_file}: {e}")
-            existing_data = {}
-        except Exception as e:
-            print(f"  ERROR reading existing JSON {lang_file}: {e}")
+        except:
             existing_data = {}
 
         # Add placeholders for custom keys that don't exist
@@ -412,9 +467,12 @@ def create_mfe_localized_placeholders(custom_data, rel_path, supported_langs):
             try:
                 with open(lang_file, "w", encoding="utf-8") as f:
                     json.dump(existing_data, f, indent=2, sort_keys=True, ensure_ascii=False)
-                print(f"  Created/Updated {lang_file} with {new_keys} placeholder keys")
+                updated_count += 1
             except Exception as e:
-                print(f"  ERROR writing JSON placeholders {lang_file}: {e}")
+                print(f"    ❌ ERROR writing {lang}: {e}")
+
+    if updated_count > 0:
+        print(f"    Updated {updated_count} MFE language files")
 
 
 def merge_final():
