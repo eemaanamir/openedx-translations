@@ -532,3 +532,152 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/subject.txt:2
 msgid "%(platform_name)s -> %(mentioned_by)s mentioned you on the post."
 msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:31
+msgid "Report Name"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:32
+msgid "Options"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:33
+msgid "Actions"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:40
+msgid "Quarterly courses enrollment report"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:41
+msgid "Generate a report for last quarter enrollments of all courses."
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:45
+msgid "Select Year"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:51
+msgid "Select Quarter"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:61
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:76
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:91
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:106
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:121
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:137
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:153
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:171
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:187
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:203
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:219
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:235
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:253
+msgid "Generate"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:66
+msgid "All courses enrollment report"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:67
+msgid "Generate an all time report of enrollment/completion for all courses."
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:81
+msgid "Users preferred language report"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:82
+msgid ""
+"Generate a report on users preferred lanugage. Displays N/A for users who "
+"have not selected a lanugage"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:96
+msgid "All Users enrollment report"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:97
+msgid "Generates a report on users enrollments and their completed courses"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:111
+msgid "Enrollment activity report"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:112
+msgid ""
+"Generates an expanded report of user's enrollments and course completion "
+"dates"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:126
+msgid "List profile information for enrolled students"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:143
+msgid "Grade report for all currently enrolled students"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:159
+msgid "Anonymized student ID's"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:177
+msgid "Problem Grade report for all currently enrolled students"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:193
+msgid "Progress report for all currently enrolled students"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:209
+msgid "Course version report (detailed - per course)"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:225
+msgid "Course version report (aggregate)"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:241
+msgid "Average grade report for multiple courses"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:242
+msgid "Different grading schemes can affect the comparison."
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:260
+msgid "Reports Available for Generate"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:261
+msgid ""
+"The reports listed below are available for download, identified by UTC date "
+"and time of generation."
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:271
+msgid ""
+"{strong_start}Note{strong_end}: {ul_start}{li_start}To keep student data "
+"secure, you cannot save or email these links for direct access. Copies of "
+"links expire within 5 minutes.{li_end}{li_start}Report files are deleted 90 "
+"days after generation. If you will need access to old reports, download and "
+"store the files, in accordance with your institution's data security "
+"policies.{li_end}{ul_end}"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:283
+msgid "Pending Tasks"
+msgstr ""
+
+#: admin_dashboard/templates/admin_dashboard/course-reports.html:285
+msgid "The status for any active tasks appears in the list below."
+msgstr ""
+
+#: meta_translations/templates/discover_courses.html:11
+#: meta_translations/templates/translations.html:11
+msgid "{studio_name} Home"
+msgstr ""
