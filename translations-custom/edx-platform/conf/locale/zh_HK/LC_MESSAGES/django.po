@@ -16,17 +16,18 @@ msgstr ""
 
 #: lms/djangoapps/instructor/views/api.py:1428
 msgid "Certificate link"
-msgstr ""
+msgstr "證書連結"
 
 #: openedx/core/djangoapps/user_api/accounts/__init__.py:43
 msgid ""
 "Usernames must not contain the following symbols: #, <, >, [, ], |, {, }, /,"
 " \\, :, @"
-msgstr ""
+msgstr "使用者名稱不能包含以下符號：#, <, >, [, ], |, {, }, /,"
+" \\, :, @"
 
 #: xmodule/course_block.py:1056
 msgid "Select Course Font Family"
-msgstr ""
+msgstr "選擇課程字體"
 
 #: xmodule/course_block.py:1058
 msgid ""
@@ -36,6 +37,11 @@ msgid ""
 "            If value is invalid or empty the default font-family will be \"Helvetica Neue\".\n"
 "            "
 msgstr ""
+"\n"
+"            請選擇要顯示在課程裡的字體。\n"
+"             可用的選項有「font-trebuchet」、「font-open-sans」、「font-noto-kufi-arabic」、「font-montserrat」、和「font-source-sans-pro」。\n"
+"            若值為無效或是空白內容，預設字體會是「Helvetica Neue」。\n"
+"            "
 
 #: xmodule/course_block.py:1068
 msgid "Issue Open Badges"

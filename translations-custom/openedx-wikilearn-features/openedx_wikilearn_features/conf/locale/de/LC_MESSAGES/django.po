@@ -558,7 +558,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "Name des Berichtes"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
@@ -598,7 +598,7 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "Generieren"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
@@ -638,23 +638,23 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:126
 msgid "List profile information for enrolled students"
-msgstr ""
+msgstr "Profilinformationen für eingeschriebene Schüler auflisten"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:143
 msgid "Grade report for all currently enrolled students"
-msgstr ""
+msgstr "Notenbericht für alle derzeit eingeschriebenen Schüler"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:159
 msgid "Anonymized student ID's"
-msgstr ""
+msgstr "Anonymisierte Schüler-IDs"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:177
 msgid "Problem Grade report for all currently enrolled students"
-msgstr ""
+msgstr "Problem Notenbericht für alle derzeit eingeschriebenen Schüler"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:193
 msgid "Progress report for all currently enrolled students"
-msgstr ""
+msgstr "Fortschrittsbericht für alle derzeit eingeschriebenen Schüler"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:209
 msgid "Course version report (detailed - per course)"
@@ -666,15 +666,16 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:241
 msgid "Average grade report for multiple courses"
-msgstr ""
+msgstr "Durchschnittlicher Notenbericht für mehrere Kurse"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:242
 msgid "Different grading schemes can affect the comparison."
 msgstr ""
+"Unterschiedliche Einstufungssysteme können den Vergleich beeinflussen."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:260
 msgid "Reports Available for Generate"
-msgstr ""
+msgstr "Verfügbare Berichte für Generate"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:261
 msgid ""

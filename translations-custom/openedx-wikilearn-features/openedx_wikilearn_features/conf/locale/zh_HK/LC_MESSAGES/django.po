@@ -35,28 +35,28 @@ msgstr ""
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:138
 msgid "progress"
-msgstr ""
+msgstr "進度"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:196
 msgid "all_enrollments_stats"
-msgstr ""
+msgstr "all_enrollments_stats"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:225
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api_helper.py:101
 msgid "enrollment"
-msgstr ""
+msgstr "註冊"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:253
 msgid "user_pref_lang"
-msgstr ""
+msgstr "user_pref_lang"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:272
 msgid "all_users_enrollment"
-msgstr ""
+msgstr "all_users_enrollment"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api.py:299
 msgid "enrollment_acctivity_report"
-msgstr ""
+msgstr "enrollment_acctivity_report"
 
 #: openedx_wikilearn_features/admin_dashboard/admin_task/api_helper.py:24
 msgid "Requested task is already running"
@@ -122,12 +122,12 @@ msgstr ""
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.html:10
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.txt:4
 msgid "%(email_msg)s"
-msgstr ""
+msgstr "%(email_msg)s"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.html:16
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.txt:5
 msgid "View Reports"
-msgstr ""
+msgstr "檢視報告"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.html:24
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/body.txt:6
@@ -136,76 +136,76 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:41
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:14
 msgid "This email was automatically sent from %(platform_name)s to %(email)s"
-msgstr ""
+msgstr "此封電子郵件是自動從%(platform_name)s發送到%(email)s"
 
 #: openedx_wikilearn_features/admin_dashboard/templates/admin_dashboard/edx_ace/reportreadynotification/email/subject.txt:2
 msgid "%(platform_name)s -> Your report is ready."
-msgstr ""
+msgstr "%(platform_name)s -> 您的報告已就緒。"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:17
 msgid "User does not exist - invalid username {}"
-msgstr ""
+msgstr "使用者不存在 - 無效的使用者名稱{}"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:35
 msgid "recipient list can not be empty."
-msgstr ""
+msgstr "收件人清單不能為空。"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:42
 msgid "Missing request object."
-msgstr ""
+msgstr "缺少請求對象。"
 
 #: openedx_wikilearn_features/messenger/api/v0/serializers.py:71
 msgid "Invalid request - request object not found."
-msgstr ""
+msgstr "無效請求 - 找不到請求對象。"
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:55
 msgid "Search query param is required."
-msgstr ""
+msgstr "需要搜尋參數。"
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:156
 msgid "with_user param is required."
-msgstr ""
+msgstr "需要 with_user 參數。"
 
 #: openedx_wikilearn_features/messenger/api/v0/views.py:162
 msgid "User with username: {} does not exist."
-msgstr ""
+msgstr "名稱為：{}的使用者不存在"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:9
 msgid "Hi "
-msgstr ""
+msgstr "您好 "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:12
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:23
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "You have "
-msgstr ""
+msgstr "您有 "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:14
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:6
 msgid "unread message(s) waiting for your response from following users:"
-msgstr ""
+msgstr "有等待您回覆的未讀訊息，來自於以下使用者："
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:25
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:11
 msgid "unread message(s) waiting for your response from "
-msgstr ""
+msgstr "有等待您回覆的未讀訊息，來自於 "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:28
 msgid "Login your platform to view all new messages."
-msgstr ""
+msgstr "請登入您的平台來查看所有新訊息。"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.html:47
 msgid " <font color=\"#ffffff\"><b>View Messenger</b></font>"
-msgstr ""
+msgstr " <font color=\"#ffffff\"><b>查看 Messenger</b></font>"
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:2
 msgid "Dear "
-msgstr ""
+msgstr "親愛的 "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/body.txt:13
 msgid "Login your platform to view all new messages "
-msgstr ""
+msgstr "請登入您的平台來查看所有新訊息 "
 
 #: openedx_wikilearn_features/messenger/templates/messenger/edx_ace/pendingmessagesnotification/email/subject.txt:3
 msgid "%(subject)s"
@@ -213,83 +213,83 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/models.py:31
 msgid "Days settings for next Fetch call"
-msgstr ""
+msgstr "用於下次呼叫 Fetch 的日數設定"
 
 #: openedx_wikilearn_features/meta_translations/models.py:97
 msgid "Destination"
-msgstr ""
+msgstr "目標"
 
 #: openedx_wikilearn_features/meta_translations/models.py:98
 msgid "Source"
-msgstr ""
+msgstr "來源"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:266
 msgid "Course Language is required field for Translated rerun."
-msgstr ""
+msgstr "課程語言是重新運行翻譯的必填欄位。"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:270
 msgid ""
 "Translated rerun for Source Course in selected language already exists."
-msgstr ""
+msgstr "所選語言的來源課程的重新運作翻譯已存在。"
 
 #: openedx_wikilearn_features/meta_translations/utils.py:278
 msgid ""
 "Translated rerun can not be created for the base course with no language. "
 "Please set base course language from settings."
-msgstr ""
+msgstr "不能替沒有語言的基礎課程建立重新運作翻譯。請從設定裡設定基礎課程語言。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:74
 msgid "Expand Outline"
-msgstr ""
+msgstr "展開大綱"
 
 #: openedx_wikilearn_features/meta_translations/views.py:75
 msgid "Collapse Outline"
-msgstr ""
+msgstr "摺疊大綱"
 
 #: openedx_wikilearn_features/meta_translations/views.py:76
 msgid "outline"
-msgstr ""
+msgstr "大綱"
 
 #: openedx_wikilearn_features/meta_translations/views.py:77
 msgid "course name"
-msgstr ""
+msgstr "課程名稱"
 
 #: openedx_wikilearn_features/meta_translations/views.py:78
 msgid "Select Base Course"
-msgstr ""
+msgstr "選擇基礎課程"
 
 #: openedx_wikilearn_features/meta_translations/views.py:79
 msgid "Select Rerun Course"
-msgstr ""
+msgstr "選擇重修課程"
 
 #: openedx_wikilearn_features/meta_translations/views.py:81
 msgid "No Translated Course Found!"
-msgstr ""
+msgstr "找不到翻譯的課程！"
 
 #: openedx_wikilearn_features/meta_translations/views.py:82
 msgid "No Translations Found!, Please apply mapping."
-msgstr ""
+msgstr "找不到翻譯！請套用對映。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:84
 msgid "Filter My Courses"
-msgstr ""
+msgstr "篩選我的課程"
 
 #: openedx_wikilearn_features/meta_translations/views.py:86
 msgid "APPROVE"
-msgstr ""
+msgstr "批准"
 
 #: openedx_wikilearn_features/meta_translations/views.py:87
 #: openedx_wikilearn_features/meta_translations/views.py:96
 msgid "Translation is Disabled"
-msgstr ""
+msgstr "翻譯被停用"
 
 #: openedx_wikilearn_features/meta_translations/views.py:88
 msgid "Incomplete Translation"
-msgstr ""
+msgstr "不完整的翻譯"
 
 #: openedx_wikilearn_features/meta_translations/views.py:89
 msgid "Approve"
-msgstr ""
+msgstr "核准"
 
 #: openedx_wikilearn_features/meta_translations/views.py:90
 msgid "Approved"
@@ -298,108 +298,108 @@ msgstr ""
 #: openedx_wikilearn_features/meta_translations/views.py:91
 #: openedx_wikilearn_features/meta_translations/views.py:108
 msgid "Unable to approve this time, Please try again later."
-msgstr ""
+msgstr "本次無法批准，請稍後重試。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:92
 msgid ""
 "Congratulations! The translation is approved. It's also applied "
 "automatically to the Course Block"
-msgstr ""
+msgstr "恭喜！翻譯已被批准。這會自動套用到課程區塊"
 
 #: openedx_wikilearn_features/meta_translations/views.py:95
 msgid "APPLY"
-msgstr ""
+msgstr "套用"
 
 #: openedx_wikilearn_features/meta_translations/views.py:97
 msgid "Applied"
-msgstr ""
+msgstr "已套用"
 
 #: openedx_wikilearn_features/meta_translations/views.py:98
 #: openedx_wikilearn_features/meta_translations/views.py:192
 msgid "Apply"
-msgstr ""
+msgstr "套用"
 
 #: openedx_wikilearn_features/meta_translations/views.py:99
 msgid "Unable to apply this time, Please try again later."
-msgstr ""
+msgstr "本次無法套用，請稍後重試。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:100
 msgid "Congratulations! The translation is applied to the Course Block"
-msgstr ""
+msgstr "恭喜！翻譯已套用於課程模組"
 
 #: openedx_wikilearn_features/meta_translations/views.py:103
 msgid "APPLIED"
-msgstr ""
+msgstr "已套用"
 
 #: openedx_wikilearn_features/meta_translations/views.py:106
 msgid "APPROVE ALL"
-msgstr ""
+msgstr "全部批准"
 
 #: openedx_wikilearn_features/meta_translations/views.py:107
 msgid "No pending translations to be approved"
-msgstr ""
+msgstr "沒有需要批准的翻譯"
 
 #: openedx_wikilearn_features/meta_translations/views.py:109
 msgid ""
 "Congratulations! Translations are approved. They're also applied "
 "automatically to the Course Blocks"
-msgstr ""
+msgstr "恭喜！翻譯已被批准。這會自動套用到課程區塊"
 
 #: openedx_wikilearn_features/meta_translations/views.py:112
 msgid "pending translation"
-msgstr ""
+msgstr "待處理翻譯"
 
 #: openedx_wikilearn_features/meta_translations/views.py:113
 msgid "recent"
-msgstr ""
+msgstr "近期"
 
 #: openedx_wikilearn_features/meta_translations/views.py:114
 msgid "applied"
-msgstr ""
+msgstr "已套用"
 
 #: openedx_wikilearn_features/meta_translations/views.py:115
 msgid "other"
-msgstr ""
+msgstr "其他"
 
 #: openedx_wikilearn_features/meta_translations/views.py:118
 msgid "Unable to fetch translation this time, Please try again later."
-msgstr ""
+msgstr "這次無法索取翻譯，請稍後重試。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:119
 msgid "Unable to load Courses."
-msgstr ""
+msgstr "無法載入課程。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:120
 msgid "Unable to load Course Outline."
-msgstr ""
+msgstr "無法載入課程大綱。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:121
 msgid "Unable to load content."
-msgstr ""
+msgstr "無法載入內容。"
 
 #: openedx_wikilearn_features/meta_translations/views.py:170
 msgid "Courses available for translation"
-msgstr ""
+msgstr "可供翻譯的課程"
 
 #: openedx_wikilearn_features/meta_translations/views.py:171
 msgid "Filters"
-msgstr ""
+msgstr "篩選"
 
 #: openedx_wikilearn_features/meta_translations/views.py:172
 msgid "From Language"
-msgstr ""
+msgstr "從語言"
 
 #: openedx_wikilearn_features/meta_translations/views.py:173
 msgid "To Language"
-msgstr ""
+msgstr "成語言"
 
 #: openedx_wikilearn_features/meta_translations/views.py:174
 msgid "Block Type"
-msgstr ""
+msgstr "區塊類型"
 
 #: openedx_wikilearn_features/meta_translations/views.py:175
 msgid "Translation"
-msgstr ""
+msgstr "翻譯"
 
 #: openedx_wikilearn_features/meta_translations/views.py:176
 #: openedx_wikilearn_features/meta_translations/views.py:199
@@ -408,48 +408,48 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:177
 msgid "Translated Course Name"
-msgstr ""
+msgstr "翻譯後的課程名稱"
 
 #: openedx_wikilearn_features/meta_translations/views.py:178
 msgid "Search Course By Name"
-msgstr ""
+msgstr "搜尋課程名稱"
 
 #: openedx_wikilearn_features/meta_translations/views.py:179
 msgid "Hrs Ago"
-msgstr ""
+msgstr "小時前"
 
 #: openedx_wikilearn_features/meta_translations/views.py:180
 msgid "N/A"
-msgstr ""
+msgstr "（不適用）"
 
 #: openedx_wikilearn_features/meta_translations/views.py:181
 #: openedx_wikilearn_features/meta_translations/views.py:202
 msgid "Translated"
-msgstr ""
+msgstr "已翻譯"
 
 #: openedx_wikilearn_features/meta_translations/views.py:183
 msgid "Last Updated:"
-msgstr ""
+msgstr "上次更新時間"
 
 #: openedx_wikilearn_features/meta_translations/views.py:184
 msgid "Translated:"
-msgstr ""
+msgstr "已翻譯："
 
 #: openedx_wikilearn_features/meta_translations/views.py:187
 msgid "No course blocks found"
-msgstr ""
+msgstr "找不到課程區塊"
 
 #: openedx_wikilearn_features/meta_translations/views.py:188
 msgid "No courses found"
-msgstr ""
+msgstr "找不到課程"
 
 #: openedx_wikilearn_features/meta_translations/views.py:191
 msgid "Load More"
-msgstr ""
+msgstr "載入更多"
 
 #: openedx_wikilearn_features/meta_translations/views.py:195
 msgid "Section Header"
-msgstr ""
+msgstr "章節標題"
 
 #: openedx_wikilearn_features/meta_translations/views.py:196
 msgid "HTML"
@@ -465,24 +465,24 @@ msgstr ""
 
 #: openedx_wikilearn_features/meta_translations/views.py:203
 msgid "Untranslated"
-msgstr ""
+msgstr "未翻譯"
 
 #: openedx_wikilearn_features/meta_translations/views.py:206
 msgid "Unable to load course blocks"
-msgstr ""
+msgstr "無法載入課程區塊"
 
 #: openedx_wikilearn_features/meta_translations/views.py:207
 msgid "Unable to load a course"
-msgstr ""
+msgstr "載入不到課程"
 
 #: openedx_wikilearn_features/meta_translations/views.py:208
 msgid "Unable to load courses"
-msgstr ""
+msgstr "無法載入課程"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:25
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:62
 msgid "Catalog"
-msgstr ""
+msgstr "目錄"
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:44
 msgid "Courses"
@@ -498,17 +498,17 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/api/v0/utils.py:81
 msgid "Inbox"
-msgstr ""
+msgstr "收件匣"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:11
 msgid "%(thread_username)s mentioned you on post: <b>%(thread_title)s</b>:"
-msgstr ""
+msgstr "%(thread_username)s在這貼文中提到了您：<b>%(thread_title)s</b> ："
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:15
 msgid ""
 "%(comment_username)s mentioned you in the comment on post: "
 "<b>%(thread_title)s</b>:"
-msgstr ""
+msgstr "%(comment_username)s在這個貼文的留言裡提到了您：<b>%(thread_title)s</b>:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.html:33
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:13
@@ -517,24 +517,24 @@ msgstr ""
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:4
 msgid "%(thread_username)s mentioned you on post: %(thread_title)s:"
-msgstr ""
+msgstr "%(thread_username)s在這貼文中提到了您：%(thread_title)s</："
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:6
 msgid ""
 "%(comment_username)s mentioned you in the comment on post: %(thread_title)s:"
-msgstr ""
+msgstr "%(comment_username)s在貼文：%(thread_title)s裡的留言提到了您"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/subject.txt:2
 msgid "%(platform_name)s -> %(mentioned_by)s mentioned you on the post."
-msgstr ""
+msgstr "%(platform_name)s -> %(mentioned_by)s在貼文中提到了您。"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "報告名稱"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
-msgstr ""
+msgstr "選項"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:33
 msgid "Actions"
@@ -542,19 +542,19 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:40
 msgid "Quarterly courses enrollment report"
-msgstr ""
+msgstr "季度選課報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:41
 msgid "Generate a report for last quarter enrollments of all courses."
-msgstr ""
+msgstr "產生上一季度的所有選課報告。"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "選擇年份"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
-msgstr ""
+msgstr "選擇季度"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:61
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:76
@@ -570,83 +570,83 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "產生"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
-msgstr ""
+msgstr "所有選課報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:67
 msgid "Generate an all time report of enrollment/completion for all courses."
-msgstr ""
+msgstr "產生所有課程的註冊/完成情況全部時段報告。"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:81
 msgid "Users preferred language report"
-msgstr ""
+msgstr "使用者首選語言報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:82
 msgid ""
 "Generate a report on users preferred lanugage. Displays N/A for users who "
 "have not selected a lanugage"
-msgstr ""
+msgstr "產生使用者首選語言的報告。對於尚未選擇語言的使用者，會顯示 N/A"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:96
 msgid "All Users enrollment report"
-msgstr ""
+msgstr "所有使用者選課報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:97
 msgid "Generates a report on users enrollments and their completed courses"
-msgstr ""
+msgstr "產生使用者選課以及他們所完成課程的報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:111
 msgid "Enrollment activity report"
-msgstr ""
+msgstr "註冊活動報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:112
 msgid ""
 "Generates an expanded report of user's enrollments and course completion "
 "dates"
-msgstr ""
+msgstr "產生使用者註冊與課程完成日期的詳細報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:126
 msgid "List profile information for enrolled students"
-msgstr ""
+msgstr "列出註冊學生的個人資料"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:143
 msgid "Grade report for all currently enrolled students"
-msgstr ""
+msgstr "所有目前註冊學生的成績報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:159
 msgid "Anonymized student ID's"
-msgstr ""
+msgstr "匿名學生證"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:177
 msgid "Problem Grade report for all currently enrolled students"
-msgstr ""
+msgstr "所有目前註冊學生的問題成績報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:193
 msgid "Progress report for all currently enrolled students"
-msgstr ""
+msgstr "所有註冊學生的進度報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:209
 msgid "Course version report (detailed - per course)"
-msgstr ""
+msgstr "課程版本報告（詳細 - 各課程）"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:225
 msgid "Course version report (aggregate)"
-msgstr ""
+msgstr "課程版本報告（匯總）"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:241
 msgid "Average grade report for multiple courses"
-msgstr ""
+msgstr "多門課程的平均成績報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:242
 msgid "Different grading schemes can affect the comparison."
-msgstr ""
+msgstr "不同的分級方案會影響比較。"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:260
 msgid "Reports Available for Generate"
-msgstr ""
+msgstr "可用於產生的報告"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:261
 msgid ""
@@ -670,7 +670,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:285
 msgid "The status for any active tasks appears in the list below."
-msgstr ""
+msgstr "任何生效任務的狀態都會顯示在下方清單裡。"
 
 #: meta_translations/templates/discover_courses.html:11
 #: meta_translations/templates/translations.html:11
