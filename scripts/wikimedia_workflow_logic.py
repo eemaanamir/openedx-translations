@@ -323,6 +323,9 @@ def process_po_diff(extracted_file, upstream_source, rel_path, supported_langs):
         print(f"  Added {new_count} new custom strings to {custom_en_path}")
 
     # Update Placeholders for ALL other languages
+    print(f"  Updating placeholders for {len(supported_langs)} languages...")
+
+    updated_count = 0
     for lang in supported_langs:
         parts = list(rel_path.parts)
         try:
