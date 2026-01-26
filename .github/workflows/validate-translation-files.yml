@@ -21,6 +21,8 @@ jobs:
       # translation file has been modified in this diff
       - uses: dorny/paths-filter@v3
         id: filter
+        # Only run paths-filter on pull_request events
+        if: github.event_name == 'pull_request'
         with:
           list-files: shell
           filters: |
@@ -29,16 +31,23 @@ jobs:
 
       # Clones the openedx-translations repo
       - name: clone openedx/openedx-translations
-        if: steps.filter.outputs.changedtranslations == 'true'
         uses: actions/checkout@v6
 
+      # For workflow_dispatch, assume we should validate all files
+      - name: Set filter output for manual runs
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "changedtranslations=true" >> $GITHUB_OUTPUT
+          echo "changedtranslations_files=$(find translations -name '*.${{ matrix.file-type }}' -type f | tr '\n' ' ')" >> $GITHUB_OUTPUT
+        id: manual-filter
+
       - name: Install msgfmt from gettext for po-file validation
-        if: steps.filter.outputs.changedtranslations == 'true' && matrix.file-type == 'po'
+        if: (steps.filter.outputs.changedtranslations == 'true' || steps.manual-filter.outputs.changedtranslations == 'true') && matrix.file-type == 'po'
         run: |
           sudo apt install -y gettext
 
       - name: setup python
-        if: steps.filter.outputs.changedtranslations == 'true'
+        if: steps.filter.outputs.changedtranslations == 'true' || steps.manual-filter.outputs.changedtranslations == 'true'
         uses: actions/setup-python@v5
         id: setup_python
         with:
@@ -48,28 +57,29 @@ jobs:
             requirements/translations.txt
 
       - name: Install python requirements
-        if: steps.filter.outputs.changedtranslations == 'true'
+        if: steps.filter.outputs.changedtranslations == 'true' || steps.manual-filter.outputs.changedtranslations == 'true'
         run: |
           python --version
           make translations_scripts_requirements
 
       - name: Setup node
-        if: steps.filter.outputs.changedtranslations == 'true' && matrix.file-type == 'json'
+        if: (steps.filter.outputs.changedtranslations == 'true' || steps.manual-filter.outputs.changedtranslations == 'true') && matrix.file-type == 'json'
         uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'
 
       - name: Install nodejs requirements
-        if: steps.filter.outputs.changedtranslations == 'true' && matrix.file-type == 'json'
+        if: (steps.filter.outputs.changedtranslations == 'true' || steps.manual-filter.outputs.changedtranslations == 'true') && matrix.file-type == 'json'
         run: |
           npm clean-install
 
       - name: Validate ${{ matrix.file-type }} translation files
         id: validate_translation_files
-        if: steps.filter.outputs.changedtranslations == 'true'
+        if: steps.filter.outputs.changedtranslations == 'true' || steps.manual-filter.outputs.changedtranslations == 'true'
         run: |
           has_validation_errors=0
-          python scripts/validate_translation_files.py --types ${{ matrix.file-type }} ${{ steps.filter.outputs.changedtranslations_files }} 2>validation_errors.txt || has_validation_errors=1
+          files="${{ steps.filter.outputs.changedtranslations_files || steps.manual-filter.outputs.changedtranslations_files }}"
+          python scripts/validate_translation_files.py --types ${{ matrix.file-type }} $files 2>validation_errors.txt || has_validation_errors=1
           cat validation_errors.txt
 
           {
