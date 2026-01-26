@@ -530,7 +530,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "Tên báo cáo"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
@@ -570,7 +570,7 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "Tạo"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"

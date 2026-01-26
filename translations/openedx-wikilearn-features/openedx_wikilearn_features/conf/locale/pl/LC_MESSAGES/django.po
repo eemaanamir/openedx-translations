@@ -534,7 +534,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
-msgstr ""
+msgstr "Opcje"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:33
 msgid "Actions"
@@ -550,7 +550,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "Wybierz rok"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
@@ -570,7 +570,7 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "Generuj"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"

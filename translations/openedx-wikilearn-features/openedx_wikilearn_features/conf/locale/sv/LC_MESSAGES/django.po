@@ -541,7 +541,7 @@ msgstr "%(platform_name)s -> %(mentioned_by)s nämnde dig i inlägget."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "Rapportnamn"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
@@ -581,7 +581,7 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "Generera"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
@@ -621,23 +621,23 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:126
 msgid "List profile information for enrolled students"
-msgstr ""
+msgstr "Lista profilinformation för inskrivna studenter"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:143
 msgid "Grade report for all currently enrolled students"
-msgstr ""
+msgstr "Betygsrapport för alla just nu inskrivna studenter"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:159
 msgid "Anonymized student ID's"
-msgstr ""
+msgstr "Anonymiserade student-ID:n"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:177
 msgid "Problem Grade report for all currently enrolled students"
-msgstr ""
+msgstr "Problembetygsrapport för alla just nu inskrivna studenter"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:193
 msgid "Progress report for all currently enrolled students"
-msgstr ""
+msgstr "Framstegsrapport för alla just nu inskrivna studenter"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:209
 msgid "Course version report (detailed - per course)"
@@ -649,15 +649,15 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:241
 msgid "Average grade report for multiple courses"
-msgstr ""
+msgstr "Rapport över medelbetyg för flera kurser"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:242
 msgid "Different grading schemes can affect the comparison."
-msgstr ""
+msgstr "Olika betygsscheman kan påverka jämförelsen."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:260
 msgid "Reports Available for Generate"
-msgstr ""
+msgstr "Rapporter över \"generera\" finns tillgänliga"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:261
 msgid ""

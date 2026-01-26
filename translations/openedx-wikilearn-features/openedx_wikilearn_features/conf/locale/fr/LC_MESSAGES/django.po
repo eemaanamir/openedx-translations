@@ -557,11 +557,11 @@ msgstr "%(platform_name)s → %(mentioned_by)s vous a mentionné sur le billet."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "Nom du rapport"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:33
 msgid "Actions"
@@ -569,19 +569,21 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:40
 msgid "Quarterly courses enrollment report"
-msgstr ""
+msgstr "Rapport trimestriel d’inscription aux cours"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:41
 msgid "Generate a report for last quarter enrollments of all courses."
 msgstr ""
+"Générer un rapport pour les inscriptions du dernier trimestre pour tous les "
+"cours."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "Sélectionner l’année"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
-msgstr ""
+msgstr "Sélectionner le trimestre"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:61
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:76
@@ -597,83 +599,92 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "Générer"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
-msgstr ""
+msgstr "Rapport des inscriptions à tous les cours"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:67
 msgid "Generate an all time report of enrollment/completion for all courses."
 msgstr ""
+"Générer un rapport d’inscription/achèvement pour tous les cours et toutes "
+"les périodes."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:81
 msgid "Users preferred language report"
-msgstr ""
+msgstr "Rapport sur la langue préférée des utilisateurs"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:82
 msgid ""
 "Generate a report on users preferred lanugage. Displays N/A for users who "
 "have not selected a lanugage"
 msgstr ""
+"Générer un rapport sur la langue préférée des utilisateurs. Affiche N/A pour"
+" les utilisateurs qui n'ont pas sélectionné de langue"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:96
 msgid "All Users enrollment report"
-msgstr ""
+msgstr "Rapport d'inscription de tous les utilisateurs"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:97
 msgid "Generates a report on users enrollments and their completed courses"
 msgstr ""
+"Génère un rapport sur les inscriptions des utilisateurs et leurs cours "
+"complétés"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:111
 msgid "Enrollment activity report"
-msgstr ""
+msgstr "Rapport d'activité d'inscription"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:112
 msgid ""
 "Generates an expanded report of user's enrollments and course completion "
 "dates"
 msgstr ""
+"Génère un rapport détaillé des inscriptions des utilisateurs et des dates "
+"d'achèvement des cours"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:126
 msgid "List profile information for enrolled students"
-msgstr ""
+msgstr "Lister les informations de profil des élèves inscrits"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:143
 msgid "Grade report for all currently enrolled students"
-msgstr ""
+msgstr "Rapport des notes pour tous les élèves actuellement inscrits"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:159
 msgid "Anonymized student ID's"
-msgstr ""
+msgstr "Identifiant de l’élève anonymisé"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:177
 msgid "Problem Grade report for all currently enrolled students"
 msgstr ""
+"Rapport des notes de problème pour tous les élèves actuellement inscrits"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:193
 msgid "Progress report for all currently enrolled students"
-msgstr ""
+msgstr "Rapport de progression pour tous les élèves actuellement inscrits"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:209
 msgid "Course version report (detailed - per course)"
-msgstr ""
+msgstr "Rapport des versions de cours (détaillé – par cours)"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:225
 msgid "Course version report (aggregate)"
-msgstr ""
+msgstr "Rapport des versions de cours (agrégé)"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:241
 msgid "Average grade report for multiple courses"
-msgstr ""
+msgstr "Rapport des notes moyennes pour plusieurs cours"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:242
 msgid "Different grading schemes can affect the comparison."
-msgstr ""
+msgstr "Des systèmes différents de notation peuvent affecter la comparaison."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:260
 msgid "Reports Available for Generate"
-msgstr ""
+msgstr "Rapports disponibles pour la génération"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:261
 msgid ""
@@ -697,7 +708,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:285
 msgid "The status for any active tasks appears in the list below."
-msgstr ""
+msgstr "L’état des tâches actives apparaît dans la liste ci-dessous."
 
 #: meta_translations/templates/discover_courses.html:11
 #: meta_translations/templates/translations.html:11

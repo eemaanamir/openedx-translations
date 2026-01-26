@@ -532,11 +532,11 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "रिपोर्ट का नाम"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
-msgstr ""
+msgstr "विकल्प"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:33
 msgid "Actions"
@@ -552,7 +552,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "वर्ष चुनें"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
@@ -572,7 +572,7 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "बनाएँ"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
