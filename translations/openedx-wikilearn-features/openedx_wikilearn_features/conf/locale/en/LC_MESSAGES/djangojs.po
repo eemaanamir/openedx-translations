@@ -17,6 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: openedx_wikilearn_features/admin_dashboard/static/admin_dashboard/js/course_reports.js:143
+#: admin_dashboard/static/admin_dashboard/js/course_reports.js:143
 msgid "No tasks currently running."
 msgstr ""
