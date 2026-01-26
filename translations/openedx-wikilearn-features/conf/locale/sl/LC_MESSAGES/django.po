@@ -530,7 +530,7 @@ msgstr ""
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:4
 msgid "%(thread_username)s mentioned you on post: %(thread_title)s:"
 msgstr ""
-"%(thread_username)s vas je omenil_a v komentarju: <b>%(thread_title)s</b>:"
+"%(thread_username)s vas je omenil_a v komentarju: %(thread_title)s:"
 
 #: openedx_wikilearn_features/wikimedia_general/templates/wikimedia_general/edx_ace/threadmentionnotification/email/body.txt:6
 msgid ""
