@@ -621,7 +621,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:159
 msgid "Anonymized student ID's"
-msgstr ""
+msgstr "Anonymiserede studie-id'er"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:177
 msgid "Problem Grade report for all currently enrolled students"

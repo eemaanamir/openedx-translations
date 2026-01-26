@@ -534,11 +534,11 @@ msgstr "%(platform_name)s -> אוזכרת על־ידי %(mentioned_by)s ברשו
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "שם הדוח"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
-msgstr ""
+msgstr "אפשרויות"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:33
 msgid "Actions"
@@ -550,15 +550,15 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:41
 msgid "Generate a report for last quarter enrollments of all courses."
-msgstr ""
+msgstr "יצירת דו\"ח על ההרשמות לכל הקורסים ברבעון האחרון."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "בחירת שנה"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
-msgstr ""
+msgstr "בחירת רבעון"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:61
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:76
@@ -574,7 +574,7 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "יצירה"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
@@ -582,7 +582,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:67
 msgid "Generate an all time report of enrollment/completion for all courses."
-msgstr ""
+msgstr "יצירת דו\"ח כולל של רישומים/השלמות לכל הקורסים."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:81
 msgid "Users preferred language report"
@@ -596,7 +596,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:96
 msgid "All Users enrollment report"
-msgstr ""
+msgstr "דוח הרשמה לכל המשתמשים"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:97
 msgid "Generates a report on users enrollments and their completed courses"
@@ -614,23 +614,23 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:126
 msgid "List profile information for enrolled students"
-msgstr ""
+msgstr "רשימת פרטי פרופיל עבור תלמידים רשומים"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:143
 msgid "Grade report for all currently enrolled students"
-msgstr ""
+msgstr "דו\"ח ציונים לכל התלמידים הרשומים כעת"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:159
 msgid "Anonymized student ID's"
-msgstr ""
+msgstr "מזהי תלמידים ללא פרטים אישיים"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:177
 msgid "Problem Grade report for all currently enrolled students"
-msgstr ""
+msgstr "דו\"ח ציונים על בעיות עבור כל התלמידים הרשומים כעת"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:193
 msgid "Progress report for all currently enrolled students"
-msgstr ""
+msgstr "דו\"ח התקדמות לכל התלמידים הרשומים כעת"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:209
 msgid "Course version report (detailed - per course)"
@@ -642,15 +642,15 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:241
 msgid "Average grade report for multiple courses"
-msgstr ""
+msgstr "דו\"ח ממוצעי ציונים לכמה קורסים"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:242
 msgid "Different grading schemes can affect the comparison."
-msgstr ""
+msgstr "סכמות דירוג אחרות יכולות להשפיע על ההשוואה."
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:260
 msgid "Reports Available for Generate"
-msgstr ""
+msgstr "דוחות זמינים ליצירה"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:261
 msgid ""
@@ -674,7 +674,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:285
 msgid "The status for any active tasks appears in the list below."
-msgstr ""
+msgstr "מצב המשימות הפעילות, אם יש כאלה, מופיע ברשימה להלן."
 
 #: meta_translations/templates/discover_courses.html:11
 #: meta_translations/templates/translations.html:11

@@ -530,7 +530,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:31
 msgid "Report Name"
-msgstr ""
+msgstr "보고서 이름"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
@@ -550,7 +550,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "연도 선택"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
@@ -570,11 +570,11 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "생성"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
-msgstr ""
+msgstr "모든 과정 등록 보고서"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:67
 msgid "Generate an all time report of enrollment/completion for all courses."
@@ -592,7 +592,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:96
 msgid "All Users enrollment report"
-msgstr ""
+msgstr "모든 사용자 등록 보고서"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:97
 msgid "Generates a report on users enrollments and their completed courses"
@@ -600,7 +600,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:111
 msgid "Enrollment activity report"
-msgstr ""
+msgstr "등록 활동 보고서"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:112
 msgid ""

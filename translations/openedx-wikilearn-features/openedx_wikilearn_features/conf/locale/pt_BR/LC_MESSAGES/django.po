@@ -554,11 +554,11 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "Selecione o ano"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
-msgstr ""
+msgstr "Selecione o trimestre"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:61
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:76
@@ -574,7 +574,7 @@ msgstr ""
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:235
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:253
 msgid "Generate"
-msgstr ""
+msgstr "Gerar"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:66
 msgid "All courses enrollment report"
@@ -622,7 +622,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:159
 msgid "Anonymized student ID's"
-msgstr ""
+msgstr "IDs de estudantes anónimos"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:177
 msgid "Problem Grade report for all currently enrolled students"

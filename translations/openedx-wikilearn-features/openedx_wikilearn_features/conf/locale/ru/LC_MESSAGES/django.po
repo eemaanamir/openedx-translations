@@ -534,7 +534,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:32
 msgid "Options"
-msgstr ""
+msgstr "Настройки"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:33
 msgid "Actions"
@@ -550,7 +550,7 @@ msgstr ""
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:45
 msgid "Select Year"
-msgstr ""
+msgstr "Выберите год"
 
 #: admin_dashboard/templates/admin_dashboard/course-reports.html:51
 msgid "Select Quarter"
