@@ -406,18 +406,34 @@ def merge_final():
     """
     Step 4: Combine Upstream and Custom Layer.
     Handles languages that exist in custom but not in upstream.
+    Excludes dummy/test locales (qqq) from custom overlay only.
     """
     print("--- Merging Final Layer (Step 4) ---")
+
+    # Languages to exclude from custom overlay (keep in upstream as-is)
+    exclude_langs = {'qqq'}
+
     if FINAL_DIR.exists():
         shutil.rmtree(FINAL_DIR)
 
-    # Start with upstream
+    # Start with upstream (includes qqq from upstream)
     shutil.copytree(UPSTREAM_DIR, FINAL_DIR)
 
-    # Overlay custom - this includes languages that may not exist in upstream
+    # Overlay custom - skip excluded languages
     for ext in ["**/*.po", "**/*.json"]:
         for custom_file in CUSTOM_DIR.glob(ext):
             rel_path = custom_file.relative_to(CUSTOM_DIR)
+
+            # Skip excluded languages from custom
+            skip = False
+            for lang in exclude_langs:
+                if f"/{lang}/" in str(rel_path) or f"/{lang}.json" in str(rel_path):
+                    skip = True
+                    break
+
+            if skip:
+                continue
+
             final_file = FINAL_DIR / rel_path
 
             if not final_file.exists():
