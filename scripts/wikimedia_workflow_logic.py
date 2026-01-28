@@ -3,6 +3,7 @@
 Logic for Wikimedia Unified Translation Workflow:
 1. diff_and_update_custom: Compares extracted sources against upstream and updates translations-custom/.
 2. merge_final: Overlays translations-custom/ onto translations-upstream/ to produce translations/.
+3. Special handling: tutor-indigo-wikilearn translations are merged into edx-platform during final merge only.
 """
 import os
 import sys
@@ -16,6 +17,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 UPSTREAM_DIR = REPO_ROOT / "translations-upstream"
 CUSTOM_DIR = REPO_ROOT / "translations-custom"
 FINAL_DIR = REPO_ROOT / "translations"
+
+# Configuration for repos that should be merged into other repos during final merge
+REPO_MERGE_CONFIG = {
+    "tutor-indigo-wikilearn": {
+        "merge_into": "edx-platform",
+        "description": "Indigo theme translations merged into edx-platform"
+    }
+}
 
 
 def ensure_directory(path):
@@ -65,6 +74,18 @@ def get_supported_languages():
                         supported_langs.add(lang_code)
 
     return sorted(list(supported_langs))
+
+
+def should_merge_into_another_repo(repo_name):
+    """Check if this repo should be merged into another repo instead of standalone."""
+    return repo_name in REPO_MERGE_CONFIG
+
+
+def get_merge_target_repo(repo_name):
+    """Get the target repo name for merging."""
+    if repo_name in REPO_MERGE_CONFIG:
+        return REPO_MERGE_CONFIG[repo_name]["merge_into"]
+    return None
 
 
 def update_custom_layer(extracted_dir):
@@ -483,8 +504,10 @@ def merge_final():
     Step 4: Combine Upstream and Custom Layer.
     Handles languages that exist in custom but not in upstream.
     Excludes dummy/test locales (qqq) from custom overlay only.
+    Special handling: Repos in REPO_MERGE_CONFIG are merged into their target repos during this step.
     """
     print("--- Merging Final Layer (Step 4) ---")
+    print(f"Merge configuration: {json.dumps(REPO_MERGE_CONFIG, indent=2)}")
 
     # Languages to exclude from custom overlay (keep in upstream as-is)
     exclude_langs = {'qqq'}
@@ -495,7 +518,7 @@ def merge_final():
     # Start with upstream (includes qqq from upstream)
     shutil.copytree(UPSTREAM_DIR, FINAL_DIR)
 
-    # Overlay custom - skip excluded languages
+    # Overlay custom - skip excluded languages and handle repo merging
     for ext in ["**/*.po", "**/*.json"]:
         for custom_file in CUSTOM_DIR.glob(ext):
             rel_path = custom_file.relative_to(CUSTOM_DIR)
@@ -510,13 +533,28 @@ def merge_final():
             if skip:
                 continue
 
-            final_file = FINAL_DIR / rel_path
+            # Check if this repo should be merged into another repo
+            repo_name = rel_path.parts[0]
+            target_repo = get_merge_target_repo(repo_name)
+
+            if target_repo:
+                # Rewrite path to merge into target repo
+                rel_path_parts = list(rel_path.parts)
+                rel_path_parts[0] = target_repo
+                final_path = Path(*rel_path_parts)
+                final_file = FINAL_DIR / final_path
+                print(f"  Merging {repo_name} → {target_repo}: {rel_path} → {final_path}")
+            else:
+                final_file = FINAL_DIR / rel_path
 
             if not final_file.exists():
                 # New file (could be new repo, new language, or both)
                 ensure_directory(final_file.parent)
                 shutil.copy(custom_file, final_file)
-                print(f"  Copied new custom file: {rel_path}")
+                if target_repo:
+                    print(f"  Created new merged file: {final_path}")
+                else:
+                    print(f"  Copied new custom file: {rel_path}")
                 continue
 
             # Merge contents for existing files
@@ -537,7 +575,8 @@ def merge_final():
                             added += 1
                     upstream_po.save(final_file)
                     if added > 0 or updated > 0:
-                        print(f"  Merged PO {rel_path}: +{added} entries, ~{updated} updated")
+                        merge_target = f"{final_path}" if target_repo else f"{rel_path}"
+                        print(f"  Merged PO {merge_target}: +{added} entries, ~{updated} updated")
                 except Exception as e:
                     print(f"  ERROR merging PO {rel_path}: {e}")
                     print(f"  Skipping malformed file and using custom version")
@@ -577,9 +616,15 @@ def merge_final():
                         json.dump(final_data, f, indent=2, sort_keys=True, ensure_ascii=False)
 
                     if added > 0:
-                        print(f"  Merged JSON {rel_path}: +{added} keys")
+                        merge_target = f"{final_path}" if target_repo else f"{rel_path}"
+                        print(f"  Merged JSON {merge_target}: +{added} keys")
                 except Exception as e:
                     print(f"  ERROR writing merged JSON {rel_path}: {e}")
+
+    # Print summary of merged repos
+    merged_repos = [f"{src} → {config['merge_into']}" for src, config in REPO_MERGE_CONFIG.items()]
+    if merged_repos:
+        print(f"\nMerged repos: {', '.join(merged_repos)}")
 
     print("--- Merge Complete ---")
 
