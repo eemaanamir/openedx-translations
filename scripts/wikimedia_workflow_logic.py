@@ -505,6 +505,7 @@ def merge_final():
     Handles languages that exist in custom but not in upstream.
     Excludes dummy/test locales (qqq) from custom overlay only.
     Special handling: Repos in REPO_MERGE_CONFIG are merged into their target repos during this step.
+    Duplicate handling: If msgid exists in both files, custom (e.g., indigo) overrides if non-empty.
     """
     print("--- Merging Final Layer (Step 4) ---")
     print(f"Merge configuration: {json.dumps(REPO_MERGE_CONFIG, indent=2)}")
@@ -560,23 +561,51 @@ def merge_final():
             # Merge contents for existing files
             if custom_file.suffix == ".po":
                 try:
-                    upstream_po = polib.pofile(final_file)
+                    final_po = polib.pofile(final_file)
                     custom_po = polib.pofile(custom_file)
-                    upstream_map = {e.msgid: e for e in upstream_po}
+
+                    # Create map for efficient lookup and duplicate prevention
+                    final_map = {e.msgid: e for e in final_po if e.msgid}
+
                     added = 0
                     updated = 0
+                    skipped_empty = 0
+
                     for entry in custom_po:
-                        if entry.msgid in upstream_map:
-                            if entry.msgstr:
-                                upstream_map[entry.msgid].msgstr = entry.msgstr
+                        if not entry.msgid or entry.obsolete:
+                            continue
+
+                        if entry.msgid in final_map:
+                            # Duplicate msgid exists in both files
+                            # Override with custom (indigo) ONLY if custom has non-empty translation
+                            if entry.msgstr and entry.msgstr.strip():
+                                final_map[entry.msgid].msgstr = entry.msgstr
+                                # Also update occurrences to include both sources
+                                existing_occurrences = set(final_map[entry.msgid].occurrences)
+                                new_occurrences = set(entry.occurrences)
+                                final_map[entry.msgid].occurrences = list(existing_occurrences.union(new_occurrences))
                                 updated += 1
+                            else:
+                                # Custom translation is empty, keep existing (don't override)
+                                skipped_empty += 1
                         else:
-                            upstream_po.append(entry)
+                            # New msgid, add it
+                            final_po.append(entry)
                             added += 1
-                    upstream_po.save(final_file)
-                    if added > 0 or updated > 0:
+
+                    final_po.save(final_file)
+
+                    if added > 0 or updated > 0 or skipped_empty > 0:
                         merge_target = f"{final_path}" if target_repo else f"{rel_path}"
-                        print(f"  Merged PO {merge_target}: +{added} entries, ~{updated} updated")
+                        details = []
+                        if added > 0:
+                            details.append(f"+{added} new")
+                        if updated > 0:
+                            details.append(f"~{updated} overridden")
+                        if skipped_empty > 0:
+                            details.append(f"⊘{skipped_empty} skipped (empty)")
+                        print(f"  Merged PO {merge_target}: {', '.join(details)}")
+
                 except Exception as e:
                     print(f"  ERROR merging PO {rel_path}: {e}")
                     print(f"  Skipping malformed file and using custom version")
@@ -609,15 +638,38 @@ def merge_final():
 
                 try:
                     original_count = len(final_data)
-                    final_data.update(custom_data)
-                    added = len(final_data) - original_count
+
+                    # For JSON, same logic: override with custom only if non-empty
+                    added = 0
+                    updated = 0
+                    skipped_empty = 0
+
+                    for key, value in custom_data.items():
+                        if key in final_data:
+                            # Key exists - override only if custom value is non-empty
+                            if value and str(value).strip():
+                                final_data[key] = value
+                                updated += 1
+                            else:
+                                skipped_empty += 1
+                        else:
+                            # New key
+                            final_data[key] = value
+                            added += 1
 
                     with open(final_file, "w", encoding="utf-8") as f:
                         json.dump(final_data, f, indent=2, sort_keys=True, ensure_ascii=False)
 
-                    if added > 0:
+                    if added > 0 or updated > 0 or skipped_empty > 0:
                         merge_target = f"{final_path}" if target_repo else f"{rel_path}"
-                        print(f"  Merged JSON {merge_target}: +{added} keys")
+                        details = []
+                        if added > 0:
+                            details.append(f"+{added} new")
+                        if updated > 0:
+                            details.append(f"~{updated} overridden")
+                        if skipped_empty > 0:
+                            details.append(f"⊘{skipped_empty} skipped (empty)")
+                        print(f"  Merged JSON {merge_target}: {', '.join(details)}")
                 except Exception as e:
                     print(f"  ERROR writing merged JSON {rel_path}: {e}")
 
