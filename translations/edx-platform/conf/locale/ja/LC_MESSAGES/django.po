@@ -23381,20 +23381,12 @@ msgstr ""
 msgid "of Achievement"
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:77
-msgid "Awarded to:"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:49
 msgid "What to study next?"
 msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:88
 msgid "Already Enrolled"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:62
-msgid "Post a Facebook message to say you've enrolled in this course"
 msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/static_templates/about.html:14

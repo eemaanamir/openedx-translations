@@ -26425,15 +26425,3 @@ msgstr ""
 #: tutorindigo/templates/indigo/lms/templates/header/navbar-not-authenticated.html:40
 msgid "Discover courses"
 msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:125
-msgid "Sourced from a library - but the upstream link is broken/invalid."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:131
-msgid "Sourced from a library."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:152
-msgid "Update available"
-msgstr ""

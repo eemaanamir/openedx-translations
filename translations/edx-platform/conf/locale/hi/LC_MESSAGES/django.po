@@ -21668,10 +21668,6 @@ msgstr ""
 msgid "program."
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:34
-msgid "Noted by"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:61
 msgid "Certificate"
 msgstr ""
@@ -21680,54 +21676,12 @@ msgstr ""
 msgid "of Achievement"
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:77
-msgid "Awarded to:"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:49
 msgid "What to study next?"
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:68
-msgid "Refine Your Search"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:88
 msgid "Already Enrolled"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:141
-msgid "View About Page in studio"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:227
-msgid ""
-"You must successfully complete {link_start}{prc_display}{link_end} before "
-"you begin this course."
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:27
-msgid "I just enrolled in {number} {title} through {account} {url}"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:38
-msgid "I just enrolled in {number} {title} through {platform} {url}"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:45
-msgid "Take a course with {platform} online"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:56
-msgid "Tweet that you've enrolled in this course"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:62
-msgid "Post a Facebook message to say you've enrolled in this course"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:68
-msgid "Email someone to say you've enrolled in this course"
 msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/static_templates/about.html:14
@@ -21741,41 +21695,6 @@ msgid ""
 "Development team at "
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/header/user_dropdown.html:32
-#: tutorindigo/templates/indigo/lms/templates/header/header.html:60
-msgid "Options Menu"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/header/user_dropdown.html:42
-msgid "Profile"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/header/navbar-not-authenticated.html:22
-msgid "Supplemental Links"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/header/navbar-not-authenticated.html:40
 msgid "Discover courses"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/header/header.html:79
-msgid ""
-"{begin_strong}Warning:{end_strong} Your browser is not fully supported. We "
-"strongly recommend using {chrome_link} or {ff_link}."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:125
-msgid "Sourced from a library - but the upstream link is broken/invalid."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:131
-msgid "Sourced from a library."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:152
-msgid "Update available"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:223
-msgid "Duplicate"
 msgstr ""
