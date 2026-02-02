@@ -1,7 +1,3 @@
-# edX translation file.
-# Copyright (C) 2026 EdX
-# This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
-# EdX Team <info@edx.org>, 2026.
 #
 msgid ""
 msgstr ""

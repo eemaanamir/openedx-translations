@@ -25600,35 +25600,3 @@ msgstr ""
 #: tutorindigo/templates/indigo/lms/templates/header/navbar-not-authenticated.html:40
 msgid "Discover courses"
 msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:81
-msgid "Importing components"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:115
-msgid "Select this problem"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:125
-msgid "Sourced from a library - but the upstream link is broken/invalid."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:131
-msgid "Sourced from a library."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:152
-msgid "Update available"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:199
-msgid "Manage Access"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:209
-msgid "Manage Tags"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:218
-msgid "Copy to Clipboard"
-msgstr ""

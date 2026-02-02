@@ -25718,10 +25718,6 @@ msgstr ""
 msgid "program."
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:34
-msgid "Noted by"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:61
 msgid "Certificate"
 msgstr ""
@@ -25736,12 +25732,6 @@ msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:88
 msgid "Already Enrolled"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:227
-msgid ""
-"You must successfully complete {link_start}{prc_display}{link_end} before "
-"you begin this course."
 msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/static_templates/about.html:14

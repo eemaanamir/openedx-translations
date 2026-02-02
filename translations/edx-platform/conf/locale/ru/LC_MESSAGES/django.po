@@ -19854,10 +19854,6 @@ msgid ""
 "Click to generate a CSV grade report for all currently enrolled students.!!"
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/ace_common/edx_ace/common/base_body.html:182
-msgid "Unsubscribe from these emails."
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/index.html:16
 msgid "Unlock The World’s Knowledge"
 msgstr ""
@@ -19941,33 +19937,12 @@ msgstr ""
 msgid "of Achievement"
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/certificates/_accomplishment-rendering.html:77
-msgid "Awarded to:"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:35
-#: tutorindigo/templates/indigo/lms/templates/header/navbar-not-authenticated.html:30
-msgid "Courses"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/courseware/courses.html:49
 msgid "What to study next?"
 msgstr "Что изучать дальше?"
 
 #: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:88
 msgid "Already Enrolled"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:99
-msgid "Course is full"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about.html:126
-msgid "Enroll Now"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/courseware/course_about_sidebar_header.html:27
-msgid "I just enrolled in {number} {title} through {account} {url}"
 msgstr ""
 
 #: tutorindigo/templates/indigo/lms/templates/static_templates/about.html:14
@@ -19981,52 +19956,6 @@ msgid ""
 "Development team at "
 msgstr ""
 
-#: tutorindigo/templates/indigo/lms/templates/header/user_dropdown.html:32
-#: tutorindigo/templates/indigo/lms/templates/header/header.html:60
-msgid "Options Menu"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/header/user_dropdown.html:35
-#: tutorindigo/templates/indigo/lms/templates/header/header.html:73
-msgid "More Options"
-msgstr ""
-
-#: tutorindigo/templates/indigo/lms/templates/header/navbar-not-authenticated.html:22
-msgid "Supplemental Links"
-msgstr ""
-
 #: tutorindigo/templates/indigo/lms/templates/header/navbar-not-authenticated.html:40
 msgid "Discover courses"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:81
-msgid "Importing components"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:115
-msgid "Select this problem"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:125
-msgid "Sourced from a library - but the upstream link is broken/invalid."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:131
-msgid "Sourced from a library."
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:152
-msgid "Update available"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:199
-msgid "Manage Access"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:209
-msgid "Manage Tags"
-msgstr ""
-
-#: tutorindigo/templates/indigo/cms/templates/studio_xblock_wrapper.html:218
-msgid "Copy to Clipboard"
 msgstr ""
