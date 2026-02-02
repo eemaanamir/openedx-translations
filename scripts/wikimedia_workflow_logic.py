@@ -8,7 +8,6 @@ Logic for Wikimedia Unified Translation Workflow:
    - At MERGE: Simple append (no duplicate checking needed since already filtered)
 """
 import os
-import sys
 import json
 import shutil
 import argparse
@@ -100,6 +99,9 @@ def update_custom_layer(extracted_dir):
     Special handling for repos in REPO_MERGE_CONFIG:
     - Compare with TARGET repo (not upstream source repo)
     - Remove duplicates at extraction time
+    - Also compare against extracted target repo files (covers case where
+      upstream English source files are unavailable)
+    - Rebuild custom files for merge-target repos to remove stale duplicates
     """
     print(f"--- Updating Custom Layer from {extracted_dir} ---")
     extracted_path = Path(extracted_dir)
@@ -108,76 +110,92 @@ def update_custom_layer(extracted_dir):
     supported_langs = get_supported_languages()
     print(f"Found {len(supported_langs)} supported languages in upstream: {', '.join(supported_langs[:10])}...")
 
-    # 2. Iterate through extracted files (.po and .json)
-    # IMPORTANT: Process both django.po and djangojs.po
+    # 2. Collect all extracted files, then sort so that target repos
+    #    (e.g. edx-platform) are processed BEFORE repos that merge into them
+    #    (e.g. tutor-indigo-wikilearn). This ensures the target repo's custom
+    #    file is up-to-date before dependent repos compare against it.
+    merge_source_repos = set(REPO_MERGE_CONFIG.keys())
+
+    all_extracted = []
     for ext in ["**/*.po", "**/*.json"]:
         for extracted_file in extracted_path.glob(ext):
             rel_path = extracted_file.relative_to(extracted_path)
-            # rel_path starts with repo_name/
             repo_name = rel_path.parts[0]
+            all_extracted.append((extracted_file, rel_path, repo_name))
 
-            # Check if this repo will be merged into another
-            target_repo = get_merge_target_repo(repo_name)
-            if target_repo:
-                print(f"Note: {repo_name} will be merged into {target_repo} - filtering duplicates at extraction")
+    # Sort: non-merge-source repos first, merge-source repos last
+    all_extracted.sort(key=lambda x: (1 if x[2] in merge_source_repos else 0, str(x[1])))
 
-            # Find corresponding upstream source file
-            upstream_source = UPSTREAM_DIR / rel_path
-            upstream_repo_dir = UPSTREAM_DIR / rel_path.parts[0]
+    # 3. Process each extracted file
+    for extracted_file, rel_path, repo_name in all_extracted:
+        # Check if this repo will be merged into another
+        target_repo = get_merge_target_repo(repo_name)
+        if target_repo:
+            print(f"Note: {repo_name} will be merged into {target_repo} - filtering duplicates at extraction")
 
-            # Identify file type for logging
-            file_type = "unknown"
-            if "djangojs.po" in str(rel_path):
-                file_type = "djangojs.po (JavaScript)"
-            elif "django.po" in str(rel_path):
-                file_type = "django.po (Templates/Python)"
-            elif "transifex_input.json" in str(rel_path):
-                file_type = "transifex_input.json (MFE source)"
-            elif ".json" in str(rel_path):
-                file_type = "JSON (MFE)"
+        # Find corresponding upstream source file
+        upstream_source = UPSTREAM_DIR / rel_path
+        upstream_repo_dir = UPSTREAM_DIR / rel_path.parts[0]
 
-            print(
-                f"Processing: {rel_path} [{file_type}] (Upstream repo exists: {upstream_repo_dir.exists()}, Source exists: {upstream_source.exists()})")
+        # Identify file type for logging
+        file_type = "unknown"
+        if "djangojs.po" in str(rel_path):
+            file_type = "djangojs.po (JavaScript)"
+        elif "django.po" in str(rel_path):
+            file_type = "django.po (Templates/Python)"
+        elif "transifex_input.json" in str(rel_path):
+            file_type = "transifex_input.json (MFE source)"
+        elif ".json" in str(rel_path):
+            file_type = "JSON (MFE)"
 
-            # Determine what to compare against for duplicate filtering
-            if target_repo:
-                # This repo merges into another - compare with TARGET repo to filter duplicates
-                # Rewrite path to target repo
-                rel_path_parts = list(rel_path.parts)
-                rel_path_parts[0] = target_repo
-                target_path = Path(*rel_path_parts)
+        print(
+            f"Processing: {rel_path} [{file_type}] (Upstream repo exists: {upstream_repo_dir.exists()}, Source exists: {upstream_source.exists()})")
 
-                # Check target repo in both upstream and custom
-                comparison_source = UPSTREAM_DIR / target_path
-                comparison_custom = CUSTOM_DIR / target_path
+        # Determine what to compare against for duplicate filtering
+        is_merge_source = False
+        if target_repo:
+            is_merge_source = True
+            # This repo merges into another - compare with TARGET repo to filter duplicates
+            # Rewrite path to target repo
+            rel_path_parts = list(rel_path.parts)
+            rel_path_parts[0] = target_repo
+            target_path = Path(*rel_path_parts)
 
-                print(f"  Comparing with target repo {target_repo} to filter duplicates...")
-            elif not upstream_repo_dir.exists():
-                # New repo not in upstream AND not in merge config - treat all as custom
-                print(f"New repo detected: {rel_path.parts[0]}. Treating all content as custom.")
+            # Check target repo in upstream, custom, AND extracted sources
+            comparison_source = UPSTREAM_DIR / target_path
+            comparison_custom = CUSTOM_DIR / target_path
+            comparison_extracted = extracted_path / target_path
 
-                # Copy English source to custom
-                custom_file_path = CUSTOM_DIR / rel_path
-                ensure_directory(custom_file_path.parent)
-                shutil.copy(extracted_file, custom_file_path)
-                print(f"  → Copied to custom: {custom_file_path}")
+            print(f"  Comparing with target repo {target_repo} to filter duplicates...")
+        elif not upstream_repo_dir.exists():
+            # New repo not in upstream AND not in merge config - treat all as custom
+            print(f"New repo detected: {rel_path.parts[0]}. Treating all content as custom.")
 
-                # Create/update placeholders for other languages
-                if extracted_file.suffix == ".po":
-                    create_or_update_po_placeholders(extracted_file, rel_path, supported_langs)
-                elif extracted_file.suffix == ".json":
-                    create_or_update_json_placeholders(extracted_file, rel_path, supported_langs)
-                continue
-            else:
-                # Normal case - compare with upstream source
-                comparison_source = upstream_source
-                comparison_custom = None
+            # Copy English source to custom
+            custom_file_path = CUSTOM_DIR / rel_path
+            ensure_directory(custom_file_path.parent)
+            shutil.copy(extracted_file, custom_file_path)
+            print(f"  -> Copied to custom: {custom_file_path}")
 
-            # Process based on file type
+            # Create/update placeholders for other languages
             if extracted_file.suffix == ".po":
-                process_po_diff(extracted_file, comparison_source, comparison_custom, rel_path, supported_langs)
+                create_or_update_po_placeholders(extracted_file, rel_path, supported_langs)
             elif extracted_file.suffix == ".json":
-                process_json_diff(extracted_file, comparison_source, comparison_custom, rel_path, supported_langs)
+                create_or_update_json_placeholders(extracted_file, rel_path, supported_langs)
+            continue
+        else:
+            # Normal case - compare with upstream source
+            comparison_source = upstream_source
+            comparison_custom = None
+            comparison_extracted = None
+
+        # Process based on file type
+        if extracted_file.suffix == ".po":
+            process_po_diff(extracted_file, comparison_source, comparison_custom,
+                            rel_path, supported_langs, comparison_extracted, is_merge_source)
+        elif extracted_file.suffix == ".json":
+            process_json_diff(extracted_file, comparison_source, comparison_custom,
+                              rel_path, supported_langs, comparison_extracted, is_merge_source)
 
 
 def create_or_update_po_placeholders(extracted_file, rel_path, supported_langs):
@@ -321,21 +339,31 @@ def create_or_update_json_placeholders(extracted_file, rel_path, supported_langs
     print(f"  Summary: Created {created}, Updated {updated}, Already synced {skipped}")
 
 
-def process_po_diff(extracted_file, comparison_source, comparison_custom, rel_path, supported_langs):
+def process_po_diff(extracted_file, comparison_source, comparison_custom, rel_path,
+                    supported_langs, comparison_extracted=None, is_merge_source=False):
     """
     Process PO file diff and update custom layer.
     Updates existing placeholder files with new custom strings.
 
-    Compares against comparison_source (and optionally comparison_custom) to filter duplicates.
+    Compares against comparison_source, comparison_custom, and comparison_extracted
+    to filter duplicates.
+
+    When is_merge_source=True (repo merges into another), the custom file is rebuilt
+    from scratch to remove stale entries from previous runs.
     """
-    # Get msgids from comparison source(s)
+    # Get msgids from all comparison sources
     comparison_ids = get_msgids(comparison_source)
 
     # Also check custom layer if provided (for target repo merging)
     if comparison_custom and comparison_custom.exists():
         comparison_ids.update(get_msgids(comparison_custom))
 
-    if comparison_custom:
+    # Also check extracted target repo files (critical fallback when upstream
+    # English source files are not available, e.g. if Atlas doesn't pull them)
+    if comparison_extracted and comparison_extracted.exists():
+        comparison_ids.update(get_msgids(comparison_extracted))
+
+    if is_merge_source:
         print(f"  Found {len(comparison_ids)} msgids in target repo to filter out")
 
     try:
@@ -349,6 +377,13 @@ def process_po_diff(extracted_file, comparison_source, comparison_custom, rel_pa
 
     if not custom_entries:
         print(f"  No unique custom PO strings found for {rel_path}")
+        # If this is a merge-source repo and we found no unique strings,
+        # remove the stale custom file if it exists
+        if is_merge_source:
+            custom_en_path = CUSTOM_DIR / rel_path
+            if custom_en_path.exists():
+                custom_en_path.unlink()
+                print(f"  Removed stale custom file: {custom_en_path}")
         return
 
     print(f"  Found {len(custom_entries)} unique custom strings for {rel_path}")
@@ -357,29 +392,39 @@ def process_po_diff(extracted_file, comparison_source, comparison_custom, rel_pa
     custom_en_path = CUSTOM_DIR / rel_path
     ensure_directory(custom_en_path.parent)
 
-    if custom_en_path.exists():
-        try:
-            custom_en_po = polib.pofile(custom_en_path)
-            existing_custom_ids = {e.msgid for e in custom_en_po}
-        except Exception as e:
-            print(f"  WARNING: Cannot read existing custom file, creating new: {e}")
+    if is_merge_source:
+        # For merge-source repos, REBUILD from scratch to remove stale entries
+        custom_en_po = polib.POFile()
+        custom_en_po.metadata = extracted_po.metadata.copy()
+        for entry in custom_entries:
+            custom_en_po.append(entry)
+        custom_en_po.save(custom_en_path)
+        print(f"  Rebuilt custom file with {len(custom_entries)} filtered strings: {custom_en_path}")
+    else:
+        # For normal repos, append new entries (preserves manually-added translations)
+        if custom_en_path.exists():
+            try:
+                custom_en_po = polib.pofile(custom_en_path)
+                existing_custom_ids = {e.msgid for e in custom_en_po}
+            except Exception as e:
+                print(f"  WARNING: Cannot read existing custom file, creating new: {e}")
+                custom_en_po = polib.POFile()
+                custom_en_po.metadata = extracted_po.metadata.copy()
+                existing_custom_ids = set()
+        else:
             custom_en_po = polib.POFile()
             custom_en_po.metadata = extracted_po.metadata.copy()
             existing_custom_ids = set()
-    else:
-        custom_en_po = polib.POFile()
-        custom_en_po.metadata = extracted_po.metadata.copy()
-        existing_custom_ids = set()
 
-    new_count = 0
-    for entry in custom_entries:
-        if entry.msgid not in existing_custom_ids:
-            custom_en_po.append(entry)
-            new_count += 1
+        new_count = 0
+        for entry in custom_entries:
+            if entry.msgid not in existing_custom_ids:
+                custom_en_po.append(entry)
+                new_count += 1
 
-    if new_count > 0:
-        custom_en_po.save(custom_en_path)
-        print(f"  Added {new_count} new custom strings to {custom_en_path}")
+        if new_count > 0:
+            custom_en_po.save(custom_en_path)
+            print(f"  Added {new_count} new custom strings to {custom_en_path}")
 
     # Update Placeholders for ALL other languages
     print(f"  Updating placeholders for {len(supported_langs)} languages...")
@@ -400,27 +445,42 @@ def process_po_diff(extracted_file, comparison_source, comparison_custom, rel_pa
                 if custom_lang_path.exists():
                     try:
                         custom_lang_po = polib.pofile(custom_lang_path)
-                        existing_lang_map = {e.msgid: e for e in custom_lang_po}
                     except Exception as e:
                         print(f"  WARNING: Cannot read existing placeholder for {lang}, creating new: {e}")
                         custom_lang_po = polib.POFile()
                         custom_lang_po.metadata = extracted_po.metadata.copy()
-                        existing_lang_map = {}
                 else:
                     custom_lang_po = polib.POFile()
                     custom_lang_po.metadata = extracted_po.metadata.copy()
-                    existing_lang_map = {}
 
-                added = 0
-                for entry in custom_entries:
-                    if entry.msgid not in existing_lang_map:
-                        new_entry = polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences)
-                        custom_lang_po.append(new_entry)
-                        added += 1
-
-                if added > 0:
-                    custom_lang_po.save(custom_lang_path)
+                if is_merge_source:
+                    # Rebuild: keep only entries whose msgid is in custom_entries,
+                    # preserving existing translations (msgstr)
+                    existing_translations = {e.msgid: e.msgstr for e in custom_lang_po
+                                             if e.msgid and e.msgstr}
+                    rebuilt_po = polib.POFile()
+                    rebuilt_po.metadata = custom_lang_po.metadata.copy() if custom_lang_po.metadata else extracted_po.metadata.copy()
+                    for entry in custom_entries:
+                        rebuilt_po.append(polib.POEntry(
+                            msgid=entry.msgid,
+                            msgstr=existing_translations.get(entry.msgid, ""),
+                            occurrences=entry.occurrences
+                        ))
+                    rebuilt_po.save(custom_lang_path)
                     updated_count += 1
+                else:
+                    # Normal: add new entries
+                    existing_lang_map = {e.msgid: e for e in custom_lang_po}
+                    added = 0
+                    for entry in custom_entries:
+                        if entry.msgid not in existing_lang_map:
+                            new_entry = polib.POEntry(msgid=entry.msgid, msgstr="", occurrences=entry.occurrences)
+                            custom_lang_po.append(new_entry)
+                            added += 1
+
+                    if added > 0:
+                        custom_lang_po.save(custom_lang_path)
+                        updated_count += 1
         except ValueError:
             print(f"  WARNING: Could not find 'en' in path for {rel_path}, skipping language {lang}")
             continue
@@ -429,11 +489,14 @@ def process_po_diff(extracted_file, comparison_source, comparison_custom, rel_pa
         print(f"  Updated {updated_count} language placeholder files")
 
 
-def process_json_diff(extracted_file, comparison_source, comparison_custom, rel_path, supported_langs):
+def process_json_diff(extracted_file, comparison_source, comparison_custom, rel_path,
+                      supported_langs, comparison_extracted=None, is_merge_source=False):
     """
     Process JSON diff for MFE transifex_input.json files.
     Only keeps keys that don't exist in comparison source(s).
     Updates existing placeholder files with new keys.
+
+    When is_merge_source=True, rebuilds the custom file to remove stale entries.
     """
     try:
         with open(extracted_file, "r", encoding="utf-8") as f:
@@ -445,7 +508,7 @@ def process_json_diff(extracted_file, comparison_source, comparison_custom, rel_
         print(f"  ERROR reading extracted JSON {rel_path}: {e}")
         return
 
-    # Get keys from comparison source(s)
+    # Get keys from all comparison sources
     comparison_keys = set()
 
     if comparison_source.exists():
@@ -453,7 +516,7 @@ def process_json_diff(extracted_file, comparison_source, comparison_custom, rel_
             with open(comparison_source, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 comparison_keys.update(data.keys())
-        except:
+        except Exception:
             pass
 
     # Also check custom layer if provided (for target repo merging)
@@ -462,10 +525,19 @@ def process_json_diff(extracted_file, comparison_source, comparison_custom, rel_
             with open(comparison_custom, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 comparison_keys.update(data.keys())
-        except:
+        except Exception:
             pass
 
-    if comparison_custom:
+    # Also check extracted target repo files (fallback for missing upstream)
+    if comparison_extracted and comparison_extracted.exists():
+        try:
+            with open(comparison_extracted, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                comparison_keys.update(data.keys())
+        except Exception:
+            pass
+
+    if is_merge_source:
         print(f"  Found {len(comparison_keys)} keys in target repo to filter out")
 
     # Only keep keys that are NOT in comparison set
@@ -480,27 +552,37 @@ def process_json_diff(extracted_file, comparison_source, comparison_custom, rel_
     custom_path = CUSTOM_DIR / rel_path
     ensure_directory(custom_path.parent)
 
-    if custom_path.exists():
+    if is_merge_source:
+        # Rebuild from scratch for merge-source repos
         try:
-            with open(custom_path, "r", encoding="utf-8") as f:
-                existing_custom = json.load(f)
-        except:
-            existing_custom = {}
+            with open(custom_path, "w", encoding="utf-8") as f:
+                json.dump(custom_data, f, indent=2, sort_keys=True, ensure_ascii=False)
+            print(f"  Rebuilt custom JSON with {len(custom_data)} filtered keys: {custom_path}")
+        except Exception as e:
+            print(f"  ERROR writing custom JSON {custom_path}: {e}")
+            return
     else:
-        existing_custom = {}
+        if custom_path.exists():
+            try:
+                with open(custom_path, "r", encoding="utf-8") as f:
+                    existing_custom = json.load(f)
+            except Exception:
+                existing_custom = {}
+        else:
+            existing_custom = {}
 
-    # Merge new custom keys while preserving existing ones
-    new_keys = {k: v for k, v in custom_data.items() if k not in existing_custom}
-    existing_custom.update(new_keys)
+        # Merge new custom keys while preserving existing ones
+        new_keys = {k: v for k, v in custom_data.items() if k not in existing_custom}
+        existing_custom.update(new_keys)
 
-    try:
-        with open(custom_path, "w", encoding="utf-8") as f:
-            json.dump(existing_custom, f, indent=2, sort_keys=True, ensure_ascii=False)
+        try:
+            with open(custom_path, "w", encoding="utf-8") as f:
+                json.dump(existing_custom, f, indent=2, sort_keys=True, ensure_ascii=False)
 
-        print(f"  Added {len(new_keys)} new custom JSON keys to {custom_path}")
-    except Exception as e:
-        print(f"  ERROR writing custom JSON {custom_path}: {e}")
-        return
+            print(f"  Added {len(new_keys)} new custom JSON keys to {custom_path}")
+        except Exception as e:
+            print(f"  ERROR writing custom JSON {custom_path}: {e}")
+            return
 
     # Update MFE localized placeholders
     if "transifex_input.json" in str(rel_path):
