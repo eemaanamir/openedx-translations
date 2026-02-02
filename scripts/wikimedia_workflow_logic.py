@@ -123,7 +123,7 @@ def update_custom_layer(extracted_dir):
 
             # Find corresponding upstream source file
             upstream_source = UPSTREAM_DIR / rel_path
-            upstream_repo_dir = UPSTREAM_DIR / repo_name
+            upstream_repo_dir = UPSTREAM_DIR / rel_path.parts[0]
 
             # Identify file type for logging
             file_type = "unknown"
@@ -139,23 +139,6 @@ def update_custom_layer(extracted_dir):
             print(
                 f"Processing: {rel_path} [{file_type}] (Upstream repo exists: {upstream_repo_dir.exists()}, Source exists: {upstream_source.exists()})")
 
-            # Check if this is a brand new repo not in upstream
-            if not upstream_repo_dir.exists():
-                print(f"New repo detected: {repo_name}. Treating all content as custom.")
-
-                # Copy English source to custom
-                custom_file_path = CUSTOM_DIR / rel_path
-                ensure_directory(custom_file_path.parent)
-                shutil.copy(extracted_file, custom_file_path)
-                print(f"  → Copied to custom: {custom_file_path}")
-
-                # Create/update placeholders for other languages
-                if extracted_file.suffix == ".po":
-                    create_or_update_po_placeholders(extracted_file, rel_path, supported_langs)
-                elif extracted_file.suffix == ".json":
-                    create_or_update_json_placeholders(extracted_file, rel_path, supported_langs)
-                continue
-
             # Determine what to compare against for duplicate filtering
             if target_repo:
                 # This repo merges into another - compare with TARGET repo to filter duplicates
@@ -169,6 +152,22 @@ def update_custom_layer(extracted_dir):
                 comparison_custom = CUSTOM_DIR / target_path
 
                 print(f"  Comparing with target repo {target_repo} to filter duplicates...")
+            elif not upstream_repo_dir.exists():
+                # New repo not in upstream AND not in merge config - treat all as custom
+                print(f"New repo detected: {rel_path.parts[0]}. Treating all content as custom.")
+
+                # Copy English source to custom
+                custom_file_path = CUSTOM_DIR / rel_path
+                ensure_directory(custom_file_path.parent)
+                shutil.copy(extracted_file, custom_file_path)
+                print(f"  → Copied to custom: {custom_file_path}")
+
+                # Create/update placeholders for other languages
+                if extracted_file.suffix == ".po":
+                    create_or_update_po_placeholders(extracted_file, rel_path, supported_langs)
+                elif extracted_file.suffix == ".json":
+                    create_or_update_json_placeholders(extracted_file, rel_path, supported_langs)
+                continue
             else:
                 # Normal case - compare with upstream source
                 comparison_source = upstream_source
