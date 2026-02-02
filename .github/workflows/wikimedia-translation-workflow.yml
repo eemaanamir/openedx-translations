@@ -321,4 +321,3 @@ jobs:
           add-paths: |
             translations/
             translations-custom/
-            translations-upstream/
