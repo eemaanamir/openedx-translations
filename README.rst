@@ -28,7 +28,6 @@ Directory Structure
 ::
 
    openedx-translations/
-   ├── translations-upstream/     # Unmodified upstream Open edX translations
    ├── translations-custom/       # Wikimedia-specific custom translations only
    └── translations/              # Final merged translations (used in production)
 
